@@ -52,8 +52,6 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         coins.value = cryptosList
                         loading.value = false
 
-
-                        // NotificationsHelper(getApplication()).createNotification()
                     }
 
                     override fun onError(e: Throwable) {
