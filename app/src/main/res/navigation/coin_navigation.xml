@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coin_navigation"
+    app:startDestination="@id/coinListFragment">
+
+    <fragment
+        android:id="@+id/coinListFragment"
+        android:name="com.imtmobileapps.cryptoportfolio.view.CoinListFragment"
+        android:label="Holdings" >
+        <action
+            android:id="@+id/actionCoinDetailFragment"
+            app:destination="@id/coinDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <!--<action
+            android:id="@+id/actionSettings"
+            app:destination="@id/settingsFragment" />-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/coinDetailFragment"
+        android:name="com.imtmobileapps.cryptoportfolio.view.CoinDetailFragment"
+        android:label="CoinDetailFragment">
+
+        <action
+            android:id="@+id/actionCoinListFragment"
+            app:destination="@id/coinListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+        <argument
+            android:name="selectedCoin"
+            android:defaultValue="@null"
+            app:argType="com.imtmobileapps.cryptoportfolio.model.CryptoValue"
+            app:nullable="true"/>
+
+    </fragment>
+
+</navigation>
