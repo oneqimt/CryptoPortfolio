@@ -10,6 +10,11 @@
     <string name="title_activity_login">Please login</string>
     <string name="title_activity_main">Crypto Portfolio</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selected_coin">Selected Coin</string>
+    <string name="current_price">Current Price: </string>
+    <string name="quantity_held">Quantity Held: </string>
+    <string name="holding_value">Holding Value: </string>
+    <string name="your_cost">Your Cost: </string>
+    <string name="coin">Coin</string>
+
 </resources>

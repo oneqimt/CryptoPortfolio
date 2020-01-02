@@ -24,7 +24,8 @@
             android:layout_height="50dp"
             android:imageUrl="@{cryptoValue.coin.smallCoinImageUrl}"
             android:padding="4dp"
-            android:contentDescription="Coin"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/coin"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -50,7 +51,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Holding Value: " />
+                android:text="@string/holding_value" />
 
             <TextView
                 android:id="@+id/holdingValue"
@@ -58,57 +59,6 @@
                 android:layout_height="wrap_content"
                 android:text="@{cryptoValue.holdingValue}"
                 android:textStyle="bold"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="0dp"
-            android:layout_weight="3"
-            android:layout_gravity="center_vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="4dp">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Current Price: " />
-
-                <TextView
-                    android:id="@+id/currentPriceValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{cryptoValue.USD}"
-                    android:textStyle="bold"/>
-
-            </LinearLayout>
-
-            <!--<LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quantity: " />
-
-                <TextView
-                    android:id="@+id/quantityValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(cryptoValue.quantity)}"
-                    android:textStyle="bold"/>
-
-            </LinearLayout>-->
-
 
         </LinearLayout>
 

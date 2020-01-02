@@ -18,6 +18,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     private var refreshTime = 5 * 60 * 1000 * 1000 * 1000L
 
     private val cryptoService = CryptoApiService()
+
     // observes the OBSERVABLE (the SINGLE) that the api gives us
     // guards against memory leaks (reactiveX)
     private val disposable = CompositeDisposable()
@@ -47,7 +48,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         for (crypto in cryptosList) {
                             val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
                             val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/50"
-                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/200"
+                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/100"
 
                             crypto.coin.smallCoinImageUrl = smallurl
                             crypto.coin.largeCoinImageUrl = largeurl
