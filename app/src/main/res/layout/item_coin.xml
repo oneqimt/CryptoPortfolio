@@ -24,7 +24,7 @@
             android:layout_height="50dp"
             android:imageUrl="@{cryptoValue.coin.smallCoinImageUrl}"
             android:padding="4dp"
-            android:layout_gravity="center_vertical"
+            android:gravity="center|center_vertical"
             android:contentDescription="@string/coin"/>
 
         <LinearLayout
