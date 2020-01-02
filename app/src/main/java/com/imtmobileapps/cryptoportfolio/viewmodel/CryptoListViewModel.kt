@@ -18,8 +18,8 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     private var refreshTime = 5 * 60 * 1000 * 1000 * 1000L
 
     private val cryptoService = CryptoApiService()
-    // observes the OBSERVABLE that the api gives us - the SINGLE
-    // helps with memory leaks (reactiveX)
+    // observes the OBSERVABLE (the SINGLE) that the api gives us
+    // guards against memory leaks (reactiveX)
     private val disposable = CompositeDisposable()
 
     var coins = MutableLiveData<List<CryptoValue>>()
@@ -66,6 +66,11 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                     }
                 })
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 
 
