@@ -40,6 +40,6 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.imtmobileapps.cryptoportfolio.view.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="Settings" />
 
 </navigation>

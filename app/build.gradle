@@ -37,7 +37,7 @@ def glideVersion = '4.9.0'
 def rxJavaVersion = '2.1.1'
 def roomVersion = '2.1.0-rc01'
 def navVersion = '2.1.0'
-def preferencesVersion = '1.0.0'
+def preferencesVersion = '1.1.0'
 
 
 dependencies {
@@ -80,8 +80,8 @@ dependencies {
     //MATERIAL DESIGN
     implementation "com.google.android.material:material:1.0.0"
 
+    // PREFERENCES
     implementation "androidx.preference:preference:$preferencesVersion"
-
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
