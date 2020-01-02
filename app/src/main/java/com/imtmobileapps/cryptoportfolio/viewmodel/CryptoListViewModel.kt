@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class CryptoListViewModel(application: Application) : BaseViewModel(application) {
 
@@ -25,11 +26,11 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     val cryptosLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
-    fun refresh(personId: Int){
+    fun refresh(personId: Int) {
         fetchFromRemote(personId)
     }
 
-    fun fetchFromRemote(personId : Int) {
+    fun fetchFromRemote(personId: Int) {
         loading.value = true
         disposable.add(
             cryptoService.getPersonCoins(personId).subscribeOn(Schedulers.newThread())
@@ -42,11 +43,14 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        for (crypto in cryptosList){
-                            var coinSymbol = crypto.coin.coinSymbol?.toLowerCase()
-                            var url = BuildConfig.COIN_IMAGE_URL +"icon/$coinSymbol/50"
+                        // add the coin symbol here
+                        for (crypto in cryptosList) {
+                            val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
+                            val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/50"
+                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/200"
 
-                            crypto.coin.coinImageUrl = url
+                            crypto.coin.smallCoinImageUrl = smallurl
+                            crypto.coin.largeCoinImageUrl = largeurl
                         }
 
                         coins.value = cryptosList
@@ -63,7 +67,6 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                 })
         )
     }
-
 
 
 }

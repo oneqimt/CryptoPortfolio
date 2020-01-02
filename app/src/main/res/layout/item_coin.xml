@@ -22,8 +22,9 @@
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:imageUrl="@{cryptoValue.coin.coinImageUrl}"
-            android:padding="4dp" />
+            android:imageUrl="@{cryptoValue.coin.smallCoinImageUrl}"
+            android:padding="4dp"
+            android:contentDescription="Coin"/>
 
         <LinearLayout
             android:layout_width="0dp"

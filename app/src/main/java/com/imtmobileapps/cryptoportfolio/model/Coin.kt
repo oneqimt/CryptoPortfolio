@@ -15,10 +15,13 @@ data class Coin(
     @SerializedName("coin_symbol")
     val coinSymbol: String? = null,
 
-    var coinImageUrl: String? = null
+    var smallCoinImageUrl: String? = null,
+
+    var largeCoinImageUrl: String? = null
+
 ) : Parcelable {
 
     override fun toString(): String {
-        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, coinImageUrl=$coinImageUrl)"
+        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, coinImageUrl=$smallCoinImageUrl)"
     }
 }

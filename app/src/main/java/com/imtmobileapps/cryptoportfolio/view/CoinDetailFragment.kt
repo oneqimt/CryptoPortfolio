@@ -6,10 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 
 import com.imtmobileapps.cryptoportfolio.R
+import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
 import kotlinx.android.synthetic.main.fragment_coin_detail.*
 
 /**
@@ -18,13 +23,17 @@ import kotlinx.android.synthetic.main.fragment_coin_detail.*
 class CoinDetailFragment : Fragment() {
 
     var selectedCoin : CryptoValue? = null
+    private lateinit var viewModel : CoinDetailViewModel
+    private lateinit var dataBinding: FragmentCoinDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coin_detail, container, false)
+        setHasOptionsMenu(true)
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,13 +41,21 @@ class CoinDetailFragment : Fragment() {
         // if args are not null do this
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
-            println(" in DETAIL and selectedCoin is : ${selectedCoin.toString()}")
         }
 
+        viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
+        viewModel.setCrypto(selectedCoin)
 
-        toListBtn.setOnClickListener {
-            val action = CoinDetailFragmentDirections.actionCoinListFragment()
-            Navigation.findNavController(it).navigate(action)
-        }
+        observeViewModel()
+
+    }
+
+    fun observeViewModel(){
+        viewModel.cryptoLiveData.observe(this , Observer {  crypto ->
+            selectedCoin = crypto
+            crypto?.let {
+                dataBinding.crypto = crypto
+            }
+        })
     }
 }

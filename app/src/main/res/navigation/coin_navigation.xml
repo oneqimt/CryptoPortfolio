@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/coinDetailFragment"
         android:name="com.imtmobileapps.cryptoportfolio.view.CoinDetailFragment"
-        android:label="CoinDetailFragment">
+        android:label="Coin Details">
 
         <action
             android:id="@+id/actionCoinListFragment"

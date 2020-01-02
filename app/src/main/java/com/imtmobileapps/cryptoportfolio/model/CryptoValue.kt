@@ -2,6 +2,7 @@ package com.imtmobileapps.cryptoportfolio.model
 
 import android.os.Parcelable
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -16,6 +17,7 @@ data class CryptoValue(
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
+    @IgnoredOnParcel
     var uuid: Int = 0
 
     override fun toString(): String {

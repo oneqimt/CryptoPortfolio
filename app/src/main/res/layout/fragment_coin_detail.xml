@@ -1,15 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.CoinDetailFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/toListBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TO LIST" />
 
-</FrameLayout>
+    <data>
+
+        <variable
+            name="crypto"
+            type="com.imtmobileapps.cryptoportfolio.model.CryptoValue" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.CoinDetailFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/symbolImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:imageUrl="@{crypto.coin.largeCoinImageUrl}"
+                android:minHeight="200dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="Selected Coin"/>
+
+            <TextView
+                android:id="@+id/coinName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/symbolImage"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:text="@{crypto.coin.coinName}" />
+
+            <TextView
+                android:id="@+id/coinSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/coinName"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:text="@{crypto.coin.coinSymbol}" />
+
+            <TextView
+                android:id="@+id/holdingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/coinSymbol"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:text="@{crypto.holdingValue}" />
+
+            <TextView
+                android:id="@+id/percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/holdingValue"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:text="@{crypto.percentage}" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/percentage"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:text="@{crypto.cost}" />
+
+            <TextView
+                android:id="@+id/increaseDecrease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost"
+                android:layout_margin="4dp"
+                android:text="@{crypto.increaseDecrease}"/>
+
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/increaseDecrease"
+                android:layout_margin="4dp"
+                android:text="@{String.valueOf(crypto.quantity)}"/>
+
+
+        </RelativeLayout>
+
+       <!-- android:text="@{String.valueOf(cryptoValue.quantity)}"
+       val holdingValue: String,
+        val percentage: String,
+        val cost: String,
+        val increaseDecrease: String,
+        val quantity: Double-->
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</layout>
