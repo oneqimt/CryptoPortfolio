@@ -16,5 +16,7 @@
     <string name="holding_value">Holding Value: </string>
     <string name="your_cost">Your Cost: </string>
     <string name="coin">Coin</string>
+    <string name="settings">Settings</string>
+
 
 </resources>

@@ -13,9 +13,9 @@
             app:destination="@id/coinDetailFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
-        <!--<action
+        <action
             android:id="@+id/actionSettings"
-            app:destination="@id/settingsFragment" />-->
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -36,5 +36,10 @@
             app:nullable="true"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.imtmobileapps.cryptoportfolio.view.SettingsFragment"
+        android:label="SettingsFragment" />
 
 </navigation>

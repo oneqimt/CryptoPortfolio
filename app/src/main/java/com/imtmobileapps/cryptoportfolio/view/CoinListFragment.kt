@@ -2,12 +2,11 @@ package com.imtmobileapps.cryptoportfolio.view
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.viewmodel.CryptoListViewModel
@@ -79,6 +78,23 @@ class CoinListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.coin_list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.actionSettings -> {
+                view?.let{ Navigation.findNavController(it).navigate(CoinListFragmentDirections.actionSettings() ) }
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 
 
