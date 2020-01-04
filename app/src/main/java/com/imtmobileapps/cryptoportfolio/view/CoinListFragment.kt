@@ -1,6 +1,7 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -9,16 +10,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
+import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CryptoListViewModel
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class CoinListFragment : Fragment() {
 
     private lateinit var viewModel: CryptoListViewModel
     private val coinListAdapter = CoinListAdapter(arrayListOf())
+
+    var prefHelper = PreferencesHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,9 @@ class CoinListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(CryptoListViewModel::class.java)
-        viewModel.refresh(1)
+        viewModel.refresh(prefHelper.getCurrentPersonId()!!)
+
+        println("PERSON ID is ${prefHelper.getCurrentPersonId()}")
 
         coinsListView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -45,7 +48,8 @@ class CoinListFragment : Fragment() {
             coinsListView.visibility = View.GONE
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
-            viewModel.refreshBypassCache(1)
+            viewModel.refreshBypassCache(prefHelper.getCurrentPersonId()!!)
+            println("PERSON ID is ${prefHelper.getCurrentPersonId()}")
             refreshLayout.isRefreshing = false
         }
 

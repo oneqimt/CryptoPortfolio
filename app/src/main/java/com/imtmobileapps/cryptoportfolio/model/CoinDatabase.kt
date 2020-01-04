@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(CryptoValue::class), version = 1)
+@Database(entities = arrayOf(CryptoValue::class, Person::class), version = 3)
 abstract class CoinDatabase :RoomDatabase(){
 
     abstract fun coinDao() : CoinDao
@@ -26,7 +26,5 @@ abstract class CoinDatabase :RoomDatabase(){
             context.applicationContext, CoinDatabase::class.java, "coindatabase"
         ).build()
     }
-
-
 
 }

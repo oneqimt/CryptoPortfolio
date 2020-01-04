@@ -33,12 +33,10 @@ data class Coin(
 
 ) : Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
-    @IgnoredOnParcel
-    var coinuuid: Int = 0
-
+    // no need for primary key here
+    // Room adds columns for this object to CryptoValue
     override fun toString(): String {
-        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, smallCoinImageUrl=$smallCoinImageUrl, largeCoinImageUrl=$largeCoinImageUrl, coinuuid=$coinuuid)"
+        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, smallCoinImageUrl=$smallCoinImageUrl, largeCoinImageUrl=$largeCoinImageUrl)"
     }
 
 

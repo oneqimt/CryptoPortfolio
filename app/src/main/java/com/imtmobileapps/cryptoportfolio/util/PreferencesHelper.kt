@@ -13,6 +13,8 @@ class PreferencesHelper {
         @Volatile private var instance : PreferencesHelper? = null
         private val LOCK = Any()
 
+        var personId: Int? = 0
+
         operator fun invoke(context: Context):PreferencesHelper = instance ?: synchronized(
             LOCK){
             instance ?: buildHelper(context).also{
@@ -27,6 +29,14 @@ class PreferencesHelper {
 
     }
 
+    fun savePersonId(newpersonId: Int?){
+        personId = newpersonId
+    }
+
+    fun getCurrentPersonId() : Int? {
+        return personId
+    }
+
     fun saveUpdateTime(time: Long){
         prefs?.edit(commit = true){
             putLong(PREF_TIME, time)
@@ -35,6 +45,6 @@ class PreferencesHelper {
 
     fun getUpdateTime() = prefs?.getLong(PREF_TIME, 0)
 
-    fun getCacheDuration() = prefs?.getString("pref_cache_duration", "")
+    fun getCacheDuration() = prefs?.getString("pref_cache_duration", "0")
 
 }

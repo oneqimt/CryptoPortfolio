@@ -13,7 +13,7 @@ interface CryptoApi {
     fun login(
         @Field("uname") uname: String?,
         @Field("pass") pass: String?
-    ): Single<Person?>?
+    ): Single<Person>
 
 
 }
