@@ -1,7 +1,7 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -94,6 +94,11 @@ class CoinListFragment : Fragment() {
         when(item.itemId){
             R.id.actionSettings -> {
                 view?.let{ Navigation.findNavController(it).navigate(CoinListFragmentDirections.actionSettings() ) }
+            }
+            R.id.actionLogout -> {
+                viewModel.logout()
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
             }
         }
 

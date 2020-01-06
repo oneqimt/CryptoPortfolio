@@ -123,7 +123,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         for (crypto in cryptosList) {
                             val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
                             val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/50"
-                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/100"
+                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"
 
                             crypto.coin.smallCoinImageUrl = smallurl
                             crypto.coin.largeCoinImageUrl = largeurl
@@ -140,6 +140,24 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                     }
                 })
         )
+    }
+
+    fun logout(){
+        disposable.add(cryptoService.logout().subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : DisposableSingleObserver<Boolean>(){
+                override fun onSuccess(t: Boolean) {
+                    if (t){
+                        println("LOGOUT and returned value is: $t")
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+
+                   println(e.localizedMessage)
+                }
+            }))
+
     }
 
     override fun onCleared() {

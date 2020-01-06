@@ -1,6 +1,7 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -10,8 +11,10 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private var valid = true
     private lateinit var viewModel: LoginViewModel
+
+    var usernameText : String = ""
+    var passwordText : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,24 +23,32 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         loginBtn.setOnClickListener {
-            doLogin()
+            validateLogin()
         }
 
         observeModel()
     }
 
     fun doLogin(){
-        val usernameText = username.text.toString()
-        val passwordText = password.text.toString()
-        viewModel.loginUser(usernameText, passwordText)
 
+        viewModel.loginUser(usernameText, passwordText)
     }
 
-    fun validateLogin() : Boolean{
+    fun validateLogin(){
 
-        val valid = true
+        usernameText = username.text.toString()
+        passwordText = password.text.toString()
 
-        return valid
+        if (usernameText.isNotEmpty() and passwordText.isNotEmpty()){
+            doLogin()
+        }else{
+            Toast.makeText(
+                getApplication(),
+                "Please enter Username and Password",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
 
     }
 
@@ -46,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.user.observe(this, Observer { user ->
             user?.let {
                 if(it.personId != 0){
-                    this.finish()
+                   // whatever
                 }
             }
 
@@ -54,9 +65,20 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginError.observe(this, Observer { isError ->
             isError?.let {
-                username.setText("")
-                password.setText("")
-                // notify user
+
+                if (isError){
+                    username.setText("")
+                    password.setText("")
+
+                    username.requestFocus()
+                    // notify user
+                    Toast.makeText(
+                        getApplication(),
+                        "Username and/or Password not valid. Try again.",
+                        Toast.LENGTH_SHORT).show()
+
+                }
+
             }
         })
     }

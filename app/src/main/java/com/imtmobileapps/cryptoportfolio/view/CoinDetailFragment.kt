@@ -18,17 +18,16 @@ import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
 import kotlinx.android.synthetic.main.fragment_coin_detail.*
+import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class CoinDetailFragment : Fragment() {
 
-    var selectedCoin : CryptoValue? = null
-    private lateinit var viewModel : CoinDetailViewModel
+    var selectedCoin: CryptoValue? = null
+    private lateinit var viewModel: CoinDetailViewModel
     private lateinit var dataBinding: FragmentCoinDetailBinding
     var prefHelper = PreferencesHelper()
-    var totalValues : TotalValues? = null
+    var totalValues: TotalValues? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +35,8 @@ class CoinDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
+        dataBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
         return dataBinding.root
     }
 
@@ -55,16 +55,14 @@ class CoinDetailFragment : Fragment() {
 
             val personId = prefHelper.getCurrentPersonId()
             viewModel.getTotals(personId!!)
-            //viewModel.logout()
         }
-
         observeViewModel()
 
     }
 
-    fun observeViewModel(){
+    fun observeViewModel() {
 
-        viewModel.cryptoLiveData.observe(this , Observer {  crypto ->
+        viewModel.cryptoLiveData.observe(this, Observer { crypto ->
             selectedCoin = crypto
             crypto?.let {
                 dataBinding.crypto = crypto
@@ -73,7 +71,17 @@ class CoinDetailFragment : Fragment() {
 
         viewModel.totals.observe(this, Observer { totals ->
             totalValues = totals
-            // add databinding
+            totals?.let {
+                dataBinding.total = totals
+
+            }
+
+        })
+
+        viewModel.loading.observe(this, Observer { isLoading ->
+            isLoading?.let {
+
+            }
         })
     }
 }

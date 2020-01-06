@@ -18,6 +18,8 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
     val cryptoLiveData = MutableLiveData<CryptoValue>()
     var totals = MutableLiveData<TotalValues>()
+    val totalsLoadError = MutableLiveData<Boolean>()
+    val loading = MutableLiveData<Boolean>()
 
     fun setCrypto(crypto: CryptoValue?){
 
@@ -25,43 +27,35 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
     }
 
-    fun logout(){
-        cryptoService.logout().subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<Boolean>(){
-                override fun onSuccess(t: Boolean) {
-                    println("LOGOUT and returned value is: $t")
-                }
 
-                override fun onError(e: Throwable) {
 
-                }
-            })
+    fun storeTotalsLocally(){
 
     }
 
-    fun getTotals(personId : Int){
+    fun fetchFromDatabase(){
 
+    }
+
+    fun totalsRetrieved(totalValues: TotalValues){
+        totals.value = totalValues
+        totalsLoadError.value = false
+        loading.value = false
+    }
+
+    fun getTotals(personId : Int){
+        loading.value = true
         disposable.add(
             cryptoService.getTotals(personId).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<TotalValues>() {
                     override fun onSuccess(totalValues: TotalValues) {
-                        Toast.makeText(
-                            getApplication(),
-                            "TOTAL VALUES retrieved from endpoint",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        totals.value = totalValues
-
-                        println("TOTAL VALUES are : $totalValues")
 
                     }
 
                     override fun onError(e: Throwable) {
-                        /*cryptosLoadError.value = true
-                        loading.value = false*/
+                        totalsLoadError.value = true
+                        loading.value = false
                         e.printStackTrace()
 
                     }
