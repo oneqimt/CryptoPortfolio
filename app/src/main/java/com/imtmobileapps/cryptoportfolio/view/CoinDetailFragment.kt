@@ -14,6 +14,8 @@ import androidx.navigation.Navigation
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.model.TotalValues
+import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
 import kotlinx.android.synthetic.main.fragment_coin_detail.*
 
@@ -25,6 +27,8 @@ class CoinDetailFragment : Fragment() {
     var selectedCoin : CryptoValue? = null
     private lateinit var viewModel : CoinDetailViewModel
     private lateinit var dataBinding: FragmentCoinDetailBinding
+    var prefHelper = PreferencesHelper()
+    var totalValues : TotalValues? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +42,7 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        // if args are not null do this
+        // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
         }
@@ -46,16 +50,30 @@ class CoinDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         viewModel.setCrypto(selectedCoin)
 
+        // TEMP
+        symbolImage.setOnClickListener {
+
+            val personId = prefHelper.getCurrentPersonId()
+            viewModel.getTotals(personId!!)
+            //viewModel.logout()
+        }
+
         observeViewModel()
 
     }
 
     fun observeViewModel(){
+
         viewModel.cryptoLiveData.observe(this , Observer {  crypto ->
             selectedCoin = crypto
             crypto?.let {
                 dataBinding.crypto = crypto
             }
+        })
+
+        viewModel.totals.observe(this, Observer { totals ->
+            totalValues = totals
+            // add databinding
         })
     }
 }

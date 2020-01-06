@@ -27,7 +27,8 @@
                 android:imageUrl="@{crypto.coin.largeCoinImageUrl}"
                 android:minHeight="100dp"
                 android:scaleType="fitCenter"
-                android:contentDescription="@string/selected_coin"/>
+                android:contentDescription="@string/selected_coin"
+                android:clickable="true"/>
 
             <TextView
                 android:id="@+id/coinName"

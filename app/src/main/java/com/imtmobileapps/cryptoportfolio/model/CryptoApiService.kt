@@ -31,4 +31,12 @@ class CryptoApiService {
         return api.login(uname, pass)
 
     }
+
+    fun logout() : Single<Boolean>{
+        return api.logout()
+    }
+
+    fun getTotals(personId: Int) : Single<TotalValues>{
+        return api.getTotals(personId)
+    }
 }

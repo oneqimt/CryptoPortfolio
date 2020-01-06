@@ -15,5 +15,11 @@ interface CryptoApi {
         @Field("pass") pass: String?
     ): Single<Person>
 
+    @POST("logout")
+    fun logout() : Single<Boolean>
+
+    @GET("totals")
+    fun getTotals(@Query("person_id") person_id: Int): Single<TotalValues>
+
 
 }
