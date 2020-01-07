@@ -75,6 +75,7 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
     }
 
+    @Suppress("SENSELESS_COMPARISON")
     fun fetchTotalsFromDatabase(personId: Int){
 
         loading.value = true
