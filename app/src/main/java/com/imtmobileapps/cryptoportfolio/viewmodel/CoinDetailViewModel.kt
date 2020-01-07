@@ -79,11 +79,17 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
         loading.value = true
         launch {
-
+            // on first launch of app this can be null
            val totalValuesFromDatabase = CoinDatabase(getApplication()).totalValuesDao().getTotalValues(personId)
-           totalsRetrieved(totalValuesFromDatabase)
-            Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
-                .show()
+            if (totalValuesFromDatabase != null){
+                totalsRetrieved(totalValuesFromDatabase)
+                Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
+                    .show()
+            }else{
+                println("totalValuesFromDatabase == NULL!!!")
+                fetchTotalsFromRemote(personId)
+            }
+
 
         }
 
@@ -104,6 +110,8 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
                     override fun onSuccess(totalValues: TotalValues) {
 
                         println("fetchTotalsFromRemote TOTAL VALUES are: ${totalValues.toString()}")
+                        Toast.makeText(getApplication(), "Totals retrieved from REMOTE", Toast.LENGTH_SHORT)
+                            .show()
                         storeTotalsLocally(totalValues)
 
                     }
