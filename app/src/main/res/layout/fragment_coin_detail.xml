@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.CoinDetailFragment"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="40dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,7 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:clickable="true"
                 android:contentDescription="@string/selected_coin"
                 android:imageUrl="@{crypto.coin.largeCoinImageUrl}"
                 android:minHeight="60dp"
@@ -54,6 +53,7 @@
                 android:text="@{crypto.coin.coinSymbol}"
                 android:textStyle="bold" />
 
+            <!-- CURRENT PRICE -->
             <TextView
                 android:id="@+id/currentPrice"
                 android:layout_width="wrap_content"
@@ -63,6 +63,7 @@
                 android:paddingTop="30dp"
                 android:text="@string/current_price" />
 
+            <!-- CURRENT PRICE VALUE -->
             <TextView
                 android:id="@+id/currentPriceValue"
                 android:layout_width="match_parent"
@@ -76,6 +77,7 @@
                 android:text="@{crypto.USD}"
                 android:textStyle="bold" />
 
+            <!-- QUANTITY HELD: -->
             <TextView
                 android:id="@+id/quantityHeld"
                 android:layout_width="wrap_content"
@@ -85,6 +87,7 @@
                 android:paddingTop="30dp"
                 android:text="@string/quantity_held" />
 
+            <!-- QUANTITY HELD VALUE-->
             <TextView
                 android:id="@+id/quantity"
                 android:layout_width="match_parent"
@@ -98,6 +101,7 @@
                 android:text="@{String.valueOf(crypto.quantity)}"
                 android:textStyle="bold" />
 
+            <!-- HOLDING VALUE: -->
             <TextView
                 android:id="@+id/holdingText"
                 android:layout_width="wrap_content"
@@ -107,6 +111,7 @@
                 android:paddingTop="30dp"
                 android:text="@string/holding_value" />
 
+            <!-- HOLDING VALUE VALUE -->
             <TextView
                 android:id="@+id/holdingValue"
                 android:layout_width="match_parent"
@@ -120,6 +125,7 @@
                 android:text="@{crypto.holdingValue}"
                 android:textStyle="bold" />
 
+            <!-- YOUR COST: -->
             <TextView
                 android:id="@+id/costText"
                 android:layout_width="wrap_content"
@@ -129,6 +135,7 @@
                 android:paddingTop="30dp"
                 android:text="@string/your_cost" />
 
+            <!-- YOUR COST VALUE -->
             <TextView
                 android:id="@+id/costValue"
                 android:layout_width="match_parent"
@@ -142,6 +149,7 @@
                 android:text="@{crypto.cost}"
                 android:textStyle="bold" />
 
+            <!-- INCREASE/DECREASE -->
             <TextView
                 android:id="@+id/increaseText"
                 android:layout_width="wrap_content"
@@ -151,6 +159,7 @@
                 android:paddingTop="30dp"
                 android:text="@{crypto.increaseDecrease}" />
 
+            <!-- INCREASE/DECREASE PERCENTAGE-->
             <TextView
                 android:id="@+id/percentage"
                 android:layout_width="match_parent"
@@ -184,7 +193,8 @@
 
             </LinearLayout>
 
-
+            <!-- AGGREGATE OF ALL HOLDINGS -->
+            <!-- TOTAL PORTFOLIO HOLDINGS -->
             <TextView
                 android:id="@+id/totalPortHoldings"
                 android:layout_width="wrap_content"
@@ -197,8 +207,9 @@
                 android:text="TOTAL PORTFOLIO HOLDINGS"
                 android:textStyle="bold" />
 
+            <!-- TOTAL VALUE:-->
             <TextView
-                android:id="@+id/totalCost"
+                android:id="@+id/totalPortValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/totalPortHoldings"
@@ -206,62 +217,68 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
-                android:text="@string/total_cost" />
+                android:text="@string/total_value" />
 
+            <!-- TOTAL VALUE VALUE -->
             <TextView
-                android:id="@+id/tcValue"
+                android:id="@+id/tpValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/totalPortHoldings"
                 android:layout_alignParentRight="true"
                 android:paddingLeft="20dp"
-                android:paddingTop="30dp"
-                android:paddingRight="20dp"
-                android:text="@{total.totalCost}"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/totalPortValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/totalCost"
-                android:gravity="left"
-                android:paddingLeft="20dp"
-                android:paddingTop="30dp"
-                android:paddingRight="20dp"
-                android:text="@string/total_value" />
-
-            <TextView
-                android:id="@+id/tpValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/totalCost"
-                android:layout_alignParentRight="true"
-                android:paddingLeft="20dp"
-                android:paddingTop="30dp"
+                android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:text="@{total.totalValue}"
                 android:textStyle="bold" />
 
+            <!-- TOTAL COST -->
             <TextView
-                android:id="@+id/totalChange"
+                android:id="@+id/totalCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/totalPortValue"
                 android:gravity="left"
                 android:paddingLeft="20dp"
-                android:paddingTop="30dp"
+                android:paddingTop="20dp"
                 android:paddingRight="20dp"
-                android:text="@{total.increaseDecrease}" />
+                android:text="@string/total_cost" />
 
+
+            <!-- TOTAL COST VALUE -->
             <TextView
-                android:id="@+id/portIncreaseDecreaseValue"
+                android:id="@+id/tcValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/totalPortValue"
                 android:layout_alignParentRight="true"
                 android:paddingLeft="20dp"
-                android:paddingTop="30dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:text="@{total.totalCost}"
+                android:textStyle="bold" />
+
+            <!-- INCREASE/DECREASE -->
+            <TextView
+                android:id="@+id/totalChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/totalCost"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:text="@{total.increaseDecrease}" />
+
+            <!-- INCREASE/DECREASE PERCENTAGE-->
+            <TextView
+                android:id="@+id/portIncreaseDecreaseValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/totalCost"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:text="@{total.totalChange}"
                 android:textStyle="bold"

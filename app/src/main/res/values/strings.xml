@@ -18,9 +18,9 @@
     <string name="your_cost">Your Cost: </string>
     <string name="coin">Coin</string>
     <string name="settings">Settings</string>
-    <string name="total_cost">Total Cost</string>
-    <string name="total_value">Total Value</string>
-    <string name="total_change">Percent Change</string>
+    <string name="total_cost">Total Cost: </string>
+    <string name="total_value">Total Value: </string>
+    <string name="total_change">Percent Change: </string>
 
 
 </resources>
