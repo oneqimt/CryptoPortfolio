@@ -34,13 +34,13 @@ class CoinDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true)
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
         return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // if args are not null
         arguments?.let {
@@ -49,13 +49,8 @@ class CoinDetailFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         viewModel.setCrypto(selectedCoin)
+        viewModel.refresh(prefHelper.getCurrentPersonId()!!)
 
-        // TEMP
-        symbolImage.setOnClickListener {
-
-            val personId = prefHelper.getCurrentPersonId()
-            viewModel.getTotals(personId!!)
-        }
         observeViewModel()
 
     }

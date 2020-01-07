@@ -93,7 +93,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
 
     }
 
-    fun fetchFromDatabase(){
+    private fun fetchFromDatabase(){
         loading.value = true
         launch {
 

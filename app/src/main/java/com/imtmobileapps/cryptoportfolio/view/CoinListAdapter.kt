@@ -42,7 +42,7 @@ class CoinListAdapter(val coinList: ArrayList<CryptoValue>) : RecyclerView.Adapt
             selectedCoin = coinList[adapterPosition]
 
             val action = CoinListFragmentDirections.actionCoinDetailFragment()
-            action.selectedCoin = selectedCoin
+            action.setSelectedCoin(selectedCoin)
             Navigation.findNavController(v).navigate(action)
 
 

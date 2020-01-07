@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(CryptoValue::class, Person::class), version = 3)
+@Database(entities = arrayOf(CryptoValue::class, Person::class, TotalValues::class), version = 6)
 abstract class CoinDatabase :RoomDatabase(){
 
     abstract fun coinDao() : CoinDao
+    abstract fun totalValuesDao() : TotalValuesDao
 
     //SINGLETON
     companion object {
@@ -24,7 +25,7 @@ abstract class CoinDatabase :RoomDatabase(){
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext, CoinDatabase::class.java, "coindatabase"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
 }

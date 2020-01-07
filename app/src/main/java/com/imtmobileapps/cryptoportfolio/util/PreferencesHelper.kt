@@ -45,6 +45,7 @@ class PreferencesHelper {
 
     fun getUpdateTime() = prefs?.getLong(PREF_TIME, 0)
 
+    // Set by user in SettingsFragment - preferences.xml
     fun getCacheDuration() = prefs?.getString("pref_cache_duration", "0")
 
 }

@@ -13,8 +13,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
 
-    var usernameText : String = ""
-    var passwordText : String = ""
+    var usernameText = ""
+    var passwordText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.user.observe(this, Observer { user ->
             user?.let {
-                if(it.personId != 0){
-                   // whatever
-                }
+                //if(it.personId != 0){ }
             }
 
         })

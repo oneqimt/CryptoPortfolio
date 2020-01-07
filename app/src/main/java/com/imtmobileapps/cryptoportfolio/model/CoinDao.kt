@@ -24,4 +24,6 @@ interface CoinDao {
     @Query(value = "DELETE FROM cryptovalue")
     suspend fun deleteAllCoins()
 
+
+
 }
