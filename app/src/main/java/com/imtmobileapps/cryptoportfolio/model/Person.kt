@@ -9,7 +9,6 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Entity
-@Parcelize
 data class Person(
     @SerializedName("person_id")
     @ColumnInfo(name = "person_id")
@@ -24,18 +23,17 @@ data class Person(
     val lastName: String?,
 
     @SerializedName("quantity")
-    val quantity: Float,
+    val quantity: Float?,
 
     @SerializedName("cost")
-    val cost: Double
-) : Parcelable{
+    val cost: Double?
+) {
 
     @PrimaryKey(autoGenerate = true)
-    @IgnoredOnParcel
     var personuuid : Int = 0
 
     override fun toString(): String {
-        return "Person(personId=$personId, firstName=$firstName, lastName=$lastName, quantity=$quantity, cost=$cost, personuuid=$personuuid)"
+        return "Person(personId=$personId, firstName=$firstName, lastName=$lastName, quantity=$quantity, cost=$cost)"
     }
 
 

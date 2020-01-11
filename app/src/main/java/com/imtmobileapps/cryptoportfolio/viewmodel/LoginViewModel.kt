@@ -2,9 +2,9 @@ package com.imtmobileapps.cryptoportfolio.viewmodel
 
 import android.app.Application
 import android.content.Intent
-import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
+import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.Person
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
@@ -13,32 +13,29 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class LoginViewModel(application: Application) : BaseViewModel(application){
+class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     private val cryptoService = CryptoApiService()
     private var prefHelper = PreferencesHelper(getApplication())
     private val disposable = CompositeDisposable()
-    var user  = MutableLiveData<Person>()
+    var user = MutableLiveData<Person>()
     val loginError = MutableLiveData<Boolean>()
 
-    fun loginUser(username: String, password: String){
+    fun loginUser(username: String, password: String) {
 
         disposable.add(
             cryptoService.login(username, password).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<Person>() {
                     override fun onSuccess(person: Person) {
-                        Toast.makeText(
-                            getApplication(),
-                            "Person retrieved",
-                            Toast.LENGTH_SHORT
-                        ).show()
 
-                        prefHelper.savePersonId(person.personId)
+                        prefHelper.savePersonId(person.personId!!)
                         loginError.value = false
+                        user.value = person
+                        println("PERSON is ${person.toString()}")
                         cacheUser(person)
-
                         goToMainActivity()
 
                     }
@@ -54,15 +51,30 @@ class LoginViewModel(application: Application) : BaseViewModel(application){
 
     }
 
-    fun cacheUser(user: Person){
-        this.user.value = user
+    @Suppress("SENSELESS_COMPARISON")
+    fun cacheUser(person: Person) {
+        launch {
+            val dao = CoinDatabase(getApplication())
+            val cachedPerson = CoinDatabase(getApplication()).personDao().getPerson(person.personId!!)
+            if (cachedPerson == null){
+                CoinDatabase(getApplication()).personDao().deletePerson()
+                val result: Long = dao.personDao().insertPerson(person)
+                println("PERSON CACHED result is: ${result.toString()}")
+                person.personuuid = result.toInt()
+                println("PERSON in database IS:  $person")
+            }else{
+                print("USER ALREADY EXISTS!!!")
+            }
+
+        }
+
     }
 
-    fun goToMainActivity(){
+    fun goToMainActivity() {
 
         val intent = Intent(getApplication(), MainActivity::class.java)
         //or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(getApplication(), intent, null)
     }
 

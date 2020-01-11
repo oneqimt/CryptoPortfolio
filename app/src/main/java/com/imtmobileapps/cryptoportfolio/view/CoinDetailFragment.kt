@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
+import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
@@ -28,6 +29,7 @@ class CoinDetailFragment : Fragment() {
     private lateinit var dataBinding: FragmentCoinDetailBinding
     var prefHelper = PreferencesHelper()
     var totalValues: TotalValues? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

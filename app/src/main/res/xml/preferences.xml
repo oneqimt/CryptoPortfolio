@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditTextPreference
-        android:defaultValue="10"
+        android:defaultValue="20"
         android:dialogMessage="In seconds"
         app:allowDividerAbove="true"
         android:title="Cache duration in seconds"

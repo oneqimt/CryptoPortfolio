@@ -29,19 +29,19 @@ class LoginActivity : AppCompatActivity() {
         observeModel()
     }
 
-    fun doLogin(){
+    fun doLogin() {
 
         viewModel.loginUser(usernameText, passwordText)
     }
 
-    fun validateLogin(){
+    fun validateLogin() {
 
         usernameText = username.text.toString()
         passwordText = password.text.toString()
 
-        if (usernameText.isNotEmpty() and passwordText.isNotEmpty()){
+        if (usernameText.isNotEmpty() and passwordText.isNotEmpty()) {
             doLogin()
-        }else{
+        } else {
             Toast.makeText(
                 getApplication(),
                 "Please enter Username and Password",
@@ -52,28 +52,27 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun observeModel(){
+    fun observeModel() {
 
         viewModel.user.observe(this, Observer { user ->
             user?.let {
-                //if(it.personId != 0){ }
+                println("$TAG USER in NOT NULL")
             }
 
         })
 
         viewModel.loginError.observe(this, Observer { isError ->
             isError?.let {
-
-                if (isError){
+                if (isError) {
                     username.setText("")
                     password.setText("")
-
                     username.requestFocus()
                     // notify user
                     Toast.makeText(
                         getApplication(),
-                        "Username and/or Password not valid. Try again.",
-                        Toast.LENGTH_SHORT).show()
+                        "There was a login error. Please try again.",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                 }
 

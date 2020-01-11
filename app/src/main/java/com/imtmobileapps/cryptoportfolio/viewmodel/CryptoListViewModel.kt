@@ -19,7 +19,7 @@ import java.util.*
 
 class CryptoListViewModel(application: Application) : BaseViewModel(application) {
 
-    // 1 minutes
+    // 1 minute
     private var refreshTime = 1 * 60 * 1000 * 1000 * 1000L
 
     private val cryptoService = CryptoApiService()
@@ -70,6 +70,9 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                 ++i
 
             }
+
+            val person = CoinDatabase(getApplication()).personDao().getPerson(prefHelper.getCurrentPersonId()!!)
+            println("ListViewModel test DATABASE CACHE and person is $person")
 
             coinsRetrieved(list)
         }
