@@ -34,7 +34,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         prefHelper.savePersonId(person.personId!!)
                         loginError.value = false
                         user.value = person
-                        println("PERSON is ${person.toString()}")
+                        println("PERSON is ${person}")
                         cacheUser(person)
                         goToMainActivity()
 
@@ -63,7 +63,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                 person.personuuid = result.toInt()
                 println("PERSON in database IS:  $person")
             }else{
-                print("USER ALREADY EXISTS!!!")
+                println("USER ALREADY EXISTS!!!")
             }
 
         }
