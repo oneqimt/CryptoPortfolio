@@ -21,6 +21,7 @@
     <string name="total_cost">Total Cost: </string>
     <string name="total_value">Total Value: </string>
     <string name="total_change">Percent Change: </string>
+    <string name="total_portfolio_holdings">TOTAL PORTFOLIO HOLDINGS</string>
 
 
 </resources>
