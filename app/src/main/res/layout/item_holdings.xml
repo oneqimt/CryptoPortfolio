@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -10,14 +9,19 @@
             name="total"
             type="com.imtmobileapps.cryptoportfolio.model.TotalValues" />
 
+        <variable
+            name="cryptoHoldings"
+            type="com.imtmobileapps.cryptoportfolio.model.CryptoValue" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <!-- AGGREGATE OF ALL HOLDINGS -->
-        <!-- TOTAL PORTFOLIO HOLDINGS -->
+        <!-- TOTAL PORTFOLIO HOLDINGS    -->
 
         <!-- TOTAL VALUE:-->
         <TextView
@@ -72,6 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/totalPortHoldings" />
 
         <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
@@ -79,6 +84,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/totalPortValue" />
 
+        <TextView
+            android:id="@+id/coinNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:text="@{@string/coin_news_text(cryptoHoldings.coin.coinName)}"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintVertical_bias="0.037" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

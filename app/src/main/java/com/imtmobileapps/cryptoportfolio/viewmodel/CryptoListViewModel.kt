@@ -4,7 +4,6 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.BuildConfig
-import com.imtmobileapps.cryptoportfolio.model.Coin
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
@@ -14,7 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import java.lang.NumberFormatException
 import java.util.*
 
 class CryptoListViewModel(application: Application) : BaseViewModel(application) {
@@ -125,7 +123,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         // add the coin symbol here
                         for (crypto in cryptosList) {
                             val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
-                            val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/50"
+                            val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
                             val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"
 
                             crypto.coin.smallCoinImageUrl = smallurl

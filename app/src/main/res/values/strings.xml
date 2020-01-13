@@ -23,5 +23,8 @@
     <string name="total_change">Percent Change: </string>
     <string name="total_portfolio_holdings">TOTAL PORTFOLIO HOLDINGS</string>
 
+    <string name="coin_news_text">%s NEWS</string>
+    <string name="increase_decrease_text">%s :</string>
+
 
 </resources>
