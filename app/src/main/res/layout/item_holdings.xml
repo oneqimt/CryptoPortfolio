@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -16,73 +15,112 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- AGGREGATE OF ALL HOLDINGS -->
-        <!-- TOTAL PORTFOLIO HOLDINGS    -->
-
-        <!-- TOTAL VALUE:-->
         <TextView
             android:id="@+id/totalPortHoldings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:text="@string/total_portfolio_holdings"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.56"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.037" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/totalPortValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:paddingStart="20dp"
+            android:layout_below="@+id/totalPortHoldings"
+            android:gravity="start"
             android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/total_value"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalPortHoldings" />
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/total_value" />
 
-        <!-- TOTAL VALUE VALUE -->
         <TextView
             android:id="@+id/tpValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:paddingStart="20dp"
+            android:layout_below="@+id/totalPortHoldings"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
             android:text="@{total.totalValue}"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintLeft_toRightOf="@id/totalPortValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalPortHoldings" />
+            android:textStyle="bold" />
 
-        <View
-            android:id="@+id/divider"
+        <TextView
+            android:id="@+id/totalCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalPortValue"
+            android:gravity="end"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/total_cost" />
+
+        <TextView
+            android:id="@+id/tcValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalPortValue"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:text="@{total.totalCost}"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totalChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalCost"
+            android:gravity="end"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:text="@{@string/increase_decrease_text(total.increaseDecrease)}" />
+
+        <TextView
+            android:id="@+id/portIncreaseDecreaseValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalCost"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:text="@{total.totalChange}"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/holdingsdivider"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalPortValue" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/portIncreaseDecreaseValue"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimaryDark" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/coinNews"
@@ -94,14 +132,11 @@
             android:text="@{@string/coin_news_text(cryptoHoldings.coin.coinName)}"
             android:textStyle="bold"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintVertical_bias="0.037" />
+            android:layout_below="@+id/holdingsdivider"
+            android:layout_centerHorizontal="true"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
 </layout>

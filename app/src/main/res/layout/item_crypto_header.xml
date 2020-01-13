@@ -15,30 +15,36 @@
 
         <ImageView
             android:id="@+id/symbolImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
             android:contentDescription="@string/selected_coin"
-            android:imageUrl="@{cryptoItemHeader.coin.largeCoinImageUrl}"
-            android:minHeight="60dp"
-            android:scaleType="fitCenter" />
+            android:imageUrl="@{cryptoItemHeader.coin.smallCoinImageUrl}"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/coinName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/symbolImage"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="4dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center|center_horizontal"
             android:text="@{cryptoItemHeader.coin.coinName}" />
 
         <TextView
             android:id="@+id/coinSymbol"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/coinName"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="4dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:paddingEnd="30dp"
+            android:paddingRight="30dp"
+            android:paddingStart="30dp"
+            android:gravity="end"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:text="@{cryptoItemHeader.coin.coinSymbol}"
             android:textStyle="bold" />
 
@@ -49,6 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/coinSymbol"
             android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:paddingTop="30dp"
             android:text="@string/current_price" />
 
@@ -59,7 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/coinSymbol"
             android:layout_toRightOf="@+id/currentPrice"
-            android:gravity="right"
+            android:layout_toEndOf="@+id/currentPrice"
+            android:gravity="end"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp"
@@ -73,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/currentPrice"
             android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:paddingTop="30dp"
             android:text="@string/quantity_held" />
 
@@ -83,7 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/currentPrice"
             android:layout_toRightOf="@+id/quantityHeld"
-            android:gravity="right"
+            android:layout_toEndOf="@+id/quantityHeld"
+            android:gravity="end"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp"
@@ -97,6 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/quantityHeld"
             android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:paddingTop="30dp"
             android:text="@string/holding_value" />
 
@@ -107,7 +121,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/quantityHeld"
             android:layout_toRightOf="@+id/holdingText"
-            android:gravity="right"
+            android:layout_toEndOf="@+id/holdingText"
+            android:gravity="end"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp"
@@ -121,6 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/holdingText"
             android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:paddingTop="30dp"
             android:text="@string/your_cost" />
 
@@ -131,7 +148,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/holdingText"
             android:layout_toRightOf="@+id/costText"
-            android:gravity="right"
+            android:layout_toEndOf="@+id/costText"
+            android:gravity="end"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp"
@@ -145,8 +163,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/costText"
             android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:paddingTop="30dp"
-            android:text="@{cryptoItemHeader.increaseDecrease}" />
+            android:text="@{@string/increase_decrease_text(cryptoItemHeader.increaseDecrease)}" />
 
 
         <TextView
@@ -155,7 +175,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/costText"
             android:layout_toRightOf="@+id/increaseText"
-            android:gravity="right"
+            android:layout_toEndOf="@+id/increaseText"
+            android:gravity="end"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp"
