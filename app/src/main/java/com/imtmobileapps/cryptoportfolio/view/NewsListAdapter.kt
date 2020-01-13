@@ -1,6 +1,7 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +41,7 @@ class NewsListAdapter(
                     parent,
                     false
                 )
-                return CryptoHeaderViewHolder(cryptoview, cryptoValue)
+                return CryptoHeaderViewHolder(cryptoview)
             }
             CellType.TOTAL_HOLDINGS.ordinal -> {
                 val holdingsview = DataBindingUtil.inflate<ItemHoldingsBinding>(
@@ -50,7 +51,7 @@ class NewsListAdapter(
                     false
                 )
 
-                return HoldingsViewHolder(holdingsview, totalValues)
+                return HoldingsViewHolder(holdingsview)
             }
 
             CellType.NEWS_ITEM.ordinal -> {
@@ -98,10 +99,12 @@ class NewsListAdapter(
             CellType.TOTAL_HOLDINGS.ordinal -> {
                 val holdingsViewHolder = holder as HoldingsViewHolder
                 holdingsViewHolder.view.total = totalValues
+                holdingsViewHolder.view.cryptoHoldings = cryptoValue
             }
             CellType.NEWS_ITEM.ordinal -> {
                 val newsViewHolder = holder as NewsViewHolder
                 newsViewHolder.view.news = newsList[position - 2]
+                newsViewHolder.view.listener = newsViewHolder
             }
         }
 
@@ -118,20 +121,25 @@ class NewsListAdapter(
     }
 
     class CryptoHeaderViewHolder(
-        var view: ItemCryptoHeaderBinding,
-        var cryptoValue: CryptoValue
+        var view: ItemCryptoHeaderBinding
     ) : RecyclerView.ViewHolder(view.root) {
 
     }
 
-    class HoldingsViewHolder(var view: ItemHoldingsBinding, var totalValues: TotalValues) :
+    class HoldingsViewHolder(var view: ItemHoldingsBinding) :
         RecyclerView.ViewHolder(view.root) {
 
     }
 
     class NewsViewHolder(var view: ItemListNewsBinding, var newsList: List<News>) :
-        RecyclerView.ViewHolder(view.root) {
+        RecyclerView.ViewHolder(view.root), NewsClickListener {
 
+        private var selectedNews : News? = null
+
+        override fun onNewsClicked(v: View) {
+            selectedNews = newsList[adapterPosition -2]
+            println("SELECTED NEWS is : $selectedNews")
+        }
     }
 
     enum class CellType(viewType: Int) {
