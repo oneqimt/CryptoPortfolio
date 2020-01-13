@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center|center_horizontal"
-            android:text="@{cryptoItemHeader.coin.coinName}" />
+            android:text="@{cryptoItemHeader.coin.coinName}"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/coinSymbol"
@@ -46,7 +47,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:text="@{cryptoItemHeader.coin.coinSymbol}"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
 
         <TextView
