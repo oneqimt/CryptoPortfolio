@@ -55,7 +55,7 @@ class CoinDetailFragment : Fragment() {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
         }
 
-        var newList = ArrayList<News>()
+        val newList = ArrayList<News>()
         newList.add(News(0, "TitleOne", "a cool desc"))
         newList.add(News(0, "Titletwo", "a better desc"))
         newList.add(News(0, "Titlethree", "a even better desc"))
@@ -64,7 +64,12 @@ class CoinDetailFragment : Fragment() {
         newList.add(News(0, "Titlesix", "a six better desc"))
 
 
-        viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
+        viewModel = activity?.run {
+            ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
+
+       // viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         viewModel.refresh(prefHelper.getCurrentPersonId()!!)
         viewModel.setNewsList(newList)
         viewModel.setCrypto(selectedCoin)

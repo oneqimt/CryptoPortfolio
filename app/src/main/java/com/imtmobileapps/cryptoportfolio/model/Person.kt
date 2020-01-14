@@ -9,6 +9,7 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Entity
+@Parcelize
 data class Person(
     @SerializedName("person_id")
     @ColumnInfo(name = "person_id")
@@ -27,9 +28,10 @@ data class Person(
 
     @SerializedName("cost")
     val cost: Double?
-) {
+):Parcelable {
 
     @PrimaryKey(autoGenerate = true)
+    @IgnoredOnParcel
     var personuuid : Int = 0
 
     override fun toString(): String {

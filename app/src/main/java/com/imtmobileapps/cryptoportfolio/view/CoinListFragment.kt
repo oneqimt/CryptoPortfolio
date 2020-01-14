@@ -49,7 +49,7 @@ class CoinListFragment : Fragment() {
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
             viewModel.refreshBypassCache(prefHelper.getCurrentPersonId()!!)
-            println("PERSON ID is ${prefHelper.getCurrentPersonId()}")
+            println("$TAG PERSON ID is ${prefHelper.getCurrentPersonId()}")
             refreshLayout.isRefreshing = false
         }
 
@@ -104,6 +104,10 @@ class CoinListFragment : Fragment() {
 
 
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private val TAG = CoinListFragment::class.java.simpleName
     }
 
 
