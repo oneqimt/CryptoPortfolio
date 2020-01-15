@@ -10,13 +10,14 @@ import com.imtmobileapps.cryptoportfolio.databinding.ItemCryptoHeaderBinding
 import com.imtmobileapps.cryptoportfolio.databinding.ItemHoldingsBinding
 import com.imtmobileapps.cryptoportfolio.databinding.ItemListNewsBinding
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
-import com.imtmobileapps.cryptoportfolio.model.News
 import com.imtmobileapps.cryptoportfolio.model.TotalValues
+import com.imtmobileapps.cryptoportfolio.util.getPublishedFormat
+import io.cryptocontrol.cryptonewsapi.models.Article
 
 class NewsListAdapter(
     var cryptoValue: CryptoValue,
     var totalValues: TotalValues,
-    val newsList: ArrayList<News>
+    val articleList: ArrayList<Article>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -62,18 +63,18 @@ class NewsListAdapter(
                     false
                 )
 
-                return NewsViewHolder(newsview, newsList)
+                return NewsViewHolder(newsview, articleList)
             }
 
         }
         // should not get here
-        return NewsViewHolder(view, newsList)
+        return NewsViewHolder(view, articleList)
 
     }
 
-    fun updateNewsList(newNewsList: List<News>){
-        newsList.clear()
-        newsList.addAll(newNewsList)
+    fun updateNewsList(newArticleList: List<Article>){
+        articleList.clear()
+        articleList.addAll(newArticleList)
         notifyDataSetChanged()
     }
 
@@ -87,7 +88,7 @@ class NewsListAdapter(
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = newsList.size + 2
+    override fun getItemCount(): Int = articleList.size + 2
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
@@ -103,7 +104,12 @@ class NewsListAdapter(
             }
             CellType.NEWS_ITEM.ordinal -> {
                 val newsViewHolder = holder as NewsViewHolder
-                newsViewHolder.view.news = newsList[position - 2]
+                newsViewHolder.view.article = articleList[position - 2]
+
+                val str = getPublishedFormat(articleList[position -2].publishedAt)
+                println("PUBLISHED AT is now: $str")
+                newsViewHolder.newsPublishedAt.text = str
+
                 newsViewHolder.view.listener = newsViewHolder
             }
         }
@@ -131,17 +137,21 @@ class NewsListAdapter(
 
     }
 
-    class NewsViewHolder(var view: ItemListNewsBinding, var newsList: List<News>) :
+    class NewsViewHolder(var view: ItemListNewsBinding, var articleList: ArrayList<Article>) :
         RecyclerView.ViewHolder(view.root), NewsClickListener {
 
-        private var selectedNews : News? = null
+        private var selectedNews : Article? = null
+
+        val newsPublishedAt = view.newsPublishedAt
 
         override fun onNewsClicked(v: View) {
-            selectedNews = newsList[adapterPosition -2]
-            println("SELECTED NEWS is : $selectedNews")
+            selectedNews = articleList[adapterPosition -2]
+            println("URL of article is : ${selectedNews?.url}")
+
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     enum class CellType(viewType: Int) {
         CRYPTO_HEADER(0),
         TOTAL_HOLDINGS(1),

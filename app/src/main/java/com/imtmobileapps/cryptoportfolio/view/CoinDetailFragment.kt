@@ -12,12 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
-import com.imtmobileapps.cryptoportfolio.model.*
+import com.imtmobileapps.cryptoportfolio.model.Coin
+import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
-import io.cryptocontrol.cryptonewsapi.models.Article
 import kotlinx.android.synthetic.main.fragment_coin_detail.*
-import javax.xml.transform.Source
+import java.util.*
 
 
 class CoinDetailFragment : Fragment() {
@@ -55,23 +56,12 @@ class CoinDetailFragment : Fragment() {
 
         }
 
-        val newList = ArrayList<News>()
-        newList.add(News(0, "TitleOne", "a cool desc"))
-        newList.add(News(0, "Titletwo", "a better desc"))
-        newList.add(News(0, "Titlethree", "a even better desc"))
-        newList.add(News(0, "Titlefour", "a four better desc"))
-        newList.add(News(0, "Titlefive", "a five better desc"))
-        newList.add(News(0, "Titlesix", "a six better desc"))
-
-
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
 
-       // viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         viewModel.refresh(prefHelper.getCurrentPersonId()!!)
-        viewModel.setNewsList(newList)
         viewModel.setCrypto(selectedCoin)
 
 
@@ -81,8 +71,8 @@ class CoinDetailFragment : Fragment() {
         }
 
         // get the news for coin
-        val coinName = selectedCoin?.coin?.coinName?.toLowerCase()
-        println("OK COIN NAME is $coinName")
+        val coinName = selectedCoin?.coin?.coinName?.toLowerCase(Locale.getDefault())
+        println("OK COIN NAME to send to API is $coinName")
         viewModel.getCoinNews(coinName!!)
 
         observeViewModel()
@@ -109,21 +99,12 @@ class CoinDetailFragment : Fragment() {
 
         })
 
-        viewModel.news.observe(this, Observer { news ->
-            news?.let {
-                recyclerDetails.visibility = View.VISIBLE
-                newsListAdapter.updateNewsList(news)
-            }
-
-        })
 
         viewModel.articles.observe(this, Observer { articles ->
             articles?.let {
-                for (article : Article in it){
-                    println("IN OBSERvER and article is: ${article.title}")
+                recyclerDetails.visibility = View.VISIBLE
+                newsListAdapter.updateNewsList(articles)
 
-                    println("IN OBSERVER and article source is : ${article.source.name}")
-                }
             }
         })
 

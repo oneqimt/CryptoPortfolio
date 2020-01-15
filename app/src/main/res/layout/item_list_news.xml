@@ -6,51 +6,77 @@
     <data>
 
         <variable
-            name="news"
-            type="com.imtmobileapps.cryptoportfolio.model.News" />
+            name="article"
+            type="io.cryptocontrol.cryptonewsapi.models.Article" />
 
         <variable
             name="listener"
             type="com.imtmobileapps.cryptoportfolio.view.NewsClickListener" />
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+        style="@style/NewsArticle.View"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{listener::onNewsClicked}">
+        app:cardElevation="@dimen/card_elevation"
+        android:onClick="@{listener::onNewsClicked}"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
-        <TextView
-            android:id="@+id/newsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:text="@{news.newsTitle}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.037"/>
-
-        <TextView
-            android:id="@+id/newsDescription"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:paddingRight="20dp"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:text="@{news.newsDescription}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newsTitle" />
+            android:background="@drawable/drawable_list_item">
 
+            <!-- News block -->
+            <RelativeLayout
+                android:id="@+id/newsImageView"
+                android:layout_width="match_parent"
+                android:layout_height="180sp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/newsImage"
+                    style="@style/NewsArticle.Image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_size"
+                    android:contentDescription="@string/news_image"
+                    android:imageUrl="@{article.originalImageUrl}"
+                    tools:src="@drawable/tools_placeholder" />
+
+                <TextView
+                    android:id="@+id/newsAuthor"
+                    style="@style/NewsArticle.Author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="@{article.source.name}"
+                    tools:text="ABC News" />
+
+            </RelativeLayout>
+
+            <!-- News Title -->
+            <TextView
+                android:id="@+id/newsTitle"
+                style="@style/NewsArticle.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/newsImageView"
+                android:text="@{article.title}"
+                tools:text="Elon Musk says Tesla can't yet launch in India" />
+
+            <!-- Publish at -->
+            <TextView
+                android:id="@+id/newsPublishedAt"
+                style="@style/NewsArticle.PublishedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/newsTitle"
+                android:layout_marginStart="@dimen/normal_padding"
+                android:layout_marginLeft="@dimen/normal_padding"
+                tools:text="@string/str_test_date" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </layout>

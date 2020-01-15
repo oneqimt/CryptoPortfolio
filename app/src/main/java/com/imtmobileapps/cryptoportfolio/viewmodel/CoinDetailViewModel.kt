@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.model.*
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
+import com.imtmobileapps.cryptoportfolio.util.getPublishedFormat
 import io.cryptocontrol.cryptonewsapi.models.Article
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,8 +23,6 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
     val cryptoLiveData = MutableLiveData<CryptoValue>()
     var totals = MutableLiveData<TotalValues>()
-    var news = MutableLiveData<List<News>>()
-
     var articles = MutableLiveData<List<Article>>()
     val totalsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
@@ -32,10 +31,6 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
         cryptoLiveData.value = crypto
 
-    }
-
-    fun setNewsList(newsList: List<News>){
-        news.value = newsList
     }
 
     fun refresh(personId: Int) {
@@ -144,7 +139,7 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
 
                     override fun onError(e: Throwable) {
                         e.localizedMessage
-                        e.printStackTrace();
+                        e.printStackTrace()
                     }
                 })
         )
