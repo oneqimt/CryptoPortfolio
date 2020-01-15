@@ -2,24 +2,22 @@ package com.imtmobileapps.cryptoportfolio.view
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.ColumnInfo
-
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
 import com.imtmobileapps.cryptoportfolio.model.*
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
+import io.cryptocontrol.cryptonewsapi.models.Article
 import kotlinx.android.synthetic.main.fragment_coin_detail.*
-import kotlinx.android.synthetic.main.fragment_coin_list.*
+import javax.xml.transform.Source
 
 
 class CoinDetailFragment : Fragment() {
@@ -53,6 +51,8 @@ class CoinDetailFragment : Fragment() {
         // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
+
+
         }
 
         val newList = ArrayList<News>()
@@ -79,6 +79,11 @@ class CoinDetailFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = newsListAdapter
         }
+
+        // get the news for coin
+        val coinName = selectedCoin?.coin?.coinName?.toLowerCase()
+        println("OK COIN NAME is $coinName")
+        viewModel.getCoinNews(coinName!!)
 
         observeViewModel()
 
@@ -110,6 +115,16 @@ class CoinDetailFragment : Fragment() {
                 newsListAdapter.updateNewsList(news)
             }
 
+        })
+
+        viewModel.articles.observe(this, Observer { articles ->
+            articles?.let {
+                for (article : Article in it){
+                    println("IN OBSERvER and article is: ${article.title}")
+
+                    println("IN OBSERVER and article source is : ${article.source.name}")
+                }
+            }
         })
 
         viewModel.loading.observe(this, Observer { isLoading ->

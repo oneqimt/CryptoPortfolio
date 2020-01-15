@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://www.imtmobileapps.com/cryptocompare/"'
         buildConfigField "String", "COIN_IMAGE_URL", '"https://cryptoicons.org/api/"'
+        multiDexEnabled true
 
     }
     buildTypes {
@@ -27,6 +28,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
 
     dataBinding.enabled = true
 
@@ -54,6 +66,9 @@ dependencies {
 
     implementation "com.android.support:design:$supportVersion"
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionVersion"
+
+    // CRYPTO NEWS API
+    implementation 'io.cryptocontrol:crypto-news-api:2.5.0'
 
     //ROOM
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -90,6 +105,9 @@ dependencies {
 
     // PREFERENCES
     implementation "androidx.preference:preference:$preferencesVersion"
+
+    //MULTI DEX
+    implementation 'com.android.support:multidex:1.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

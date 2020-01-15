@@ -5,12 +5,12 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.model.*
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
+import io.cryptocontrol.cryptonewsapi.models.Article
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import java.lang.NumberFormatException
 
 class CoinDetailViewModel(application: Application) : BaseViewModel(application){
 
@@ -23,6 +23,8 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
     val cryptoLiveData = MutableLiveData<CryptoValue>()
     var totals = MutableLiveData<TotalValues>()
     var news = MutableLiveData<List<News>>()
+
+    var articles = MutableLiveData<List<Article>>()
     val totalsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
@@ -130,5 +132,28 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
         )
 
     }
+
+    fun getCoinNews(coinName : String){
+        disposable.add(
+            cryptoService.getCoinNews(coinName).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<Article>>(){
+                    override fun onSuccess(t: List<Article>) {
+                        articles.value = t
+                    }
+
+                    override fun onError(e: Throwable) {
+                        e.localizedMessage
+                        e.printStackTrace();
+                    }
+                })
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
+
 
 }

@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         observeViewModel()
 
+
     }
 
     fun observeViewModel() {

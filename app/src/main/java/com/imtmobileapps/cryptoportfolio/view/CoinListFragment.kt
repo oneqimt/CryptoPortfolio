@@ -36,7 +36,7 @@ class CoinListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(CryptoListViewModel::class.java)
         viewModel.refresh(prefHelper.getCurrentPersonId()!!)
 
-        println("PERSON ID is ${prefHelper.getCurrentPersonId()}")
+        println("$TAG PERSON ID is ${prefHelper.getCurrentPersonId()}")
 
         coinsListView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -49,7 +49,6 @@ class CoinListFragment : Fragment() {
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
             viewModel.refreshBypassCache(prefHelper.getCurrentPersonId()!!)
-            println("$TAG PERSON ID is ${prefHelper.getCurrentPersonId()}")
             refreshLayout.isRefreshing = false
         }
 
