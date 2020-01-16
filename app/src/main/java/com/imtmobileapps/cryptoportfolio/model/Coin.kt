@@ -29,7 +29,11 @@ data class Coin(
 
     @SerializedName("large_coin_image_url")
     @ColumnInfo(name = "large_coin_image_url")
-    var largeCoinImageUrl: String? = null
+    var largeCoinImageUrl: String? = null,
+
+    @SerializedName("name_id")
+    @ColumnInfo(name = "name_id")
+    val nameId : String? = null
 
 ) : Parcelable {
 

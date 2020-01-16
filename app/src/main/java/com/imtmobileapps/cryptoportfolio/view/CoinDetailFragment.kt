@@ -72,7 +72,7 @@ class CoinDetailFragment : Fragment() {
         }
 
         // get the news for particular coin
-        val coinName = selectedCoin?.coin?.coinName?.toLowerCase(Locale.getDefault())
+        val coinName = selectedCoin?.coin?.nameId
         println("OK COIN NAME to send to API is $coinName")
         viewModel.getCoinNews(coinName!!)
 

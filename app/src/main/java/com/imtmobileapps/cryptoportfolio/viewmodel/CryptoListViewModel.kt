@@ -128,6 +128,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
 
                             crypto.coin.smallCoinImageUrl = smallurl
                             crypto.coin.largeCoinImageUrl = largeurl
+
                         }
                         storeCoinsLocally(cryptosList)
 
