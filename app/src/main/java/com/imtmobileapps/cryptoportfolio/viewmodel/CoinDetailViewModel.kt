@@ -3,9 +3,11 @@ package com.imtmobileapps.cryptoportfolio.viewmodel
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.imtmobileapps.cryptoportfolio.model.*
+import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
+import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
+import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
-import com.imtmobileapps.cryptoportfolio.util.getPublishedFormat
 import io.cryptocontrol.cryptonewsapi.models.Article
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -132,7 +134,7 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
         disposable.add(
             cryptoService.getCoinNews(coinName).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<List<Article>>(){
+                .subscribeWith(object : DisposableSingleObserver<List<Article>>() {
                     override fun onSuccess(t: List<Article>) {
                         articles.value = t
                     }

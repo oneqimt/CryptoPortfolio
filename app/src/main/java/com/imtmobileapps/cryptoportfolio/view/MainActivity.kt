@@ -6,9 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.model.IOnBackPressed
 import com.imtmobileapps.cryptoportfolio.model.Person
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
 
@@ -73,6 +75,18 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, null)
     }
 
+    override fun onBackPressed() {
+
+        println("$TAG onBack Pressed")
+
+        val fragment = this.supportFragmentManager.findFragmentById(R.id.fragment) as? NavHostFragment
+
+        val currentFragment = fragment?.childFragmentManager?.fragments?.get(0) as? IOnBackPressed
+
+        currentFragment?.onBackPressed()?.takeIf { !it }?.let{
+            super.onBackPressed()
+        }
+    }
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName

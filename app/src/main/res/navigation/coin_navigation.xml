@@ -29,6 +29,12 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
 
+        <action
+            android:id="@+id/actionWebFragment"
+            app:destination="@+id/webFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
         <argument
             android:name="selectedCoin"
             android:defaultValue="@null"
@@ -41,5 +47,25 @@
         android:id="@+id/settingsFragment"
         android:name="com.imtmobileapps.cryptoportfolio.view.SettingsFragment"
         android:label="Settings" />
+
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.imtmobileapps.cryptoportfolio.view.WebFragment"
+        android:label="Web View">
+
+        <action
+            android:id="@+id/actionCoinDetailFragment"
+            app:destination="@id/coinDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+        <argument
+            android:name="selectedUrl"
+            android:defaultValue="www.imtmobileapps.com"
+            app:argType="string"/>
+
+
+
+    </fragment>
 
 </navigation>

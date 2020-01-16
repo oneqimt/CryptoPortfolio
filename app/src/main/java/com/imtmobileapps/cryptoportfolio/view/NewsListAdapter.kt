@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.ItemCryptoHeaderBinding
@@ -72,6 +73,11 @@ class NewsListAdapter(
 
     }
 
+    fun onAddNewsItem(item: Article) {
+        articleList.add(0, item)
+        notifyItemInserted(0)
+    }
+
     fun updateNewsList(newArticleList: List<Article>){
         articleList.clear()
         articleList.addAll(newArticleList)
@@ -109,7 +115,6 @@ class NewsListAdapter(
                 val str = getPublishedFormat(articleList[position -2].publishedAt)
                 println("PUBLISHED AT is now: $str")
                 newsViewHolder.newsPublishedAt.text = str
-
                 newsViewHolder.view.listener = newsViewHolder
             }
         }
@@ -147,6 +152,12 @@ class NewsListAdapter(
         override fun onNewsClicked(v: View) {
             selectedNews = articleList[adapterPosition -2]
             println("URL of article is : ${selectedNews?.url}")
+
+            val url = selectedNews?.url ?: ""
+
+            val action = CoinDetailFragmentDirections.actionWebFragment()
+            action.selectedUrl = url
+            Navigation.findNavController(v).navigate(action)
 
         }
     }

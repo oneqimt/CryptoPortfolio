@@ -46,4 +46,5 @@ class CryptoApiService {
         return api.getCoinNews(coinName)
 
     }
+
 }

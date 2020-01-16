@@ -24,6 +24,7 @@ import java.util.*
 class CoinDetailFragment : Fragment() {
 
     var selectedCoin: CryptoValue? = null
+
     private lateinit var viewModel: CoinDetailViewModel
     private lateinit var dataBinding: FragmentCoinDetailBinding
     var prefHelper = PreferencesHelper()
@@ -70,7 +71,7 @@ class CoinDetailFragment : Fragment() {
             adapter = newsListAdapter
         }
 
-        // get the news for coin
+        // get the news for particular coin
         val coinName = selectedCoin?.coin?.coinName?.toLowerCase(Locale.getDefault())
         println("OK COIN NAME to send to API is $coinName")
         viewModel.getCoinNews(coinName!!)
