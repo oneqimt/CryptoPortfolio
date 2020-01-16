@@ -77,8 +77,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        println("$TAG onBack Pressed")
-
         val fragment = this.supportFragmentManager.findFragmentById(R.id.fragment) as? NavHostFragment
 
         val currentFragment = fragment?.childFragmentManager?.fragments?.get(0) as? IOnBackPressed

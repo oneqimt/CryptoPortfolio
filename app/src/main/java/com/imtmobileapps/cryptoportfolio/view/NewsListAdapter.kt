@@ -73,11 +73,6 @@ class NewsListAdapter(
 
     }
 
-    fun onAddNewsItem(item: Article) {
-        articleList.add(0, item)
-        notifyItemInserted(0)
-    }
-
     fun updateNewsList(newArticleList: List<Article>){
         articleList.clear()
         articleList.addAll(newArticleList)
@@ -113,7 +108,6 @@ class NewsListAdapter(
                 newsViewHolder.view.article = articleList[position - 2]
 
                 val str = getPublishedFormat(articleList[position -2].publishedAt)
-                println("PUBLISHED AT is now: $str")
                 newsViewHolder.newsPublishedAt.text = str
                 newsViewHolder.view.listener = newsViewHolder
             }

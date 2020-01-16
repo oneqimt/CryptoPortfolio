@@ -7,6 +7,7 @@ import com.imtmobileapps.cryptoportfolio.BuildConfig
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.util.AppConstants
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

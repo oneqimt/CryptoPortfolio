@@ -18,7 +18,6 @@ import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
 import kotlinx.android.synthetic.main.fragment_coin_detail.*
-import java.util.*
 
 
 class CoinDetailFragment : Fragment() {

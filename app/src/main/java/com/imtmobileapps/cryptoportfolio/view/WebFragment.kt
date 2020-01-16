@@ -7,14 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.model.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_web.*
-import kotlinx.android.synthetic.main.fragment_web.view.*
 
 
 class WebFragment : Fragment(), IOnBackPressed {
@@ -43,7 +41,6 @@ class WebFragment : Fragment(), IOnBackPressed {
         settings.javaScriptEnabled = true
         settings.setSupportZoom(true)
         settings.loadsImagesAutomatically = true
-        settings.javaScriptCanOpenWindowsAutomatically = true
 
         webview.fitsSystemWindows = true
         webview.loadUrl(selectedUrl)
@@ -74,8 +71,6 @@ class WebFragment : Fragment(), IOnBackPressed {
 
 
     override fun onBackPressed(): Boolean {
-
-        println("WEbFragment backPressed : ${webview.canGoBack()}")
 
         if (webview.canGoBack()) {
             // If web view have back history, then go to the web view back history
