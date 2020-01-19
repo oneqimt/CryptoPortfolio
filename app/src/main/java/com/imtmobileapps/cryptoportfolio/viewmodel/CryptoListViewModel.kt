@@ -101,8 +101,8 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
 
             val personCoins = CoinDatabase(getApplication()).coinDao().getPersonCoins()
             coinsRetrieved(personCoins)
-            Toast.makeText(getApplication(), "Coins retrieved from database", Toast.LENGTH_SHORT)
-                .show()
+            /*Toast.makeText(getApplication(), "Coins retrieved from database", Toast.LENGTH_SHORT)
+                .show()*/
 
         }
 
@@ -115,11 +115,11 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<CryptoValue>>() {
                     override fun onSuccess(cryptosList: List<CryptoValue>) {
-                        Toast.makeText(
+                        /*Toast.makeText(
                             getApplication(),
                             "Coins retrieved from endpoint",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
 
                         // add the coin symbol here
                         for (crypto in cryptosList) {

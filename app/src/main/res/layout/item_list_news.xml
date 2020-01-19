@@ -12,7 +12,10 @@
         <variable
             name="listener"
             type="com.imtmobileapps.cryptoportfolio.view.NewsClickListener" />
+
     </data>
+
+
 
     <androidx.cardview.widget.CardView
         style="@style/NewsArticle.View"
@@ -24,6 +27,7 @@
         android:layout_marginRight="20dp">
 
         <RelativeLayout
+            android:id="@+id/article_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/drawable_list_item">
@@ -54,7 +58,7 @@
 
             </RelativeLayout>
 
-            <!-- News Title -->
+            <!-- Article Title -->
             <TextView
                 android:id="@+id/newsTitle"
                 style="@style/NewsArticle.Title"
@@ -64,7 +68,7 @@
                 android:text="@{article.title}"
                 tools:text="Elon Musk says Tesla can't yet launch in India" />
 
-            <!-- Publish at -->
+            <!-- Article Date Published -->
             <TextView
                 android:id="@+id/newsPublishedAt"
                 style="@style/NewsArticle.PublishedAt"
@@ -76,6 +80,9 @@
                 tools:text="@string/str_test_date" />
 
         </RelativeLayout>
+
+
+
     </androidx.cardview.widget.CardView>
 
 

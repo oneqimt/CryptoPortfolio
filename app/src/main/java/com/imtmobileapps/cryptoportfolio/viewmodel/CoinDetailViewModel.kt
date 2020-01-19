@@ -1,7 +1,6 @@
 package com.imtmobileapps.cryptoportfolio.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
@@ -28,6 +27,8 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
     var articles = MutableLiveData<List<Article>>()
     val totalsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
+    var newsLoading = MutableLiveData<Boolean>()
+    var newsLoadError = MutableLiveData<Boolean>()
 
     fun setCrypto(crypto: CryptoValue?){
 
@@ -86,14 +87,12 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
            val totalValuesFromDatabase = CoinDatabase(getApplication()).totalValuesDao().getTotalValues(personId)
             if (totalValuesFromDatabase != null){
                 totalsRetrieved(totalValuesFromDatabase)
-                Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
-                    .show()
+               /* Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
+                    .show()*/
             }else{
                 println("totalValuesFromDatabase == NULL!!!")
                 fetchTotalsFromRemote(personId)
             }
-
-
         }
 
     }
@@ -102,6 +101,11 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
         totals.value = totalValues
         totalsLoadError.value = false
         loading.value = false
+        
+        val selectedCoin = cryptoLiveData.value?.coin
+        println("DENNIS $TAG and selectedcoin is: ${selectedCoin.toString()}")
+        // AFTER total retrieved call the service to get the news
+        getCoinNews(selectedCoin?.nameId!!)
     }
 
     fun fetchTotalsFromRemote(personId : Int){
@@ -113,8 +117,8 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
                     override fun onSuccess(totalValues: TotalValues) {
 
                         println("fetchTotalsFromRemote TOTAL VALUES are: ${totalValues.toString()}")
-                        Toast.makeText(getApplication(), "Totals retrieved from REMOTE", Toast.LENGTH_SHORT)
-                            .show()
+                        /*Toast.makeText(getApplication(), "Totals retrieved from REMOTE", Toast.LENGTH_SHORT)
+                            .show()*/
                         storeTotalsLocally(totalValues)
 
                     }
@@ -131,17 +135,30 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
     }
 
     fun getCoinNews(coinName : String){
+        newsLoading.value = true
         disposable.add(
             cryptoService.getCoinNews(coinName).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<Article>>() {
                     override fun onSuccess(t: List<Article>) {
-                        articles.value = t
+                        println("$TAG DENNIS in getCoinNews SUCCESS ${t.size}")
+                        if (t.isNotEmpty()){
+                            newsLoading.value = false
+                            newsLoadError.value = false
+                            articles.value = t
+                        }else{
+                            newsLoadError.value = true
+                            newsLoading.value = true
+                        }
+                        
                     }
 
                     override fun onError(e: Throwable) {
-                        e.localizedMessage
-                        e.printStackTrace()
+                        println("$TAG DENNIS in getCoinNews Error : ${e.localizedMessage}")
+                        //articles.value = arrayListOf()
+                        newsLoading.value = true
+                        newsLoadError.value = true
+                        
                     }
                 })
         )
@@ -151,6 +168,10 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
         super.onCleared()
         disposable.clear()
     }
-
-
+    
+    companion object {
+        private val TAG = CoinDetailViewModel::class.java.simpleName
+    }
+    
+    
 }

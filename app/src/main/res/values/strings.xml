@@ -29,6 +29,7 @@
     <string name="news_image">news image</string>
     <string name="str_test_date">22/02/2017</string>
     <string name="no_news">No News</string>
+    <string name="news_error_text">There was an error loading the news. Please try again later.</string>
 
 
 </resources>

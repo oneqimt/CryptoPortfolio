@@ -101,7 +101,7 @@
             android:paddingRight="20dp"
             android:text="@{total.totalChange}"
             android:textStyle="bold"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="0dp"/>
 
         <LinearLayout
             android:id="@+id/holdingsdivider"

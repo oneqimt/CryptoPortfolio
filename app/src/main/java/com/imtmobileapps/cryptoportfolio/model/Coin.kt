@@ -39,9 +39,7 @@ data class Coin(
 
     // no need for primary key here
     // Room adds columns for this object to CryptoValue
-    override fun toString(): String {
-        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, smallCoinImageUrl=$smallCoinImageUrl, largeCoinImageUrl=$largeCoinImageUrl)"
+    override fun toString(): String{
+        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, smallCoinImageUrl=$smallCoinImageUrl, largeCoinImageUrl=$largeCoinImageUrl, nameId=$nameId)"
     }
-
-
 }

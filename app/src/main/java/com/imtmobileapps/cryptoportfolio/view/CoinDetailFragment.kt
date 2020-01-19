@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -29,12 +31,10 @@ class CoinDetailFragment : Fragment() {
     var prefHelper = PreferencesHelper()
     var totalValues: TotalValues? = null
 
-
     var coin : Coin = Coin("0", "BITCOIN", "BTC", "", "")
     var cryptoValue : CryptoValue = CryptoValue("BITCOIN", coin, "111", "45%", "22", "increase", 1.2)
     var totalv = TotalValues(1, "2", "3", "1", "increase")
-    private val newsListAdapter = NewsListAdapter(cryptoValue, totalv, arrayListOf())
-
+    var newsListAdapter = NewsListAdapter(cryptoValue, totalv, arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +49,10 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        
         // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
-
-
         }
 
         viewModel = activity?.run {
@@ -67,18 +66,24 @@ class CoinDetailFragment : Fragment() {
 
         recyclerDetails.apply {
             layoutManager = LinearLayoutManager(context)
+           // getRecycledViewPool().clear();
             adapter = newsListAdapter
+            newsListAdapter.setRecyclerView(this)
+            // pass this to the adapter
+            var errorStr = activity?.resources?.getString(R.string.news_error_text)
+            newsListAdapter.setNewsErrorString(errorStr)
+            
+            val resId: Int = R.anim.layout_animation_fall_down
+            val animation: LayoutAnimationController =
+                AnimationUtils.loadLayoutAnimation(activity, resId)
+            recyclerDetails.animation = animation.animation
+    
         }
-
-        // get the news for particular coin
-        val coinName = selectedCoin?.coin?.nameId
-        println("OK COIN NAME to send to API is $coinName")
-        viewModel.getCoinNews(coinName!!)
-
+        
         observeViewModel()
 
     }
-
+    
     fun observeViewModel() {
 
         viewModel.cryptoLiveData.observe(this, Observer { crypto ->
@@ -94,7 +99,7 @@ class CoinDetailFragment : Fragment() {
             totals?.let {
                 dataBinding.total = totals
                 newsListAdapter.updateTotalValues(totals)
-
+                
             }
 
         })
@@ -113,5 +118,31 @@ class CoinDetailFragment : Fragment() {
 
             }
         })
+        
+        viewModel.newsLoading.observe(this, Observer { newsIsLoading ->
+            newsIsLoading?.let {
+                println("$TAG DENNIS viewModel.newsloading is : $it")
+                if (it){
+                    newsListAdapter.showPreloader(true)
+                }  else {
+                    newsListAdapter.showPreloader(false)
+                }
+            }
+        })
+        
+        viewModel.newsLoadError.observe(this, Observer { newsError ->
+            newsError?.let {
+                println("$TAG DENNIS newsLoadError is : $it")
+                // Could pass the actual error from here - would need to send a string not a boolean
+                var errorStr = activity?.resources?.getString(R.string.news_error_text)
+                if (it){
+                    newsListAdapter.updateNewsError(newsError, errorStr)
+                }
+            }
+        })
+    }
+    
+    companion object {
+        private val TAG = CoinDetailFragment::class.java.simpleName
     }
 }

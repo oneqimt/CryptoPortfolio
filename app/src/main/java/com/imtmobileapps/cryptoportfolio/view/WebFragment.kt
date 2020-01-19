@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
@@ -41,6 +42,11 @@ class WebFragment : Fragment(), IOnBackPressed {
         settings.javaScriptEnabled = true
         settings.setSupportZoom(true)
         settings.loadsImagesAutomatically = true
+        //cache - does not seem to work!
+        settings.setAppCacheEnabled(true)
+        settings.cacheMode = WebSettings.LOAD_DEFAULT
+        settings.setDomStorageEnabled(true);
+        settings.setAppCachePath(activity?.cacheDir?.absolutePath)
 
         webview.fitsSystemWindows = true
         webview.loadUrl(selectedUrl)
