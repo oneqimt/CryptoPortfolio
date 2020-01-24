@@ -2,42 +2,39 @@ package com.imtmobileapps.cryptoportfolio.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
-import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
-import com.imtmobileapps.cryptoportfolio.model.CryptoValue
-import com.imtmobileapps.cryptoportfolio.model.TotalValues
+import com.imtmobileapps.cryptoportfolio.model.*
+import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
-import io.cryptocontrol.cryptonewsapi.models.Article
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class CoinDetailViewModel(application: Application) : BaseViewModel(application){
-
+class CoinDetailViewModel(application: Application) : BaseViewModel(application) {
+    
     private val disposable = CompositeDisposable()
     private val cryptoService = CryptoApiService()
     private var prefHelper = PreferencesHelper(getApplication())
     // 1 minutes
     private var refreshTime = 1 * 60 * 1000 * 1000 * 1000L
-
+    
     val cryptoLiveData = MutableLiveData<CryptoValue>()
     var totals = MutableLiveData<TotalValues>()
     var articles = MutableLiveData<List<Article>>()
     val totalsLoadError = MutableLiveData<Boolean>()
-    val loading = MutableLiveData<Boolean>()
+    val totalsLoading = MutableLiveData<Boolean>()
     var newsLoading = MutableLiveData<Boolean>()
     var newsLoadError = MutableLiveData<Boolean>()
-
-    fun setCrypto(crypto: CryptoValue?){
-
+    
+    fun setCrypto(crypto: CryptoValue?) {
+        
         cryptoLiveData.value = crypto
-
+        
     }
-
+    
     fun refresh(personId: Int) {
-
+        
         checkCacheDuration()
         val updateTime: Long? = prefHelper.getUpdateTime()
         if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
@@ -46,124 +43,129 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
             fetchTotalsFromRemote(personId)
         }
     }
-
+    
+    fun refreshNews() {
+        articles.value = CoinApp.newsList
+    }
+    
     private fun checkCacheDuration() {
         val cachePreference = prefHelper.getCacheDuration()
-        println("Cached Duration is : ${cachePreference}")
-
+        println("$TAG TEST Cached Duration is : ${cachePreference}")
+        
         try {
             val cachePreferenceInt = cachePreference?.toInt() ?: 1 * 60
             refreshTime = cachePreferenceInt.times(1000 * 1000 * 1000L)
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-
+        
     }
-
-
-    fun storeTotalsLocally(totalValues: TotalValues){
-
+    
+    
+    fun storeTotalsLocally(totalValues: TotalValues) {
+        
         launch {
             val dao = CoinDatabase(getApplication())
             CoinDatabase(getApplication()).totalValuesDao().deleteAllTotalValues()
             val result: Long = dao.totalValuesDao().insertTotalValues(totalValues)
             println("TOTALS result is: ${result.toString()}")
             totalValues.uuid = result.toInt()
-
+            
             totalsRetrieved(totalValues)
         }
-
-       prefHelper.saveUpdateTime(System.nanoTime())
-
-
+        
+        prefHelper.saveUpdateTime(System.nanoTime())
+        
+        
     }
-
+    
     @Suppress("SENSELESS_COMPARISON")
-    fun fetchTotalsFromDatabase(personId: Int){
-
-        loading.value = true
+    fun fetchTotalsFromDatabase(personId: Int) {
+        
+        totalsLoading.value = true
         launch {
             // on first launch of app this can be null
-           val totalValuesFromDatabase = CoinDatabase(getApplication()).totalValuesDao().getTotalValues(personId)
-            if (totalValuesFromDatabase != null){
+            val totalValuesFromDatabase =
+                CoinDatabase(getApplication()).totalValuesDao().getTotalValues(personId)
+            if (totalValuesFromDatabase != null) {
                 totalsRetrieved(totalValuesFromDatabase)
-               /* Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
-                    .show()*/
-            }else{
+                /* Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
+                     .show()*/
+            } else {
                 println("totalValuesFromDatabase == NULL!!!")
                 fetchTotalsFromRemote(personId)
             }
         }
-
+        
     }
-
-    fun totalsRetrieved(totalValues: TotalValues){
+    
+    private fun totalsRetrieved(totalValues: TotalValues) {
         totals.value = totalValues
         totalsLoadError.value = false
-        loading.value = false
+        totalsLoading.value = false
         
-        val selectedCoin = cryptoLiveData.value?.coin
-        println("DENNIS $TAG and selectedcoin is: ${selectedCoin.toString()}")
-        // AFTER total retrieved call the service to get the news
-        getCoinNews(selectedCoin?.nameId!!)
     }
-
-    fun fetchTotalsFromRemote(personId : Int){
-        loading.value = true
+    
+    private fun fetchTotalsFromRemote(personId: Int) {
+        totalsLoading.value = true
         disposable.add(
             cryptoService.getTotals(personId).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<TotalValues>() {
                     override fun onSuccess(totalValues: TotalValues) {
-
+                        
                         println("fetchTotalsFromRemote TOTAL VALUES are: ${totalValues.toString()}")
                         /*Toast.makeText(getApplication(), "Totals retrieved from REMOTE", Toast.LENGTH_SHORT)
                             .show()*/
                         storeTotalsLocally(totalValues)
-
+                        
                     }
-
+                    
                     override fun onError(e: Throwable) {
                         totalsLoadError.value = true
-                        loading.value = false
+                        totalsLoading.value = false
                         e.printStackTrace()
-
+                        
                     }
                 })
         )
-
+        
     }
-
-    fun getCoinNews(coinName : String){
+    
+    fun getCoinNews(coinName: String) {
         newsLoading.value = true
+        newsLoadError.value = false
+        CoinApp.fromWeb = false
         disposable.add(
             cryptoService.getCoinNews(coinName).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<Article>>() {
                     override fun onSuccess(t: List<Article>) {
-                        println("$TAG DENNIS in getCoinNews SUCCESS ${t.size}")
-                        if (t.isNotEmpty()){
+                        println("$TAG TEST in getCoinNews SUCCESS ${t.size}")
+                        if (t.isNotEmpty()) {
                             newsLoading.value = false
                             newsLoadError.value = false
                             articles.value = t
-                        }else{
+                        } else {
                             newsLoadError.value = true
-                            newsLoading.value = true
+                            articles.value = null
+                            //newsLoading.value = true
                         }
                         
                     }
-
+                    
                     override fun onError(e: Throwable) {
-                        println("$TAG DENNIS in getCoinNews Error : ${e.localizedMessage}")
+                        println("$TAG TEST in getCoinNews Error : ${e.localizedMessage}")
                         //articles.value = arrayListOf()
-                        newsLoading.value = true
+                        //newsLoading.value = true
                         newsLoadError.value = true
+                        articles.value = null
                         
                     }
                 })
         )
     }
-
+    
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

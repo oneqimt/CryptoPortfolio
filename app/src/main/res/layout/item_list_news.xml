@@ -7,7 +7,7 @@
 
         <variable
             name="article"
-            type="io.cryptocontrol.cryptonewsapi.models.Article" />
+            type="com.imtmobileapps.cryptoportfolio.model.Article" />
 
         <variable
             name="listener"
@@ -24,7 +24,8 @@
         app:cardElevation="@dimen/card_elevation"
         android:onClick="@{listener::onNewsClicked}"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:tag="@{article._id}">
 
         <RelativeLayout
             android:id="@+id/article_main"
@@ -45,7 +46,7 @@
                     android:layout_height="@dimen/image_size"
                     android:contentDescription="@string/news_image"
                     android:imageUrl="@{article.originalImageUrl}"
-                    tools:src="@drawable/tools_placeholder" />
+                    />
 
                 <TextView
                     android:id="@+id/newsAuthor"

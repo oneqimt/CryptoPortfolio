@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="0dp">
 
 
     <ProgressBar
@@ -16,7 +17,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +30,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="0dp"
         android:layout_gravity="center"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

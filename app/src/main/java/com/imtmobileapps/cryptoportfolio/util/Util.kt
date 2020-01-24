@@ -8,6 +8,8 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.imtmobileapps.cryptoportfolio.R
+import com.imtmobileapps.cryptoportfolio.model.Article
+import com.imtmobileapps.cryptoportfolio.model.Source
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +28,7 @@ fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable
 
     val options = RequestOptions()
         .placeholder(progressDrawable)
-        .error(R.mipmap.ic_launcher)
+        .error(R.mipmap.ic_error_image)
 
 
     GlideApp.with(context)
@@ -61,8 +63,33 @@ fun Date.getStringTimeStampWithDate(): String {
 }
 
 
-fun getPublishedFormat(datestr: String): String? {
-    return datestr.getDateWithServerTimeStamp().toString()
+fun getPublishedFormat(datestr: String?): String? {
+    return datestr?.getDateWithServerTimeStamp().toString()
+}
+
+fun createEmptyList() : List<Article>{
+    val source = Source("1", "Not available", "")
+    
+    val article = Article(
+        0.0,
+        0.0,
+        0,
+        "",
+        "",
+        "",
+        "",
+        "Not available",
+        "",
+        "",
+        "Not available",
+        "",
+        source
+    
+    )
+    
+    val mylist = arrayListOf(article)
+    
+    return mylist
 }
 
 @BindingAdapter("android:imageUrl")

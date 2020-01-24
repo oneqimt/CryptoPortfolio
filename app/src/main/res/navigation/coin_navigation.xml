@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/coinListFragment"
         android:name="com.imtmobileapps.cryptoportfolio.view.CoinListFragment"
-        android:label="Holdings" >
+        android:label="Holdings">
         <action
             android:id="@+id/actionCoinDetailFragment"
             app:destination="@id/coinDetailFragment"
@@ -33,13 +33,13 @@
             android:id="@+id/actionWebFragment"
             app:destination="@+id/webFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"/>
+            app:exitAnim="@anim/nav_default_exit_anim" />
 
         <argument
             android:name="selectedCoin"
             android:defaultValue="@null"
             app:argType="com.imtmobileapps.cryptoportfolio.model.CryptoValue"
-            app:nullable="true"/>
+            app:nullable="true" />
 
     </fragment>
 
@@ -62,8 +62,7 @@
         <argument
             android:name="selectedUrl"
             android:defaultValue="www.imtmobileapps.com"
-            app:argType="string"/>
-
+            app:argType="string" />
 
 
     </fragment>

@@ -1,6 +1,6 @@
 package com.imtmobileapps.cryptoportfolio.model
 
-import io.cryptocontrol.cryptonewsapi.models.Article
+
 import io.reactivex.Single
 import retrofit2.http.*
 

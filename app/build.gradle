@@ -19,7 +19,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://www.imtmobileapps.com/cryptocompare/"'
         buildConfigField "String", "COIN_IMAGE_URL", '"https://cryptoicons.org/api/"'
-        multiDexEnabled true
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
 
     }
     buildTypes {
@@ -67,9 +71,6 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionVersion"
 
-    // CRYPTO NEWS API
-    implementation 'io.cryptocontrol:crypto-news-api:2.5.0'
-
     //ROOM
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
@@ -105,9 +106,6 @@ dependencies {
 
     // PREFERENCES
     implementation "androidx.preference:preference:$preferencesVersion"
-
-    //MULTI DEX
-    implementation 'com.android.support:multidex:1.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

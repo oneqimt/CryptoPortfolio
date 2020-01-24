@@ -1,6 +1,5 @@
 package com.imtmobileapps.cryptoportfolio.view
 
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,10 @@ import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.ItemCryptoHeaderBinding
 import com.imtmobileapps.cryptoportfolio.databinding.ItemHoldingsBinding
 import com.imtmobileapps.cryptoportfolio.databinding.ItemListNewsBinding
+import com.imtmobileapps.cryptoportfolio.model.Article
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.getPublishedFormat
-import io.cryptocontrol.cryptonewsapi.models.Article
 import kotlinx.android.synthetic.main.item_preloader_news.view.*
 
 class NewsListAdapter(
@@ -78,15 +77,18 @@ class NewsListAdapter(
             }
             
             CellType.NEWS_ITEM.ordinal -> {
-                
+    
+                /*println("$TAG TEST and in onCreateViewHolder() isLoadingNews is $isLoadingNews")
+                println("$TAG TEST and in onCreateViewHolder() newsError is $newsError")*/
+    
                 val newsview = DataBindingUtil.inflate<ItemListNewsBinding>(
                     inflater,
                     R.layout.item_list_news,
                     parent,
                     false
                 )
-                
                 return NewsViewHolder(newsview, articleList)
+                
             }
             
         }
@@ -98,7 +100,7 @@ class NewsListAdapter(
     fun showPreloader(show: Boolean){
         
         isLoadingNews = show
-        notifyItemChanged(2)
+        notifyItemChanged(1)
         
     }
     
@@ -106,19 +108,7 @@ class NewsListAdapter(
     
         newsError = hasError
         errorString = errorStr
-        if (hasError){
-            isLoadingNews = true
-           // articleList.removeAll(articleList)
-           // notifyDataSetChanged()
-            //mRecyclerView?.layoutManager = null
-            //mRecyclerView?.adapter = null
-           // articleList.clear()
-            //mRecyclerView?.recycledViewPool?.clear()
-            //recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-            //notifyDataSetChanged()
-            notifyItemChanged(2)
-            
-        }
+        notifyItemChanged(1)
         
     }
     
@@ -138,7 +128,7 @@ class NewsListAdapter(
         notifyDataSetChanged()
     }
     
-    override fun getItemCount(): Int = articleList.size + 2
+    override fun getItemCount(): Int = articleList.size + 3
     
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         
@@ -153,31 +143,43 @@ class NewsListAdapter(
                 holdingsViewHolder.view.cryptoHoldings = cryptoValue
             }
             CellType.PRELOADER_NEWS.ordinal -> {
-                var preloaderViewHolder = holder as PreloaderViewHolder
-                println("$TAG DENNIS in onBindViewHolder and isLoadingNews is $isLoadingNews")
-                println("$TAG DENNIS in onBindViewHolder and newsError is $newsError")
+                val preloaderViewHolder = holder as PreloaderViewHolder
+                println("$TAG TEST in onBindViewHolder and isLoadingNews is $isLoadingNews")
+                println("$TAG TEST in onBindViewHolder and newsError is $newsError")
+                
                 if (isLoadingNews){
                     preloaderViewHolder.preloader.visibility = View.VISIBLE
                     mRecyclerView?.smoothScrollToPosition(position)
+                    
                     if (newsError){
-                        preloaderViewHolder.errorText.visibility = View.VISIBLE
                         preloaderViewHolder.preloader.visibility = View.GONE
+                        preloaderViewHolder.errorText.visibility = View.VISIBLE
                         preloaderViewHolder.errorText.text = errorString
-                        
                     }else{
-                        preloaderViewHolder.errorText.visibility = View.GONE
+                        preloaderViewHolder.errorText.text = ""
                     }
+                
                 }else{
                     preloaderViewHolder.preloader.visibility = View.GONE
+                    if (newsError){
+                        preloaderViewHolder.errorText.visibility = View.VISIBLE
+                        preloaderViewHolder.errorText.text = errorString
+                    }else{
+                        preloaderViewHolder.errorText.text = ""
+                    }
                 }
                 
+                
             }
+           
             CellType.NEWS_ITEM.ordinal -> {
-                val newsViewHolder = holder as NewsViewHolder
-                newsViewHolder.view.article = articleList[position - 3]
-                val str = getPublishedFormat(articleList[position - 3].publishedAt)
-                newsViewHolder.newsPublishedAt.text = str
-                newsViewHolder.view.listener = newsViewHolder
+                if (!newsError){
+                    val newsViewHolder = holder as NewsViewHolder
+                    newsViewHolder.view.article = articleList[position - 3]
+                    val str = getPublishedFormat(articleList[position - 3].publishedAt)
+                    newsViewHolder.newsPublishedAt.text = str
+                    newsViewHolder.view.listener = newsViewHolder
+                }
                 
             }
         }
@@ -215,10 +217,6 @@ class NewsListAdapter(
         var selectedNews: Article? = null
         
         val newsPublishedAt = view.newsPublishedAt
-        
-        //val loadingNewsPreloader = view.loadingNews
-        val articleMain = view.articleMain
-        
         
         override fun onNewsClicked(v: View) {
             selectedNews = articleList[adapterPosition - 3]
