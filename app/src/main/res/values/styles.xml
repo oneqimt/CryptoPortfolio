@@ -1,12 +1,29 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="ErrorText" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <!-- reference our hint & error styles -->
+        <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/holo_blue_light</item>
+        <item name="colorControlNormal">@color/light_grey</item>
+        <item name="colorControlActivated">@color/color_blue</item>
+        <item name="colorControlHighlight">@color/color_blue</item>
+    </style>
+
+
 
     <!--region News Article -->
     <style name="NewsArticle" />
@@ -38,7 +55,7 @@
         <item name="android:layout_marginBottom">@dimen/normal_padding</item>
         <item name="android:maxLines">2</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textColor">@android:color/holo_blue_bright</item>
         <item name="android:textSize">@dimen/textview_size_small</item>
     </style>
 
