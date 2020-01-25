@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.Person
+import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.view.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,7 +35,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         prefHelper.savePersonId(person.personId!!)
                         loginError.value = false
                         user.value = person
-                        println("$TAG TESTAPP PERSON is ${person}")
+                        println("$TAG ${CoinApp.TEST_APP} PERSON is ${person}")
                         cacheUser(person)
                         goToMainActivity()
 
@@ -59,11 +60,11 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             if (cachedPerson == null){
                 CoinDatabase(getApplication()).personDao().deletePerson()
                 val result: Long = dao.personDao().insertPerson(person)
-                println("$TAG TESTAPP PERSON CACHED result is: ${result.toString()}")
+                println("$TAG ${CoinApp.TEST_APP} PERSON CACHED result is: ${result.toString()}")
                 person.personuuid = result.toInt()
-                println("$TAG TESTAPP PERSON in database IS:  $person")
+                println("$TAG ${CoinApp.TEST_APP} PERSON in database IS:  $person")
             }else{
-                println("$TAG TESTAPP USER ALREADY EXISTS!!!")
+                println("$TAG ${CoinApp.TEST_APP} USER ALREADY EXISTS!!!")
             }
 
         }

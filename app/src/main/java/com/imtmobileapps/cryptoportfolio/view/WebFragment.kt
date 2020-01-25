@@ -38,7 +38,7 @@ class WebFragment : Fragment(), IOnBackPressed {
         // if args are not null
         arguments?.let {
             selectedArticle = WebFragmentArgs.fromBundle(it).selectedArticle
-            println("$TAG TESTAPP selectedArticle is: $selectedArticle")
+            println("$TAG ${CoinApp.TEST_APP} selectedArticle is: $selectedArticle")
         }
         
         val mainActivity = activity as AppCompatActivity
@@ -87,7 +87,7 @@ class WebFragment : Fragment(), IOnBackPressed {
     
     override fun onBackPressed(): Boolean {
         
-        println("$TAG TESTAPP ONBACKPRESSED()")
+        println("$TAG ${CoinApp.TEST_APP} ONBACKPRESSED()")
         if (webview.canGoBack()) {
             // If web view have back history, then go to the web view back history
             webview.goBack()

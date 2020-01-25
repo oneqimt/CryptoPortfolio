@@ -8,6 +8,7 @@ import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.util.AppConstants
+import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -60,7 +61,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
             val dao = CoinDatabase(getApplication())
             CoinDatabase(getApplication()).coinDao().deleteAllCoins()
             val result: List<Long> = dao.coinDao().insertAll(*list.toTypedArray())
-            println("$TAG TESTAPP DATABASE result is: ${result.toString()}")
+            println("$TAG ${CoinApp.TEST_APP} DATABASE result is: ${result.toString()}")
             var i = 0
             while (i < list.size) {
                 list[i].uuid = result[i].toInt()
@@ -69,7 +70,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
             }
 
             val person = CoinDatabase(getApplication()).personDao().getPerson(prefHelper.getCurrentPersonId()!!)
-            println("$TAG TESTAPP ListViewModel DATABASE CACHE and person is $person")
+            println("$TAG ${CoinApp.TEST_APP} ListViewModel DATABASE CACHE and person is $person")
 
             coinsRetrieved(list)
         }
@@ -82,7 +83,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     // Need to add Settings - THROWS a numberformatexception
     private fun checkCacheDuration() {
         val cachePreference = prefHelper.getCacheDuration()
-        println("$TAG TESTAPP Cached Duration is : ${cachePreference}")
+        println("$TAG ${CoinApp.TEST_APP} Cached Duration is : ${cachePreference}")
 
         try {
             val cachePreferenceInt = cachePreference?.toInt() ?: 1 * 60
@@ -141,7 +142,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
             .subscribeWith(object : DisposableSingleObserver<Boolean>(){
                 override fun onSuccess(t: Boolean) {
                     if (t){
-                        println("$TAG TESTAPP LOGOUT and returned value is: $t")
+                        println("$TAG ${CoinApp.TEST_APP} LOGOUT and returned value is: $t")
                     }
                 }
 

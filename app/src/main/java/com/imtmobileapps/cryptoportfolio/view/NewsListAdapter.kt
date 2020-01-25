@@ -13,6 +13,7 @@ import com.imtmobileapps.cryptoportfolio.databinding.ItemListNewsBinding
 import com.imtmobileapps.cryptoportfolio.model.Article
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.model.TotalValues
+import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.getPublishedFormat
 import kotlinx.android.synthetic.main.item_preloader_news.view.*
 
@@ -78,8 +79,8 @@ class NewsListAdapter(
             
             CellType.NEWS_ITEM.ordinal -> {
     
-                /*println("$TAG TESTAPP and in onCreateViewHolder() isLoadingNews is $isLoadingNews")
-                println("$TAG TESTAPP and in onCreateViewHolder() newsError is $newsError")*/
+                /*println("$TAG ${CoinApp.TEST_APP} and in onCreateViewHolder() isLoadingNews is $isLoadingNews")
+                println("$TAG ${CoinApp.TEST_APP} and in onCreateViewHolder() newsError is $newsError")*/
     
                 val newsview = DataBindingUtil.inflate<ItemListNewsBinding>(
                     inflater,
@@ -144,8 +145,8 @@ class NewsListAdapter(
             }
             CellType.PRELOADER_NEWS.ordinal -> {
                 val preloaderViewHolder = holder as PreloaderViewHolder
-                println("$TAG TESTAPP in onBindViewHolder and isLoadingNews is $isLoadingNews")
-                println("$TAG TESTAPP in onBindViewHolder and newsError is $newsError")
+                println("$TAG ${CoinApp.TEST_APP} in onBindViewHolder and isLoadingNews is $isLoadingNews")
+                println("$TAG ${CoinApp.TEST_APP} in onBindViewHolder and newsError is $newsError")
                 
                 if (isLoadingNews){
                     preloaderViewHolder.preloader.visibility = View.VISIBLE
@@ -220,7 +221,7 @@ class NewsListAdapter(
         
         override fun onNewsClicked(v: View) {
             selectedNews = articleList[adapterPosition - 3]
-            println("$TAG TESTAPP selectedArticle is : ${selectedNews?.toString()}")
+            println("$TAG ${CoinApp.TEST_APP} selectedArticle is : ${selectedNews?.toString()}")
             
             val action = CoinDetailFragmentDirections.actionWebFragment()
             action.selectedArticle = selectedNews

@@ -49,7 +49,7 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        println("$TAG TESTAPP IN onViewCreated()")
+        println("$TAG ${CoinApp.TEST_APP} IN onViewCreated()")
         // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
@@ -79,7 +79,7 @@ class CoinDetailFragment : Fragment() {
             
         }
         //val selectedCoin = cryptoLiveData.value?.coin
-        println("TESTAPP $TAG and selectedcoin is: ${selectedCoin.toString()}")
+        println("${CoinApp.TEST_APP} $TAG and selectedcoin is: ${selectedCoin.toString()}")
         
         selectedCoin?.let {
             
@@ -133,7 +133,7 @@ class CoinDetailFragment : Fragment() {
         
         viewModel.newsLoading.observe(this, Observer { newsIsLoading ->
             newsIsLoading?.let {
-                println("$TAG TESTAPP viewModel.newsloading is : $it")
+                println("$TAG ${CoinApp.TEST_APP} viewModel.newsloading is : $it")
                 newsListAdapter.showPreloader(it)
                 
                 
@@ -142,7 +142,7 @@ class CoinDetailFragment : Fragment() {
         
         viewModel.newsLoadError.observe(this, Observer { newsError ->
             newsError?.let {
-                println("$TAG TESTAPP newsLoadError is : $it")
+                println("$TAG ${CoinApp.TEST_APP} newsLoadError is : $it")
                 // Could pass the actual error from here - would need to send a string not a boolean
                 val errorStr = activity?.resources?.getString(R.string.news_error_text)
                 if (it) {

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         
         person = getIntent().getParcelableExtra("user")
         // set default
-        println("$TAG TESTAPP user from parcelable is $person")
+        println("$TAG ${CoinApp.TEST_APP} user from parcelable is $person")
         personFullName = "${person?.firstName} ${person?.lastName}"
         supportActionBar?.setTitle(personFullName)
         
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         
         viewModel.cryptoLiveData.observe(this, Observer { crypto ->
             
-            println("$TAG TESTAPP in observer and crypto is $crypto")
+            println("$TAG ${CoinApp.TEST_APP} in observer and crypto is $crypto")
             selectedCoin = crypto
             val personFullName = "${person?.firstName} ${person?.lastName}"
             
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     override fun onBackPressed() {
-        println("$TAG TESTAPP and onBackPressed() ")
+        println("$TAG ${CoinApp.TEST_APP} and onBackPressed() ")
         
         val fragment =
             this.supportFragmentManager.findFragmentById(R.id.fragment) as? NavHostFragment
@@ -93,11 +93,11 @@ class MainActivity : AppCompatActivity() {
         val currentFragment = fragment?.childFragmentManager?.fragments?.get(0) //as? IOnBackPressed
         
         if (currentFragment is WebFragment) {
-            println("$TAG TESTAPP and currentFragment is WebFragment ")
+            println("$TAG ${CoinApp.TEST_APP} and currentFragment is WebFragment ")
             currentFragment.onBackPressed().takeIf {
                 !it
             }?.let {
-                println("$TAG TESTAPP and should be system backpressed! and IT is: $it")
+                println("$TAG ${CoinApp.TEST_APP} and should be system backpressed! and IT is: $it")
                 super.onBackPressed()
                 
             }
