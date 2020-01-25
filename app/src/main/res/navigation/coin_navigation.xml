@@ -60,9 +60,10 @@
             app:exitAnim="@anim/nav_default_exit_anim" />
 
         <argument
-            android:name="selectedUrl"
-            android:defaultValue="www.imtmobileapps.com"
-            app:argType="string" />
+            android:name="selectedArticle"
+            android:defaultValue="@null"
+            app:argType="com.imtmobileapps.cryptoportfolio.model.Article"
+            app:nullable="true"/>
 
 
     </fragment>

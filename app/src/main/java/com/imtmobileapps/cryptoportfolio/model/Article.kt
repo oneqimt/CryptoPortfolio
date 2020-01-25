@@ -1,5 +1,9 @@
 package com.imtmobileapps.cryptoportfolio.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Article(
     val activityHotness: Double?,
     val hotness: Double?,
@@ -15,5 +19,5 @@ data class Article(
     val url: String?,
     val source: Source?
 
-) {
+):Parcelable {
 }

@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.imtmobileapps.cryptoportfolio.R
+import com.imtmobileapps.cryptoportfolio.model.Article
 import com.imtmobileapps.cryptoportfolio.model.IOnBackPressed
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import kotlinx.android.synthetic.main.fragment_web.*
@@ -19,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_web.*
 
 class WebFragment : Fragment(), IOnBackPressed {
     
-    var selectedUrl: String? = null
+    var selectedArticle : Article? = null
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,25 +34,30 @@ class WebFragment : Fragment(), IOnBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        println("$TAG TEST IN onViewCreated()")
+        
         // if args are not null
         arguments?.let {
-            selectedUrl = WebFragmentArgs.fromBundle(it).selectedUrl
+            selectedArticle = WebFragmentArgs.fromBundle(it).selectedArticle
+            println("$TAG TESTAPP selectedArticle is: $selectedArticle")
         }
+        
+        val mainActivity = activity as AppCompatActivity
+        mainActivity.supportActionBar?.setTitle(selectedArticle?.title)
+        
         
         // Get the web view settings instance
         val settings = webview.settings
         settings.javaScriptEnabled = true
         settings.setSupportZoom(true)
         settings.loadsImagesAutomatically = true
-        //cache - does not seem to work!
+        //cache - ?? not sure about this working
         settings.setAppCacheEnabled(true)
         settings.cacheMode = WebSettings.LOAD_DEFAULT
         settings.setDomStorageEnabled(true)
         settings.setAppCachePath(activity?.cacheDir?.absolutePath)
         
         webview.fitsSystemWindows = true
-        webview.loadUrl(selectedUrl)
+        webview.loadUrl(selectedArticle?.url)
         
         webview.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
@@ -80,7 +87,7 @@ class WebFragment : Fragment(), IOnBackPressed {
     
     override fun onBackPressed(): Boolean {
         
-        println("$TAG TEST ONBACKPRESSED()")
+        println("$TAG TESTAPP ONBACKPRESSED()")
         if (webview.canGoBack()) {
             // If web view have back history, then go to the web view back history
             webview.goBack()

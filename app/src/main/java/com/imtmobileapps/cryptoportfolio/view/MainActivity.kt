@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         
         person = getIntent().getParcelableExtra("user")
         // set default
-        println("$TAG user from parcelable is $person")
+        println("$TAG TESTAPP user from parcelable is $person")
         personFullName = "${person?.firstName} ${person?.lastName}"
         supportActionBar?.setTitle(personFullName)
         
@@ -44,14 +44,17 @@ class MainActivity : AppCompatActivity() {
         
     }
     
-    fun observeViewModel() {
+    // NOTE : could just set this action bar title in the fragments (see WebFragment).
+    // Then we would not have to observe viewmodel here.
+    private fun observeViewModel() {
         
         
         viewModel.cryptoLiveData.observe(this, Observer { crypto ->
             
-            println("$TAG in observer and crypto is $crypto")
+            println("$TAG TESTAPP in observer and crypto is $crypto")
             selectedCoin = crypto
             val personFullName = "${person?.firstName} ${person?.lastName}"
+            
             
             crypto?.let {
                 navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -63,6 +66,9 @@ class MainActivity : AppCompatActivity() {
                             supportActionBar?.setTitle("${crypto.coin.coinName} Details")
                         }
                         R.id.settingsFragment -> {
+                        
+                        }
+                        R.id.webFragment ->{
                         
                         }
                     }
@@ -79,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     override fun onBackPressed() {
-        println("$TAG TEST and onBackPressed() ")
+        println("$TAG TESTAPP and onBackPressed() ")
         
         val fragment =
             this.supportFragmentManager.findFragmentById(R.id.fragment) as? NavHostFragment
@@ -87,11 +93,11 @@ class MainActivity : AppCompatActivity() {
         val currentFragment = fragment?.childFragmentManager?.fragments?.get(0) //as? IOnBackPressed
         
         if (currentFragment is WebFragment) {
-            println("$TAG TEST and currentFragment is WebFragment ")
+            println("$TAG TESTAPP and currentFragment is WebFragment ")
             currentFragment.onBackPressed().takeIf {
                 !it
             }?.let {
-                println("$TAG TEST and should be system backpressed! and IT is: $it")
+                println("$TAG TESTAPP and should be system backpressed! and IT is: $it")
                 super.onBackPressed()
                 
             }

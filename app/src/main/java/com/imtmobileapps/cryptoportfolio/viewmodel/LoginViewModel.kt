@@ -34,7 +34,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         prefHelper.savePersonId(person.personId!!)
                         loginError.value = false
                         user.value = person
-                        println("PERSON is ${person}")
+                        println("$TAG TESTAPP PERSON is ${person}")
                         cacheUser(person)
                         goToMainActivity()
 
@@ -59,11 +59,11 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             if (cachedPerson == null){
                 CoinDatabase(getApplication()).personDao().deletePerson()
                 val result: Long = dao.personDao().insertPerson(person)
-                println("PERSON CACHED result is: ${result.toString()}")
+                println("$TAG TESTAPP PERSON CACHED result is: ${result.toString()}")
                 person.personuuid = result.toInt()
-                println("PERSON in database IS:  $person")
+                println("$TAG TESTAPP PERSON in database IS:  $person")
             }else{
-                println("USER ALREADY EXISTS!!!")
+                println("$TAG TESTAPP USER ALREADY EXISTS!!!")
             }
 
         }
@@ -75,8 +75,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         val intent = Intent(getApplication(), MainActivity::class.java)
         val person : Person? = user.value
         intent.putExtra("user", person)
-
-        //or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(getApplication(), intent, null)
     }
@@ -84,6 +83,10 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+    
+    companion object {
+        private val TAG = LoginViewModel::class.java.simpleName
     }
 
 }

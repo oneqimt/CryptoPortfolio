@@ -31,9 +31,9 @@ class CoinDetailFragment : Fragment() {
     var prefHelper = PreferencesHelper()
     var totalValues: TotalValues? = null
     
-    var coin: Coin = Coin("0", "BITCOIN", "BTC", "", "")
-    var cryptoValue: CryptoValue = CryptoValue("BITCOIN", coin, "111", "45%", "22", "increase", 1.2)
-    var totalv = TotalValues(1, "2", "3", "1", "increase")
+    var coin: Coin = Coin("0", "", "", "", "")
+    var cryptoValue: CryptoValue = CryptoValue("", coin, "0", "0", "0", "", 0.0)
+    var totalv = TotalValues(0, "0", "0", "0", "")
     var newsListAdapter = NewsListAdapter(cryptoValue, totalv, arrayListOf())
     
     override fun onCreateView(
@@ -49,7 +49,7 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        println("$TAG TEST IN onViewCreated()")
+        println("$TAG TESTAPP IN onViewCreated()")
         // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
@@ -79,7 +79,7 @@ class CoinDetailFragment : Fragment() {
             
         }
         //val selectedCoin = cryptoLiveData.value?.coin
-        println("TEST $TAG and selectedcoin is: ${selectedCoin.toString()}")
+        println("TESTAPP $TAG and selectedcoin is: ${selectedCoin.toString()}")
         
         selectedCoin?.let {
             
@@ -133,7 +133,7 @@ class CoinDetailFragment : Fragment() {
         
         viewModel.newsLoading.observe(this, Observer { newsIsLoading ->
             newsIsLoading?.let {
-                println("$TAG TEST viewModel.newsloading is : $it")
+                println("$TAG TESTAPP viewModel.newsloading is : $it")
                 newsListAdapter.showPreloader(it)
                 
                 
@@ -142,7 +142,7 @@ class CoinDetailFragment : Fragment() {
         
         viewModel.newsLoadError.observe(this, Observer { newsError ->
             newsError?.let {
-                println("$TAG TEST newsLoadError is : $it")
+                println("$TAG TESTAPP newsLoadError is : $it")
                 // Could pass the actual error from here - would need to send a string not a boolean
                 val errorStr = activity?.resources?.getString(R.string.news_error_text)
                 if (it) {

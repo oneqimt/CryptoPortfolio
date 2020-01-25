@@ -46,9 +46,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     fun refreshBypassCache(personId: Int) {
         fetchFromRemote(personId)
     }
-
-
-
+    
     fun coinsRetrieved(coinsList: List<CryptoValue>){
         coins.value = coinsList
         cryptosLoadError.value = false
@@ -62,7 +60,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
             val dao = CoinDatabase(getApplication())
             CoinDatabase(getApplication()).coinDao().deleteAllCoins()
             val result: List<Long> = dao.coinDao().insertAll(*list.toTypedArray())
-            println("DATABASE result is: ${result.toString()}")
+            println("$TAG TESTAPP DATABASE result is: ${result.toString()}")
             var i = 0
             while (i < list.size) {
                 list[i].uuid = result[i].toInt()
@@ -71,7 +69,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
             }
 
             val person = CoinDatabase(getApplication()).personDao().getPerson(prefHelper.getCurrentPersonId()!!)
-            println("ListViewModel test DATABASE CACHE and person is $person")
+            println("$TAG TESTAPP ListViewModel DATABASE CACHE and person is $person")
 
             coinsRetrieved(list)
         }
@@ -84,7 +82,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     // Need to add Settings - THROWS a numberformatexception
     private fun checkCacheDuration() {
         val cachePreference = prefHelper.getCacheDuration()
-        println("Cached Duration is : ${cachePreference}")
+        println("$TAG TESTAPP Cached Duration is : ${cachePreference}")
 
         try {
             val cachePreferenceInt = cachePreference?.toInt() ?: 1 * 60
@@ -101,8 +99,6 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
 
             val personCoins = CoinDatabase(getApplication()).coinDao().getPersonCoins()
             coinsRetrieved(personCoins)
-            /*Toast.makeText(getApplication(), "Coins retrieved from database", Toast.LENGTH_SHORT)
-                .show()*/
 
         }
 
@@ -115,12 +111,6 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<CryptoValue>>() {
                     override fun onSuccess(cryptosList: List<CryptoValue>) {
-                        /*Toast.makeText(
-                            getApplication(),
-                            "Coins retrieved from endpoint",
-                            Toast.LENGTH_SHORT
-                        ).show()*/
-
                         // add the coin symbol here
                         for (crypto in cryptosList) {
                             val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
@@ -151,7 +141,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
             .subscribeWith(object : DisposableSingleObserver<Boolean>(){
                 override fun onSuccess(t: Boolean) {
                     if (t){
-                        println("LOGOUT and returned value is: $t")
+                        println("$TAG TESTAPP LOGOUT and returned value is: $t")
                     }
                 }
 
@@ -166,6 +156,10 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+    
+    companion object{
+        private val TAG = CryptoListViewModel::class.java.simpleName
     }
 
 

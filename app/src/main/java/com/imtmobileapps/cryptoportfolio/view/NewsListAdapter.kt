@@ -78,8 +78,8 @@ class NewsListAdapter(
             
             CellType.NEWS_ITEM.ordinal -> {
     
-                /*println("$TAG TEST and in onCreateViewHolder() isLoadingNews is $isLoadingNews")
-                println("$TAG TEST and in onCreateViewHolder() newsError is $newsError")*/
+                /*println("$TAG TESTAPP and in onCreateViewHolder() isLoadingNews is $isLoadingNews")
+                println("$TAG TESTAPP and in onCreateViewHolder() newsError is $newsError")*/
     
                 val newsview = DataBindingUtil.inflate<ItemListNewsBinding>(
                     inflater,
@@ -144,8 +144,8 @@ class NewsListAdapter(
             }
             CellType.PRELOADER_NEWS.ordinal -> {
                 val preloaderViewHolder = holder as PreloaderViewHolder
-                println("$TAG TEST in onBindViewHolder and isLoadingNews is $isLoadingNews")
-                println("$TAG TEST in onBindViewHolder and newsError is $newsError")
+                println("$TAG TESTAPP in onBindViewHolder and isLoadingNews is $isLoadingNews")
+                println("$TAG TESTAPP in onBindViewHolder and newsError is $newsError")
                 
                 if (isLoadingNews){
                     preloaderViewHolder.preloader.visibility = View.VISIBLE
@@ -220,12 +220,10 @@ class NewsListAdapter(
         
         override fun onNewsClicked(v: View) {
             selectedNews = articleList[adapterPosition - 3]
-            println("URL of article is : ${selectedNews?.url}")
-            
-            val url = selectedNews?.url ?: ""
+            println("$TAG TESTAPP selectedArticle is : ${selectedNews?.toString()}")
             
             val action = CoinDetailFragmentDirections.actionWebFragment()
-            action.selectedUrl = url
+            action.selectedArticle = selectedNews
             Navigation.findNavController(v).navigate(action)
             
         }

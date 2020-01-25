@@ -50,7 +50,7 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
     
     private fun checkCacheDuration() {
         val cachePreference = prefHelper.getCacheDuration()
-        println("$TAG TEST Cached Duration is : ${cachePreference}")
+        println("$TAG TESTAPP Cached Duration is : ${cachePreference}")
         
         try {
             val cachePreferenceInt = cachePreference?.toInt() ?: 1 * 60
@@ -68,7 +68,7 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
             val dao = CoinDatabase(getApplication())
             CoinDatabase(getApplication()).totalValuesDao().deleteAllTotalValues()
             val result: Long = dao.totalValuesDao().insertTotalValues(totalValues)
-            println("TOTALS result is: ${result.toString()}")
+            println("$TAG TESTAPP TOTALS result is: ${result.toString()}")
             totalValues.uuid = result.toInt()
             
             totalsRetrieved(totalValues)
@@ -89,10 +89,9 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
                 CoinDatabase(getApplication()).totalValuesDao().getTotalValues(personId)
             if (totalValuesFromDatabase != null) {
                 totalsRetrieved(totalValuesFromDatabase)
-                /* Toast.makeText(getApplication(), "Totals retrieved from database", Toast.LENGTH_SHORT)
-                     .show()*/
+                println("$TAG TESTAPP Totals retrieved from database")
             } else {
-                println("totalValuesFromDatabase == NULL!!!")
+                println("$TAG TESTAPP totalValuesFromDatabase == NULL so get from remote")
                 fetchTotalsFromRemote(personId)
             }
         }
@@ -113,12 +112,8 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<TotalValues>() {
                     override fun onSuccess(totalValues: TotalValues) {
-                        
-                        println("fetchTotalsFromRemote TOTAL VALUES are: ${totalValues.toString()}")
-                        /*Toast.makeText(getApplication(), "Totals retrieved from REMOTE", Toast.LENGTH_SHORT)
-                            .show()*/
+                        println("$TAG TESTAPP fetchTotalsFromRemote TOTAL VALUES are: ${totalValues.toString()}")
                         storeTotalsLocally(totalValues)
-                        
                     }
                     
                     override fun onError(e: Throwable) {
@@ -141,7 +136,7 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<Article>>() {
                     override fun onSuccess(t: List<Article>) {
-                        println("$TAG TEST in getCoinNews SUCCESS ${t.size}")
+                        println("$TAG TESTAPP in getCoinNews SUCCESS ${t.size}")
                         if (t.isNotEmpty()) {
                             newsLoading.value = false
                             newsLoadError.value = false
@@ -149,15 +144,12 @@ class CoinDetailViewModel(application: Application) : BaseViewModel(application)
                         } else {
                             newsLoadError.value = true
                             articles.value = null
-                            //newsLoading.value = true
                         }
                         
                     }
                     
                     override fun onError(e: Throwable) {
-                        println("$TAG TEST in getCoinNews Error : ${e.localizedMessage}")
-                        //articles.value = arrayListOf()
-                        //newsLoading.value = true
+                        println("$TAG TESTAPP in getCoinNews Error : ${e.localizedMessage}")
                         newsLoadError.value = true
                         articles.value = null
                         
