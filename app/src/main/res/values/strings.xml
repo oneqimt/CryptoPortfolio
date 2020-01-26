@@ -31,5 +31,9 @@
     <string name="no_news">No News</string>
     <string name="news_error_text">There was an error loading the news. Please try again later.</string>
 
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_work">Work</string>
+
+
 
 </resources>

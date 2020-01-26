@@ -19,6 +19,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://www.imtmobileapps.com/cryptocompare/"'
         buildConfigField "String", "COIN_IMAGE_URL", '"https://cryptoicons.org/api/"'
+        multiDexEnabled true
+
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas".toString())
@@ -102,7 +104,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntime"
 
     //MATERIAL DESIGN
-    implementation "com.google.android.material:material:1.0.0"
+    //implementation "com.google.android.material:material:1.0.0"
+    implementation "com.google.android.material:material:1.2.0-alpha03"
+    //implementation "com.android.support:design:28.0.0"
+
+    //MULTIDEX
+    //implementation "androidx.multidex:multidex:$multidex_version"
+    implementation "com.android.support:multidex:1.0.3"
 
     // PREFERENCES
     implementation "androidx.preference:preference:$preferencesVersion"

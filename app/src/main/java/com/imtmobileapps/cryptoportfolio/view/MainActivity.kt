@@ -1,6 +1,8 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +17,7 @@ import com.imtmobileapps.cryptoportfolio.model.IOnBackPressed
 import com.imtmobileapps.cryptoportfolio.model.Person
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.viewmodel.CoinDetailViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     
@@ -38,6 +41,35 @@ class MainActivity : AppCompatActivity() {
         println("$TAG ${CoinApp.TEST_APP} user from parcelable is $person")
         personFullName = "${person?.firstName} ${person?.lastName}"
         supportActionBar?.setTitle(personFullName)
+        
+        /*bottomNavigationView.setOnNavigationItemSelectedListener {
+            return@setOnNavigationItemSelectedListener when(it.itemId){
+                R.id.bottom_menu_home ->{
+                    var t = Toast.makeText(this, "Home", Toast.LENGTH_SHORT)
+                    t.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+                    t.show()
+                    true
+    
+                }
+                
+                R.id.bottom_menu_manage ->{
+                    var t = Toast.makeText(this, "Manage", Toast.LENGTH_SHORT)
+                    t.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+                    t.show()
+                    true
+                }
+                
+                R.id.bottom_menu_news ->{
+                    var t = Toast.makeText(this, "News", Toast.LENGTH_SHORT)
+                    t.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+                    t.show()
+                    true
+                }
+                
+                else -> false
+                
+            }
+        }*/
         
         observeViewModel()
         

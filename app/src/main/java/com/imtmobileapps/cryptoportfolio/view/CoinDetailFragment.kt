@@ -40,7 +40,6 @@ class CoinDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
         return dataBinding.root
@@ -139,11 +138,12 @@ class CoinDetailFragment : Fragment() {
                 
             }
         })
-        
+    
+        // Could pass the actual error from here - would need to send a string not a boolean
         viewModel.newsLoadError.observe(this, Observer { newsError ->
             newsError?.let {
                 println("$TAG ${CoinApp.TEST_APP} newsLoadError is : $it")
-                // Could pass the actual error from here - would need to send a string not a boolean
+                
                 val errorStr = activity?.resources?.getString(R.string.news_error_text)
                 if (it) {
                     newsListAdapter.updateNewsList(createEmptyList())
