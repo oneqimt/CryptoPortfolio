@@ -65,6 +65,8 @@ class CoinDetailFragment : Fragment() {
         recyclerDetails.apply {
             layoutManager = LinearLayoutManager(context)
             // getRecycledViewPool().clear();
+            //invalidate()
+            println("$TAG ${CoinApp.TEST_APP} in apply")
             adapter = newsListAdapter
             newsListAdapter.setRecyclerView(this)
             // pass this to the adapter

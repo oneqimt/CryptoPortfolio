@@ -11,7 +11,7 @@ interface CoinDao {
     // returns the primary keys
     // suspend - on a background thread
     @Insert
-    suspend fun insertAll(vararg dogs: CryptoValue):List<Long>
+    suspend fun insertAll(vararg coins: CryptoValue):List<Long>
 
 
     @Query(value = "SELECT * FROM cryptovalue")

@@ -24,6 +24,10 @@ interface CryptoApi {
 
     @GET("coinnews")
     fun getCoinNews(@Query("coin_name") coin_name: String): Single<List<Article>>
+    
+    //https://stackoverflow.com/questions/45675527/retrofit-with-kotlin-unable-to-create-body
+    @POST("signup")
+    fun signUp(@Body signUp: SignUp): Single<SignUp>
 
 
 }

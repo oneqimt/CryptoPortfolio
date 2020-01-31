@@ -120,6 +120,8 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
 
                             crypto.coin.smallCoinImageUrl = smallurl
                             crypto.coin.largeCoinImageUrl = largeurl
+                            
+                            //println("$TAG ${CoinApp.TEST_APP} getPersonCoins and crypto is $crypto")
 
                         }
                         storeCoinsLocally(cryptosList)

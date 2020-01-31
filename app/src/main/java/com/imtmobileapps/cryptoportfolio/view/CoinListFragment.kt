@@ -34,9 +34,12 @@ class CoinListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         viewModel = ViewModelProviders.of(this).get(CryptoListViewModel::class.java)
+        // TODO make sure NEW user has something in database when implement SIGN UP
+        // if(newUser) refreshBypassCache
         viewModel.refresh(prefHelper.getCurrentPersonId()!!)
+        //viewModel.refreshBypassCache(prefHelper.getCurrentPersonId()!!)
         
-        println("$TAG PERSON ID is ${prefHelper.getCurrentPersonId()}")
+        println("$TAG ${CoinApp.TEST_APP} PERSON ID is ${prefHelper.getCurrentPersonId()}")
         
         CoinApp.fromWeb = false
         
