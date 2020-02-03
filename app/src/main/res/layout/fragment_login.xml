@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbarSize="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -16,7 +18,7 @@
             android:id="@+id/usernameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:hint="@string/prompt_username"
             android:theme="@style/TextInputLayoutAppearance"
             app:boxBackgroundColor="@color/color_selector"
@@ -60,12 +62,10 @@
             android:id="@+id/forgot_password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="8dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Forgot your password?"
-            app:layout_constraintBottom_toBottomOf="@+id/passwordLayout"
+            android:text="@string/forgot_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
@@ -88,17 +88,14 @@
         <TextView
             android:id="@+id/do_not_have_account"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Don't have an account?"
-            app:layout_constraintBottom_toBottomOf="@+id/passwordLayout"
+            android:text="@string/dont_have_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
         <Button
             android:id="@+id/createAccountBtn"
@@ -107,7 +104,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Create Account"
+            android:text="@string/create_account"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
