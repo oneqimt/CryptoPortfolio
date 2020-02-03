@@ -38,6 +38,9 @@ class SignUpFragment : Fragment() {
                 when (event?.action) {
                     MotionEvent.ACTION_DOWN ->
                         Navigation.findNavController(v!!).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment())
+                    
+                    MotionEvent.ACTION_UP ->
+                        v?.performClick()
                 }
                 
                 return v?.onTouchEvent(event) ?: true
