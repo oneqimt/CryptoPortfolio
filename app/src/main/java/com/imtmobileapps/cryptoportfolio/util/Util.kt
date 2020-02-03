@@ -8,8 +8,7 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.imtmobileapps.cryptoportfolio.R
-import com.imtmobileapps.cryptoportfolio.model.Article
-import com.imtmobileapps.cryptoportfolio.model.Source
+import com.imtmobileapps.cryptoportfolio.model.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -90,6 +89,38 @@ fun createEmptyList() : List<Article>{
     val mylist = arrayListOf(article)
     
     return mylist
+}
+
+fun createSignUp() : SignUp{
+    val state = State(3, "Arizona", "USA", "AZ")
+    val person = Person(
+        personId = 0,
+        firstName = "Danny",
+        lastName = "Ducher",
+        email = "danny@gmail.com",
+        phone = "2220987659",
+        address = "440 Nice Park Rd",
+        city = "Hermosa beach",
+        zip = "86325",
+        state = state
+    
+    )
+    
+    val auth = Auth(
+        auth_id = 0,
+        username = "time2",
+        password = "time55",
+        person_id = 0,
+        role = "ROLE_USER",
+        enabled = 1
+    )
+    
+    val signUp = SignUp(
+        person = person,
+        auth = auth
+    )
+    
+    return signUp
 }
 
 @BindingAdapter("android:imageUrl")

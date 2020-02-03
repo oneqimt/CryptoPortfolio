@@ -4,6 +4,7 @@ package com.imtmobileapps.cryptoportfolio.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -65,8 +66,16 @@ class CoinListFragment : Fragment() {
     fun observeModel() {
         viewModel.coins.observe(this, Observer { coins ->
             coins?.let {
-                coinsListView.visibility = View.VISIBLE
-                coinListAdapter.updateCoinList(coins)
+                
+                if (coins.isEmpty()){
+                    loadingView.visibility = View.GONE
+                    coinsListView.visibility = View.GONE
+                    Toast.makeText(activity, "You will need to add Holdings", Toast.LENGTH_LONG).show()
+                }else{
+                    coinsListView.visibility = View.VISIBLE
+                    coinListAdapter.updateCoinList(coins)
+                }
+                
             }
             
         })

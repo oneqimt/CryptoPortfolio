@@ -45,5 +45,9 @@ class CryptoApiService {
         return api.getCoinNews(coinName)
 
     }
+    
+    fun signUpUser(signUp: SignUp): Single<SignUp>{
+        return api.signUp(signUp)
+    }
 
 }

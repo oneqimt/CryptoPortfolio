@@ -12,15 +12,15 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @Parcelize
 data class Person(
-    @SerializedName("person_id")
+    @SerializedName("personId")
     @ColumnInfo(name = "person_id")
     val personId: Int?,
 
-    @SerializedName("first_name")
+    @SerializedName("firstName")
     @ColumnInfo(name = "first_name")
     val firstName: String?,
 
-    @SerializedName("last_name")
+    @SerializedName("lastName")
     @ColumnInfo(name = "last_name")
     val lastName: String?,
     

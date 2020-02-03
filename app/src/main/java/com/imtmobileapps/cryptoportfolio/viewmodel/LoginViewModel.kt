@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.Person
+import com.imtmobileapps.cryptoportfolio.model.SignUp
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.view.MainActivity
@@ -23,6 +24,8 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     private val disposable = CompositeDisposable()
     var user = MutableLiveData<Person>()
     val loginError = MutableLiveData<Boolean>()
+    
+    var signUpPerson = MutableLiveData<SignUp>()
 
     fun loginUser(username: String, password: String) {
 
@@ -50,6 +53,25 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                 })
         )
 
+    }
+    
+    fun signUpUser(signUp: SignUp){
+        disposable.add(
+            cryptoService.signUpUser(signUp).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object: DisposableSingleObserver<SignUp>(){
+                    override fun onSuccess(t: SignUp) {
+                        println("$TAG ${CoinApp.TEST_APP} SIGN SUCCESS and signup is: $signUp")
+                        signUpPerson.value = t
+                    }
+    
+                    override fun onError(e: Throwable) {
+                        e.printStackTrace()
+                        println(e.localizedMessage)
+                    }
+                }
+                )
+        )
     }
 
     @Suppress("SENSELESS_COMPARISON")

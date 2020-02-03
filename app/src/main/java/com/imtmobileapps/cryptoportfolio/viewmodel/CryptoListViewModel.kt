@@ -112,19 +112,25 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<CryptoValue>>() {
                     override fun onSuccess(cryptosList: List<CryptoValue>) {
-                        // add the coin symbol here
-                        for (crypto in cryptosList) {
-                            val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
-                            val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
-                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"
-
-                            crypto.coin.smallCoinImageUrl = smallurl
-                            crypto.coin.largeCoinImageUrl = largeurl
-                            
-                            //println("$TAG ${CoinApp.TEST_APP} getPersonCoins and crypto is $crypto")
-
+                        // if the user does not have any coins yet
+                        if (cryptosList.isEmpty()){
+                            println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is EMPTY $cryptosList")
+                            coinsRetrieved(cryptosList)
+                        }else{
+                            // add the coin symbol here
+                            for (crypto in cryptosList) {
+                                val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
+                                val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
+                                val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"
+        
+                                crypto.coin.smallCoinImageUrl = smallurl
+                                crypto.coin.largeCoinImageUrl = largeurl
+                                println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
+                                
+        
+                            }
+                            storeCoinsLocally(cryptosList)
                         }
-                        storeCoinsLocally(cryptosList)
 
                     }
 
