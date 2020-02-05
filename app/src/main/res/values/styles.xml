@@ -3,24 +3,32 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
+        <!--<item name="colorPrimary">?android:attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?android:attr/textColorPrimary</item>
+        <item name="colorAccent">?android:attr/colorAccent</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+
     </style>
 
     <style name="ErrorText" parent="TextAppearance.Design.Error">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
 
     <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
         <!-- reference our hint & error styles -->
         <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/holo_blue_light</item>
         <item name="colorControlNormal">@color/light_grey</item>
-        <item name="colorControlActivated">@color/color_blue</item>
-        <item name="colorControlHighlight">@color/color_blue</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
 

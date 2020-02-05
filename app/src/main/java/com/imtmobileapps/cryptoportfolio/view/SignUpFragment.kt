@@ -1,6 +1,7 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 
+import android.app.Application
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,11 +13,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.gson.Gson
 import com.imtmobileapps.cryptoportfolio.R
+import com.imtmobileapps.cryptoportfolio.model.Auth
 import com.imtmobileapps.cryptoportfolio.model.SignUp
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
+import com.imtmobileapps.cryptoportfolio.util.addRequiredToHint
+import com.imtmobileapps.cryptoportfolio.util.createEmptySignUp
 import com.imtmobileapps.cryptoportfolio.util.createSignUp
 import com.imtmobileapps.cryptoportfolio.viewmodel.SignUpViewModel
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 
@@ -32,7 +38,6 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
     
@@ -45,6 +50,11 @@ class SignUpFragment : Fragment() {
         signupUsernameText.setText("")
         signupPasswordText.setText("")
         signupEmailText.requestFocus()
+        
+        val parentActivity : LoginActivity = activity as LoginActivity
+        signupEmailLayout.hint = addRequiredToHint(parentActivity, signupEmailLayout.hint.toString())
+        signupUsernameLayout.hint = addRequiredToHint(parentActivity, signupUsernameLayout.hint.toString())
+        signupPasswordLayout.hint = addRequiredToHint(parentActivity, signupPasswordLayout.hint.toString())
         
         signupEmailText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -122,16 +132,28 @@ class SignUpFragment : Fragment() {
         observeModel()
     }
     
-    fun doSignUp() {
-        val signUp: SignUp = createSignUp()
+    private fun doSignUp(email: String, username: String, password: String) {
+        val signUp: SignUp = createEmptySignUp()
+        
+        val person = signUp.person
+        val auth = signUp.auth
+        
+        person.email = email
+        auth.username = username
+        auth.password = password
+        
+        val gson = Gson()
+        val test = gson.toJson(signUp)
+        println("$TAG ${CoinApp.TEST_APP} SIGN UP is: $test")
+        
         signUpViewModel.signUpUser(signUp)
     }
     
-    fun validateSignUp() {
+    private fun validateSignUp() {
         
-        val emailValid : Boolean
-        val usernameValid : Boolean
-        val passwordValid : Boolean
+        val emailValid: Boolean
+        val usernameValid: Boolean
+        val passwordValid: Boolean
         
         emailString = signupEmailText.text.toString()
         usernameString = signupUsernameText.text.toString()
@@ -165,24 +187,17 @@ class SignUpFragment : Fragment() {
             signupPasswordLayout.error = activity?.getString(R.string.enter_password)
         }
         
-        val boolsheet = booleanArrayOf(emailValid, usernameValid, passwordValid)
         var oktosend = false
         
-        for (bool in boolsheet) {
-            when (bool) {
-                true -> {
-                    oktosend = true
-                }
-                false -> {
-                    oktosend = false
-                }
-            }
+        if (emailValid and usernameValid and passwordValid){
+            oktosend = true
         }
         
         if (oktosend) {
             println("$TAG ${CoinApp.TEST_APP} TIme to call the server to signup")
+            
+            doSignUp(emailString, usernameString, passwordString)
         }
-        
         
     }
     

@@ -16,9 +16,11 @@ import androidx.navigation.Navigation.findNavController
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.model.SignUp
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
+import com.imtmobileapps.cryptoportfolio.util.addRequiredToHint
 import com.imtmobileapps.cryptoportfolio.util.createSignUp
 import com.imtmobileapps.cryptoportfolio.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class LoginFragment : Fragment() {
     
@@ -44,6 +46,10 @@ class LoginFragment : Fragment() {
         usernameTxt.setText("")
         passwordTxt.setText("")
         usernameTxt.requestFocus()
+    
+        val parentActivity : LoginActivity = activity as LoginActivity
+        usernameLayout.hint = addRequiredToHint(parentActivity, usernameLayout.hint.toString())
+        passwordLayout.hint = addRequiredToHint(parentActivity, passwordLayout.hint.toString())
         
         loginBtn.setOnClickListener {
             
@@ -91,19 +97,18 @@ class LoginFragment : Fragment() {
             findNavController(it).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
         }
         
-        forgot_password_text.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_DOWN ->
-                        findNavController(v!!).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
-                    
-                    MotionEvent.ACTION_UP ->
-                        v?.performClick()
-                }
+        forgot_password_text.setOnTouchListener  { v: View, m: MotionEvent ->
+            
+            when(m.action){
+                MotionEvent.ACTION_DOWN ->
+                    // ADD ForgotPasswordFragment call for email
+                    findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
                 
-                return v?.onTouchEvent(event) ?: true
             }
-        })
+            true
+            
+            
+        }
         
         observeModel()
     }

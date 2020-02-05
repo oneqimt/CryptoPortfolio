@@ -2,6 +2,7 @@ package com.imtmobileapps.cryptoportfolio.util
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.annotation.GlideModule
@@ -9,6 +10,7 @@ import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.model.*
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -66,6 +68,13 @@ fun getPublishedFormat(datestr: String?): String? {
     return datestr?.getDateWithServerTimeStamp().toString()
 }
 
+fun addRequiredToHint(activity: AppCompatActivity, hint: String):String{
+   
+    val asterisk = activity.getString(R.string.asteriskred)
+    
+    return "$hint $asterisk"
+}
+
 fun createEmptyList() : List<Article>{
     val source = Source("1", "Not available", "")
     
@@ -111,8 +120,8 @@ fun createSignUp() : SignUp{
         username = "time2",
         password = "time55",
         person_id = 0,
-        role = "ROLE_USER",
-        enabled = 1
+        role = CoinApp.ROLE_USER,
+        enabled = CoinApp.ENABLED
     )
     
     val signUp = SignUp(
@@ -122,6 +131,40 @@ fun createSignUp() : SignUp{
     
     return signUp
 }
+
+fun createEmptySignUp() : SignUp{
+    // DEFAULT state set id to  = 3
+    var state = State(3, "", "", "")
+    var person = Person(
+        personId = 0,
+        firstName = "",
+        lastName = "",
+        email = "",
+        phone = "",
+        address = "",
+        city = "",
+        zip = "",
+        state = state
+    
+    )
+    
+    var auth = Auth(
+        auth_id = 0,
+        username = "",
+        password = "",
+        person_id = 0,
+        role = CoinApp.ROLE_USER,
+        enabled = CoinApp.ENABLED
+    )
+    
+    var signUp = SignUp(
+        person = person,
+        auth = auth
+    )
+    
+    return signUp
+}
+
 
 @BindingAdapter("android:imageUrl")
 fun loadImage(view: ImageView, url: String?) {

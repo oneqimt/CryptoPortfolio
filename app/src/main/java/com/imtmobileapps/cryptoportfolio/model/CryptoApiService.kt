@@ -26,7 +26,7 @@ class CryptoApiService {
 
     }
 
-    fun login(uname: String, pass : String) : Single<Person>{
+    fun login(uname: String, pass : String) : Single<SignUp>{
 
         return api.login(uname, pass)
 

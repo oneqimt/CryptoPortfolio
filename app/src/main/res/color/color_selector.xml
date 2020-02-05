@@ -4,4 +4,5 @@
         android:state_focused="true" />
     <item android:color="@android:color/white"
         android:state_focused="false" />
+
 </selector>

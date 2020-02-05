@@ -14,7 +14,7 @@ interface CryptoApi {
     fun login(
         @Field("uname") uname: String?,
         @Field("pass") pass: String?
-    ): Single<Person>
+    ): Single<SignUp>
 
     @POST("logout")
     fun logout() : Single<Boolean>

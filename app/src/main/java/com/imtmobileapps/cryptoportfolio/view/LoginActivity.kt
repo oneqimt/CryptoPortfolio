@@ -13,24 +13,23 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: LoginViewModel
     private lateinit var navControllerLogin: NavController
     
-    var usernameText = ""
-    var passwordText = ""
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-    
+        
         navControllerLogin = Navigation.findNavController(this, R.id.host_fragment_login_signup)
         
         navControllerLogin.addOnDestinationChangedListener { _, destination, arguments ->
-            when(destination.id){
-                R.id.loginFragment ->{
+            when (destination.id) {
+                R.id.loginFragment -> {
                     supportActionBar?.setTitle(R.string.action_sign_in)
                 }
                 R.id.signUpFragment -> {
                     supportActionBar?.setTitle(R.string.register)
                 }
-                
+                R.id.forgotPasswordFragment ->{
+                    supportActionBar?.setTitle(R.string.forgot_password)
+                }
             }
         }
         

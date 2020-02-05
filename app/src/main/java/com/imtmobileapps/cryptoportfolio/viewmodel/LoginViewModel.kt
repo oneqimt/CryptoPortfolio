@@ -4,10 +4,7 @@ import android.app.Application
 import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
-import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
-import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
-import com.imtmobileapps.cryptoportfolio.model.Person
-import com.imtmobileapps.cryptoportfolio.model.SignUp
+import com.imtmobileapps.cryptoportfolio.model.*
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.view.MainActivity
@@ -24,6 +21,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     private val disposable = CompositeDisposable()
     var user = MutableLiveData<Person>()
     val loginError = MutableLiveData<Boolean>()
+    var auth : Auth? = null
     
     
     fun loginUser(username: String, password: String) {
@@ -31,14 +29,15 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         disposable.add(
             cryptoService.login(username, password).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Person>() {
-                    override fun onSuccess(person: Person) {
+                .subscribeWith(object : DisposableSingleObserver<SignUp>() {
+                    override fun onSuccess(signUp: SignUp) {
 
-                        prefHelper.savePersonId(person.personId!!)
+                        prefHelper.savePersonId(signUp.person.personId!!)
+                        auth = signUp.auth
                         loginError.value = false
-                        user.value = person
-                        println("$TAG ${CoinApp.TEST_APP} PERSON is ${person}")
-                        cacheUser(person)
+                        user.value = signUp.person
+                        println("$TAG ${CoinApp.TEST_APP} PERSON is ${signUp.person}")
+                        cacheUser(signUp.person)
                         goToMainActivity()
 
                     }
@@ -79,7 +78,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         val intent = Intent(getApplication(), MainActivity::class.java)
         val person : Person? = user.value
         intent.putExtra("user", person)
-        
+        if (auth != null){
+            intent.putExtra("auth", auth)
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(getApplication(), intent, null)
     }

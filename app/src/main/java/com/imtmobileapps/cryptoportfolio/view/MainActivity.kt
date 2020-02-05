@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.get
 import androidx.navigation.ui.NavigationUI
 import com.imtmobileapps.cryptoportfolio.R
+import com.imtmobileapps.cryptoportfolio.model.Auth
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.model.IOnBackPressed
 import com.imtmobileapps.cryptoportfolio.model.Person
@@ -25,7 +26,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: CoinDetailViewModel
     var selectedCoin: CryptoValue? = null
     private var person: Person? = null
+    private var auth : Auth? = null
     private var personFullName = ""
+    private var usernameAuth = ""
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +39,24 @@ class MainActivity : AppCompatActivity() {
         
         viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         
-        person = getIntent().getParcelableExtra("user")
+        person = intent.getParcelableExtra("user")
+        auth = intent.getParcelableExtra("auth")
+        
         // set default
         println("$TAG ${CoinApp.TEST_APP} user from parcelable is $person")
-        personFullName = "${person?.firstName} ${person?.lastName}"
-        supportActionBar?.setTitle(personFullName)
+        println("$TAG ${CoinApp.TEST_APP} auth from parcelable is $auth")
+        
+        if (!person?.firstName.isNullOrEmpty() and !person?.lastName.isNullOrEmpty()){
+            personFullName = "${person?.firstName} ${person?.lastName}"
+            supportActionBar?.setTitle(personFullName)
+        }else{
+            // use username instead
+            if (!auth?.username.isNullOrEmpty()){
+                usernameAuth = "${auth?.username}"
+                supportActionBar?.setTitle(usernameAuth)
+            }
+        }
+        
         
         /*bottomNavigationView.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when(it.itemId){
