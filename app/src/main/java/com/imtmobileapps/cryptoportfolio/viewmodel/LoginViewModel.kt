@@ -45,7 +45,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                     override fun onError(e: Throwable) {
                         e.printStackTrace()
                         loginError.value = true
-                        println(e.localizedMessage)
+                        println("${TAG} ${CoinApp.TEST_APP} ERROR login is: ${e.localizedMessage}")
 
                     }
                 })

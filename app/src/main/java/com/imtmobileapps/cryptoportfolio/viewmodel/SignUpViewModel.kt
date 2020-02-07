@@ -29,6 +29,7 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeWith(object : DisposableSingleObserver<SignUp>() {
                     override fun onSuccess(t: SignUp) {
                         println("${TAG} ${CoinApp.TEST_APP} SIGN SUCCESS and signup is: $signUp")
+                        
                         signUpPerson.value = t
                         signUpError.value = false
                         prefHelper.savePersonId(t.person.personId!!)

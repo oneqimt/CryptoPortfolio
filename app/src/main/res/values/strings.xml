@@ -46,6 +46,7 @@
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="send">Send</string>
+    <string name="reset_password_text">You will receive an email with a temporary password.</string>
 
     <string name="asteriskred"><font color='#cc0029'>*</font></string>
 

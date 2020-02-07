@@ -49,5 +49,9 @@ class CryptoApiService {
     fun signUpUser(signUp: SignUp): Single<SignUp>{
         return api.signUp(signUp)
     }
+    
+    fun resetPassword(email: String): Single<ReturnDTO>{
+        return api.resetPassword(email)
+    }
 
 }

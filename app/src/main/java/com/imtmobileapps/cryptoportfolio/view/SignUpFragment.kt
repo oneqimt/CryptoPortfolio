@@ -2,17 +2,17 @@ package com.imtmobileapps.cryptoportfolio.view
 
 
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.model.Auth
@@ -62,6 +62,10 @@ class SignUpFragment : Fragment() {
                     signupEmailLayout.error = activity?.getString(R.string.enter_email)
                 } else {
                     signupEmailLayout.error = null
+                    if (Build.VERSION.SDK_INT >= 23){
+                        //signupEmailLayout.boxBackgroundColor = resources.getColor(R.color.light_grey, null)
+                        signupEmailLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_FILLED
+                    }
                 }
             }
             
@@ -207,6 +211,18 @@ class SignUpFragment : Fragment() {
         signUpViewModel.signUpPerson.observe(this, Observer { signup ->
             signup?.let {
                 println("$TAG ${CoinApp.TEST_APP} in Observe and sign up is : $it")
+            }
+        })
+        
+        signUpViewModel.signUpError.observe(this, Observer{error ->
+            error?.let {
+                println("$TAG ${CoinApp.TEST_APP} in signUpError.observe and ERROR is  : $it")
+                if(it){
+                    val t : Toast = Toast.makeText(activity, "That email already exists in our database.", Toast.LENGTH_LONG)
+                    t.setGravity(Gravity.TOP, 0, 300)
+                    t.show()
+                    
+                }
             }
         })
         

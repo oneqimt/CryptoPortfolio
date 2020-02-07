@@ -15,6 +15,12 @@ interface CryptoApi {
         @Field("uname") uname: String?,
         @Field("pass") pass: String?
     ): Single<SignUp>
+    
+    @FormUrlEncoded
+    @POST("resetpassword")
+    fun resetPassword(
+        @Field("email") email: String?
+    ): Single<ReturnDTO>
 
     @POST("logout")
     fun logout() : Single<Boolean>
