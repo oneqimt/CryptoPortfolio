@@ -4,7 +4,6 @@ package com.imtmobileapps.cryptoportfolio.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,12 +11,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
-import com.imtmobileapps.cryptoportfolio.model.Holdings
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.viewmodel.CryptoListViewModel
 import kotlinx.android.synthetic.main.fragment_coin_list.*
-import kotlinx.android.synthetic.main.fragment_coin_list.view.*
 
 class CoinListFragment : Fragment() {
     
@@ -37,15 +34,14 @@ class CoinListFragment : Fragment() {
     ): View? {
         
         val view = inflater.inflate(R.layout.fragment_coin_list, container, false)
-    
-        // Set up the tool bar
-        (activity as AppCompatActivity).setSupportActionBar(view.app_bar)
         
         return view
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         
         viewModel = ViewModelProviders.of(this).get(CryptoListViewModel::class.java)
         // TODO make sure NEW user has something in database when implement SIGN UP
@@ -80,12 +76,12 @@ class CoinListFragment : Fragment() {
         viewModel.coins.observe(this, Observer { coins ->
             coins?.let {
                 
-                if (coins.isEmpty()){
+                if (coins.isEmpty()) {
                     loadingView.visibility = View.GONE
                     coinsListView.visibility = View.GONE
                     noHoldingsYet.visibility = View.VISIBLE
                     //Toast.makeText(activity, "You will need to add Holdings", Toast.LENGTH_LONG).show()
-                }else{
+                } else {
                     coinsListView.visibility = View.VISIBLE
                     noHoldingsYet.visibility = View.GONE
                     coinListAdapter.updateCoinList(coins)
@@ -133,16 +129,18 @@ class CoinListFragment : Fragment() {
                 startActivity(intent)
                 
             }
-            R.id.addicon ->{
+            R.id.addicon -> {
                 /*var holdings = Holdings(0, 18, 110.0, 0.12, 3)
                 viewModel.addHolding(holdings)*/
-                
-                //LAUNCH bottom sheet or fragment
-                
                 println("$TAG ${CoinApp.TEST_APP} in ADD ICON CLICKED")
+                
+                view?.let {
+                    Navigation.findNavController(it)
+                        .navigate(CoinListFragmentDirections.actionCoinListFragmentToAddHoldingFragment())
+                }
+                
             }
         }
-        
         
         return super.onOptionsItemSelected(item)
     }

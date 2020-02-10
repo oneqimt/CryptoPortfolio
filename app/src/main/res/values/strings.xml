@@ -48,11 +48,8 @@
     <string name="send">Send</string>
     <string name="reset_password_text">You will receive an email with a temporary password.</string>
     <string name="error_while_loading_data">An error occurred while loading data</string>
-
     <string name="no_holdings_yet">It does not look like you have any holdings yet. Please click the + button to add.</string>
-
     <string name="asteriskred"><font color='#cc0029'>*</font></string>
-
-
+    <string name="add_holding">Add Holding</string>
 
 </resources>

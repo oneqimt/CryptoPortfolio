@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,7 +15,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
-import com.imtmobileapps.cryptoportfolio.model.*
+import com.imtmobileapps.cryptoportfolio.model.Coin
+import com.imtmobileapps.cryptoportfolio.model.CryptoValue
+import com.imtmobileapps.cryptoportfolio.model.TotalValues
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import com.imtmobileapps.cryptoportfolio.util.createEmptyList
@@ -48,11 +51,15 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        
         println("$TAG ${CoinApp.TEST_APP} IN onViewCreated()")
         // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
         }
+        
+        (activity as AppCompatActivity).supportActionBar?.setTitle("${selectedCoin?.coin?.coinName} Details")
         
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
@@ -79,7 +86,7 @@ class CoinDetailFragment : Fragment() {
             recyclerDetails.animation = animation.animation
             
         }
-        //val selectedCoin = cryptoLiveData.value?.coin
+        
         println("${CoinApp.TEST_APP} $TAG and selectedcoin is: ${selectedCoin.toString()}")
         
         selectedCoin?.let {
@@ -95,7 +102,6 @@ class CoinDetailFragment : Fragment() {
         observeViewModel()
         
     }
-    
     
     fun observeViewModel() {
         
@@ -140,7 +146,7 @@ class CoinDetailFragment : Fragment() {
                 
             }
         })
-    
+        
         // Could pass the actual error from here - would need to send a string not a boolean
         viewModel.newsLoadError.observe(this, Observer { newsError ->
             newsError?.let {
