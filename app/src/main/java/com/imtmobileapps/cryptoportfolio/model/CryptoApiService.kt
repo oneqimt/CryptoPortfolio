@@ -25,6 +25,19 @@ class CryptoApiService {
         return api.getPersonCoins(personId)
 
     }
+    
+    fun addHolding(holding: Holdings) : Single<Holdings>{
+        
+        return api.addHolding(holding)
+    }
+    
+    fun deleteHolding(holding: Holdings) : Single<Holdings>{
+        return api.deleteHolding(holding)
+    }
+    
+    fun updateHolding(holding: Holdings) : Single<Holdings>{
+        return api.updateHolding(holding)
+    }
 
     fun login(uname: String, pass : String) : Single<SignUp>{
 

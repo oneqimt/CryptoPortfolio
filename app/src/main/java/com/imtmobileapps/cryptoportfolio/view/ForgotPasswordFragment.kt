@@ -55,6 +55,7 @@ class ForgotPasswordFragment : Fragment() {
     
         })
         
+        sendBtn.isEnabled = true
         sendBtn.setOnClickListener {
             validateEmail()
         }
@@ -69,6 +70,7 @@ class ForgotPasswordFragment : Fragment() {
         println("$TAG ${CoinApp.TEST_APP} time to send to server email is $email")
     
         forgotPasswordLoadingProgress.visibility = View.VISIBLE
+        sendBtn.isEnabled = false
         
         forgotViewModel.resetPassword(email)
     
@@ -105,11 +107,14 @@ class ForgotPasswordFragment : Fragment() {
             returnDTO?.let {
                 println("$TAG ${CoinApp.TEST_APP} in observe and returnDTO is: $returnDTO")
                 forgotPasswordLoadingProgress.visibility = View.GONE
+                sendBtn.isEnabled = true
             }
         })
         
         forgotViewModel.resetPasswordError.observe(this, Observer {
             forgotPasswordLoadingProgress.visibility = View.GONE
+            sendBtn.isEnabled = true
+            
         })
     
     }

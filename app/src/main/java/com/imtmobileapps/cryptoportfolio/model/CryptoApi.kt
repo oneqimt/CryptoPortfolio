@@ -8,6 +8,15 @@ interface CryptoApi {
 
     @GET("holdings")
     fun getPersonCoins(@Query("person_id") person_id: Int): Single<List<CryptoValue>>
+    
+    @POST("holdings?action=addholding")
+    fun addHolding(@Body holdings: Holdings) : Single<Holdings>
+    
+    @POST("holdings?action=deleteholding")
+    fun deleteHolding(@Body holdings: Holdings) : Single<Holdings>
+    
+    @POST("holdings?action=updateholding")
+    fun updateHolding(@Body holdings: Holdings) : Single<Holdings>
 
     @FormUrlEncoded
     @POST("login")

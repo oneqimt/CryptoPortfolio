@@ -5,10 +5,9 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
-import com.imtmobileapps.cryptoportfolio.model.Person
 import com.imtmobileapps.cryptoportfolio.model.ReturnDTO
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
-import com.imtmobileapps.cryptoportfolio.view.MainActivity
+import com.imtmobileapps.cryptoportfolio.view.LoginActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -35,7 +34,7 @@ class ForgotPasswordViewModel(application: Application) : BaseViewModel(applicat
                         
                         resetPasswordError.value = false
                         
-                        goToMainActivity()
+                        goToLoginActivity()
                         
                     }
                     
@@ -48,9 +47,9 @@ class ForgotPasswordViewModel(application: Application) : BaseViewModel(applicat
         
     }
     
-    fun goToMainActivity() {
+    fun goToLoginActivity() {
         
-        val intent = Intent(getApplication(), MainActivity::class.java)
+        val intent = Intent(getApplication(), LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ContextCompat.startActivity(getApplication(), intent, null)
     }

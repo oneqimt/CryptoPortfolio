@@ -79,9 +79,6 @@ class NewsListAdapter(
             
             CellType.NEWS_ITEM.ordinal -> {
     
-                /*println("$TAG ${CoinApp.TEST_APP} and in onCreateViewHolder() isLoadingNews is $isLoadingNews")
-                println("$TAG ${CoinApp.TEST_APP} and in onCreateViewHolder() newsError is $newsError")*/
-    
                 val newsview = DataBindingUtil.inflate<ItemListNewsBinding>(
                     inflater,
                     R.layout.item_list_news,
