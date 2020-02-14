@@ -46,6 +46,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     }
     
     fun refreshBypassCache(personId: Int) {
+        println("$TAG ${CoinApp.TEST_APP} in refreshBypassCache")
         fetchFromRemote(personId)
     }
     
@@ -79,6 +80,19 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
         
         prefHelper.saveUpdateTime(System.nanoTime())
         
+    }
+    
+    fun checkIfPersonHasHoldings():Boolean{
+       
+        var holdings : List<CryptoValue> = arrayListOf()
+        launch {
+            holdings = CoinDatabase(getApplication()).coinDao().getPersonCoins()
+            
+        }
+        
+        println("$TAG ${CoinApp.TEST_APP} holdings is database length ${holdings.size}")
+        
+        return holdings.isNotEmpty()
         
     }
     
@@ -128,7 +142,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                                 
                                 crypto.coin.smallCoinImageUrl = smallurl
                                 crypto.coin.largeCoinImageUrl = largeurl
-                                //println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
+                               // println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
                                 
                                 
                             }

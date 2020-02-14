@@ -34,7 +34,7 @@ class CoinDetailFragment : Fragment() {
     var prefHelper = PreferencesHelper()
     var totalValues: TotalValues? = null
     
-    var coin: Coin = Coin("0", "", "", "", "")
+    var coin: Coin = Coin("0", "", "", 0, "")
     var cryptoValue: CryptoValue = CryptoValue("", coin, "0", "0", "0", "", 0.0)
     var totalv = TotalValues(0, "0", "0", "0", "")
     var newsListAdapter = NewsListAdapter(cryptoValue, totalv, arrayListOf())
@@ -94,7 +94,7 @@ class CoinDetailFragment : Fragment() {
             if (CoinApp.fromWeb) {
                 viewModel.refreshNews()
             } else {
-                viewModel.getCoinNews(it.coin.nameId.toString())
+                viewModel.getCoinNews(it.coin.slug.toString())
             }
             
         }

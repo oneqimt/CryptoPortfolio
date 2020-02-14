@@ -44,11 +44,15 @@ class CoinListFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         
         viewModel = ViewModelProviders.of(this).get(CryptoListViewModel::class.java)
-        // TODO make sure NEW user has something in database when implement SIGN UP
-        // if(newUser) refreshBypassCache
-        viewModel.refresh(prefHelper.getCurrentPersonId()!!)
-        //viewModel.refreshBypassCache(prefHelper.getCurrentPersonId()!!)
-        
+       
+        // If they are a new user, they will have no holdings in the database
+        // CHECK IF DATABASE HOLDINGS are empty first
+        val doesPersonHaveHoldings = viewModel.checkIfPersonHasHoldings()
+        if (doesPersonHaveHoldings){
+            viewModel.refresh(prefHelper.getCurrentPersonId()!!)
+        }else{
+            viewModel.refreshBypassCache(prefHelper.getCurrentPersonId()!!)
+        }
         println("$TAG ${CoinApp.TEST_APP} PERSON ID is ${prefHelper.getCurrentPersonId()}")
         
         CoinApp.fromWeb = false
@@ -130,8 +134,7 @@ class CoinListFragment : Fragment() {
                 
             }
             R.id.addicon -> {
-                /*var holdings = Holdings(0, 18, 110.0, 0.12, 3)
-                viewModel.addHolding(holdings)*/
+                
                 println("$TAG ${CoinApp.TEST_APP} in ADD ICON CLICKED")
                 
                 view?.let {

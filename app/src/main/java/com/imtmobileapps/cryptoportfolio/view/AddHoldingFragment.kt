@@ -24,7 +24,12 @@ class AddHoldingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    
+        /*var holdings = Holdings(0, 18, 110.0, 0.12, 3)
+                viewModel.addHolding(holdings)*/
     }
+    
+    
     
     companion object{
         private val TAG = AddHoldingFragment::class.java.simpleName

@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
         
         navControllerLogin = Navigation.findNavController(this, R.id.host_fragment_login_signup)
         
-        navControllerLogin.addOnDestinationChangedListener { _, destination, arguments ->
+        navControllerLogin.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.loginFragment -> {
                     supportActionBar?.setTitle(R.string.action_sign_in)

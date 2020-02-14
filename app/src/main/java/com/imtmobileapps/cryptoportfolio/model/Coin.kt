@@ -22,6 +22,14 @@ data class Coin(
     @SerializedName("coin_symbol")
     @ColumnInfo(name = "coin_symbol")
     val coinSymbol: String? = null,
+    
+    @SerializedName("cmc_id")
+    @ColumnInfo(name = "cmc_id")
+    val cmcId : Int?,
+    
+    @SerializedName("slug")
+    @ColumnInfo(name = "slug")
+    val slug : String?,
 
     @SerializedName("small_coin_image_url")
     @ColumnInfo(name = "small_coin_image_url")
@@ -29,17 +37,13 @@ data class Coin(
 
     @SerializedName("large_coin_image_url")
     @ColumnInfo(name = "large_coin_image_url")
-    var largeCoinImageUrl: String? = null,
-
-    @SerializedName("name_id")
-    @ColumnInfo(name = "name_id")
-    val nameId : String? = null
-
+    var largeCoinImageUrl: String? = null
+    
 ) : Parcelable {
 
     // no need for primary key here
     // Room adds columns for this object to CryptoValue
     override fun toString(): String{
-        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, smallCoinImageUrl=$smallCoinImageUrl, largeCoinImageUrl=$largeCoinImageUrl, nameId=$nameId)"
+        return "Coin(coinId=$coinId, coinName=$coinName, coinSymbol=$coinSymbol, cmcId=$cmcId, slug=$slug, smallCoinImageUrl=$smallCoinImageUrl, largeCoinImageUrl=$largeCoinImageUrl)"
     }
 }
