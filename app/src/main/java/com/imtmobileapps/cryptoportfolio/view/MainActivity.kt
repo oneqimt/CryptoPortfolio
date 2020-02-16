@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                     supportActionBar?.setTitle("${selectedCoin?.coin?.coinName} Details")
                 }
                 R.id.addHoldingFragment -> {
-                    val title = this.resources.getString(R.string.add_holding)
+                    val title = this.resources.getString(R.string.choose_coin_to_add)
                     supportActionBar?.setTitle(title)
                 }
                 

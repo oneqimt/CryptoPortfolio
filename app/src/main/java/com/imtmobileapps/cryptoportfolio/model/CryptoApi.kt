@@ -43,6 +43,9 @@ interface CryptoApi {
     //https://stackoverflow.com/questions/45675527/retrofit-with-kotlin-unable-to-create-body
     @POST("signup")
     fun signUp(@Body signUp: SignUp): Single<SignUp>
+    
+    @GET("managecoins?action=dbcoins")
+    fun getAllCoins() : Single<List<Coin>>
 
 
 }

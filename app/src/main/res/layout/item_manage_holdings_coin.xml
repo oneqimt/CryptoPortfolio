@@ -1,0 +1,63 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="manageCoin"
+            type="com.imtmobileapps.cryptoportfolio.model.Coin" />
+
+        <variable
+            name="listener"
+            type="com.imtmobileapps.cryptoportfolio.view.CoinClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="@{listener::onCoinClicked}"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:imageUrl="@{coin.smallCoinImageUrl}"
+            android:padding="4dp"
+            android:contentDescription="@string/coin"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/coin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cryptoValue.coin.coinName}"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            tools:text="Bitcoin"/>
+
+        <TextView
+            android:id="@+id/coin_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cryptoValue.coin.coinSymbol}"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            tools:text="BTC"/>
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
+            android:layout_gravity="end"
+            android:layout_weight="0.4
+
+"
+            android:paddingTop="10dp"
+            tools:layout_gravity="end"/>
+
+    </LinearLayout>
+</layout>

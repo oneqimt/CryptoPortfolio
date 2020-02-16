@@ -1,14 +1,12 @@
 package com.imtmobileapps.cryptoportfolio.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.BuildConfig
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.model.Holdings
-import com.imtmobileapps.cryptoportfolio.util.AppConstants
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -82,9 +80,9 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
         
     }
     
-    fun checkIfPersonHasHoldings():Boolean{
-       
-        var holdings : List<CryptoValue> = arrayListOf()
+    fun checkIfPersonHasHoldings(): Boolean {
+        
+        var holdings: List<CryptoValue> = arrayListOf()
         launch {
             holdings = CoinDatabase(getApplication()).coinDao().getPersonCoins()
             
@@ -142,7 +140,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                                 
                                 crypto.coin.smallCoinImageUrl = smallurl
                                 crypto.coin.largeCoinImageUrl = largeurl
-                               // println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
+                                // println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
                                 
                                 
                             }
@@ -162,43 +160,24 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
     }
     
     fun logout() {
-        disposable.add(cryptoService.logout().subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<Boolean>() {
-                override fun onSuccess(t: Boolean) {
-                    if (t) {
-                        println("$TAG ${CoinApp.TEST_APP} LOGOUT and returned value is: $t")
+        disposable.add(
+            cryptoService.logout().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<Boolean>() {
+                    override fun onSuccess(t: Boolean) {
+                        if (t) {
+                            println("$TAG ${CoinApp.TEST_APP} LOGOUT and returned value is: $t")
+                        }
                     }
-                }
-                
-                override fun onError(e: Throwable) {
                     
-                    println(e.localizedMessage)
-                }
-            })
+                    override fun onError(e: Throwable) {
+                        
+                        println(e.localizedMessage)
+                    }
+                })
         )
         
     }
-    
-    fun addHolding(holding: Holdings) {
-        disposable.add(
-            cryptoService.addHolding(holding).subscribeOn(Schedulers.newThread()).observeOn(
-                AndroidSchedulers.mainThread()
-            ).subscribeWith(object : DisposableSingleObserver<Holdings>() {
-                override fun onSuccess(t: Holdings) {
-                    
-                    println("$TAG ${CoinApp.TEST_APP}, In addHolding success and holding is: $t")
-                    
-                }
-                
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                    println("$TAG ${CoinApp.TEST_APP}, In addHolding ERROR and error is: ${e.localizedMessage}")
-                }
-            }
-            ))
-    }
-    
     
     override fun onCleared() {
         super.onCleared()

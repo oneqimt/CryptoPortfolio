@@ -66,5 +66,9 @@ class CryptoApiService {
     fun resetPassword(email: String): Single<ReturnDTO>{
         return api.resetPassword(email)
     }
+    
+    fun getAllCoins() :Single<List<Coin>>{
+        return api.getAllCoins()
+    }
 
 }
