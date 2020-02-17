@@ -133,13 +133,15 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         } else {
                             // add the coin symbol here
                             for (crypto in cryptosList) {
-                                val coinSymbol =
-                                    crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
-                                val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
-                                val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"
+                               // val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
                                 
-                                crypto.coin.smallCoinImageUrl = smallurl
-                                crypto.coin.largeCoinImageUrl = largeurl
+                                /* val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
+                                 val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"*/
+                                
+                                val logo = BuildConfig.CMC_LOGO_URL + crypto.coin.cmcId + ".png"
+                                crypto.coin.smallCoinImageUrl = logo
+                                crypto.coin.largeCoinImageUrl = logo
+                                
                                 // println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
                                 
                                 

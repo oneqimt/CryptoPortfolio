@@ -55,26 +55,16 @@ class ManageHoldingsViewModel(application: Application):BaseViewModel(applicatio
                         println("$TAG ${CoinApp.TEST_APP} in getAllCoins() SUCCESS")
                         val updatedList = arrayListOf<Coin>()
                         for (coin :Coin in coinsList){
-                            
-                            // NOTE: we may have to get these FROM COIN MARKET CAP AS WELL - do on server
-                            //METADATA CALL - has image icons IF NEEDED
-                            //"logo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-                            val coinSymbol = coin.coinSymbol?.toLowerCase(Locale.getDefault())
-                            val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
-                            val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"
-    
-                            coin.smallCoinImageUrl = smallurl
-                            coin.largeCoinImageUrl = largeurl
+                            val logo = BuildConfig.CMC_LOGO_URL +coin.cmcId+".png"
+                            coin.smallCoinImageUrl = logo
+                            coin.largeCoinImageUrl = logo
                             
                             updatedList.add(coin)
-                            
-                        }
-                        
-                        for (coin: Coin in updatedList){
-                            println("$TAG ${CoinApp.TEST_APP} UPDATED LIST COIN is: $coin")
                         }
     
-                        coinsFromServer.value = updatedList
+                        val sortedList = updatedList.sortedWith(compareBy(Coin::coinName))
+    
+                        coinsFromServer.value = sortedList
                     }
                 
                     override fun onError(e: Throwable) {

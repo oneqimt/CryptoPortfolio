@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:onClick="@{listener::onCoinClicked}"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/list_item_background">
 
         <ImageView
             android:id="@+id/imageView"
@@ -24,6 +25,7 @@
             android:layout_height="50dp"
             android:imageUrl="@{cryptoValue.coin.smallCoinImageUrl}"
             android:padding="4dp"
+            android:scaleType="centerCrop"
             android:gravity="center|center_vertical"
             android:contentDescription="@string/coin"/>
 

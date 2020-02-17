@@ -9,4 +9,6 @@
     <color name="error_red">#880202</color>
     <color name="color_blue">#2196F3</color>
 
+    <color name="list_item_background">#313233</color>
+
 </resources>

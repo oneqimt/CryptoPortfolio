@@ -14,50 +14,59 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
         android:onClick="@{listener::onCoinClicked}"
-        android:orientation="horizontal"
-        android:layout_marginTop="2dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:imageUrl="@{coin.smallCoinImageUrl}"
-            android:padding="4dp"
+            android:layout_weight=".1"
+            android:scaleType="fitStart"
             android:contentDescription="@string/coin"
-            android:layout_weight="1"/>
+            android:imageUrl="@{manageCoin.smallCoinImageUrl}"
+            android:padding="4dp"
+            android:layout_gravity="start"/>
 
         <TextView
             android:id="@+id/coin_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{cryptoValue.coin.coinName}"
-            android:textStyle="bold"
             android:layout_weight="1"
             android:paddingTop="10dp"
-            tools:text="Bitcoin"/>
+            android:singleLine="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:maxWidth="40dp"
+            android:layout_gravity="start"
+            android:text="@{manageCoin.coinName}"
+            android:textStyle="bold"
+            tools:text="Bitcoin" />
 
         <TextView
             android:id="@+id/coin_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{cryptoValue.coin.coinSymbol}"
-            android:layout_weight="1"
+            android:layout_weight=".1"
             android:paddingTop="10dp"
-            tools:text="BTC"/>
+            android:layout_gravity="end"
+            android:text="@{manageCoin.coinSymbol}"
+            tools:text="BTC" />
 
         <ImageView
             android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
             android:layout_gravity="end"
-            android:layout_weight="0.4
+            android:layout_weight="0.1
 
 "
             android:paddingTop="10dp"
-            tools:layout_gravity="end"/>
+            android:contentDescription="@string/go_to_add_coin_view"
+            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
+            tools:layout_gravity="end" />
 
     </LinearLayout>
 </layout>

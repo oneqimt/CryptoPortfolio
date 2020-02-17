@@ -52,5 +52,6 @@
     <string name="asteriskred"><font color='#cc0029'>*</font></string>
     <string name="add_holding">Add Holding</string>
     <string name="choose_coin_to_add">Choose a coin to add</string>
+    <string name="go_to_add_coin_view">Go to add a coin view</string>
 
 </resources>

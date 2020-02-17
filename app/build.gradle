@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://www.imtmobileapps.com/cryptocompare/"'
         buildConfigField "String", "COIN_IMAGE_URL", '"https://cryptoicons.org/api/"'
+        buildConfigField "String", "CMC_LOGO_URL", '"https://s2.coinmarketcap.com/static/img/coins/64x64/"'
         multiDexEnabled true
 
         kapt {
