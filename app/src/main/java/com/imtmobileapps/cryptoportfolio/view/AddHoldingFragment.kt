@@ -51,10 +51,23 @@ class AddHoldingFragment : Fragment() {
         viewModel.coinsFromServer.observe(this, Observer { coins ->
             coins?.let {
                 println("$TAG ${CoinApp.TEST_APP} in observer and coins are HERE!!!")
+                addHoldingListView.visibility = View.VISIBLE
+                addHoldingPreloader.visibility = View.GONE
                 manageCoinAdapter.updateCoinList(coins)
                 
             }
             
+        })
+        
+        viewModel.loadingCoinsFromServer.observe(this, Observer{isLoading ->
+            isLoading?.let {
+                addHoldingPreloader.visibility = if (it) View.VISIBLE else View.GONE
+                if (it) {
+                    //listError.visibility = View.GONE
+                    addHoldingListView.visibility = View.GONE
+                    //noHoldingsYet.visibility = View.GONE
+                }
+            }
         })
     }
     

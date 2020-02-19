@@ -44,7 +44,7 @@ interface CryptoApi {
     @POST("signup")
     fun signUp(@Body signUp: SignUp): Single<SignUp>
     
-    @GET("managecoins?action=dbcoins")
+    @GET("managecoins?action=cmccoins")
     fun getAllCoins() : Single<List<Coin>>
 
 

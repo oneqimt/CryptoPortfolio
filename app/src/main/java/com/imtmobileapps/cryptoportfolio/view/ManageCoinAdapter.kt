@@ -23,7 +23,7 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
             parent,
             false
         )
-        return ManageCoinAdapter.ManageCoinViewHolder(view, coinList)
+        return ManageCoinViewHolder(view, coinList)
     }
     
     override fun getItemCount(): Int {
@@ -43,6 +43,9 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
     
     class ManageCoinViewHolder(var view: ItemManageHoldingsCoinBinding, var coinList: List<Coin>) :
         RecyclerView.ViewHolder(view.root), CoinClickListener {
+        
+        //android:id="@+id/cmcRankText"
+        var cmcRank :Int =0
         
         private var selectedCoin: Coin? = null
         

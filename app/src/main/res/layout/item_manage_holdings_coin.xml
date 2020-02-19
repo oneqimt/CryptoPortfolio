@@ -14,10 +14,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginTop="2dp"
         android:onClick="@{listener::onCoinClicked}"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cmcRankText"
+            android:layout_weight=".1"
+            android:paddingTop="10dp"
+            android:paddingStart="5dp"
+            android:paddingLeft="5dp"
+            android:paddingEnd="2dp"
+            android:paddingRight="2dp"
+            android:layout_gravity="start"
+            android:text="@{@string/cmc_rank_text(manageCoin.cmcRank)}"
+            android:textStyle="bold"
+            tools:text="1"/>
+
 
         <ImageView
             android:id="@+id/imageView"
@@ -55,18 +71,25 @@
             android:text="@{manageCoin.coinSymbol}"
             tools:text="BTC" />
 
-        <ImageView
+       <!-- <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />-->
+
+
+
+        <!--<ImageView
             android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_weight="0.1
-
-"
+            android:layout_weight="0.1"
             android:paddingTop="10dp"
             android:contentDescription="@string/go_to_add_coin_view"
             android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
-            tools:layout_gravity="end" />
+            tools:layout_gravity="end" />-->
 
     </LinearLayout>
+
+
 </layout>

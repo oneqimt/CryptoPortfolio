@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.imtmobileapps.cryptoportfolio.util.BigDecimalDoubleTypeConverter
 
-@Database(entities = arrayOf(CryptoValue::class, Person::class, TotalValues::class), version = 15)
+@Database(entities = arrayOf(CryptoValue::class, Person::class, TotalValues::class), version = 19)
+@TypeConverters(BigDecimalDoubleTypeConverter::class)
 abstract class CoinDatabase :RoomDatabase(){
 
     abstract fun coinDao() : CoinDao

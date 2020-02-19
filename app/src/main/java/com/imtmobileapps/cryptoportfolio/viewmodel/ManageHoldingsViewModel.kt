@@ -46,13 +46,14 @@ class ManageHoldingsViewModel(application: Application):BaseViewModel(applicatio
     }
     
     fun fetchCoinsFromServer(){
-    
+        loadingCoinsFromServer.value = true
         disposable.add(
             cryptoService.getAllCoins().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<Coin>>() {
                     override fun onSuccess(coinsList: List<Coin>) {
                         println("$TAG ${CoinApp.TEST_APP} in getAllCoins() SUCCESS")
+                        loadingCoinsFromServer.value = false
                         val updatedList = arrayListOf<Coin>()
                         for (coin :Coin in coinsList){
                             val logo = BuildConfig.CMC_LOGO_URL +coin.cmcId+".png"
@@ -62,12 +63,13 @@ class ManageHoldingsViewModel(application: Application):BaseViewModel(applicatio
                             updatedList.add(coin)
                         }
     
-                        val sortedList = updatedList.sortedWith(compareBy(Coin::coinName))
+                        //val sortedList = updatedList.sortedWith(compareBy(Coin::coinName))
     
-                        coinsFromServer.value = sortedList
+                        coinsFromServer.value = updatedList
                     }
                 
                     override fun onError(e: Throwable) {
+                        loadingCoinsFromServer.value = false
                         e.printStackTrace()
                     
                     }

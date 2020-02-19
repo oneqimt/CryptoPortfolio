@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
+import androidx.room.TypeConverter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
@@ -11,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.model.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
+import java.math.BigDecimal
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -134,8 +136,8 @@ fun createSignUp() : SignUp{
 
 fun createEmptySignUp() : SignUp{
     // DEFAULT state set id to  = 3
-    var state = State(3, "", "", "")
-    var person = Person(
+    val state = State(3, "", "", "")
+    val person = Person(
         personId = 0,
         firstName = "",
         lastName = "",
@@ -148,7 +150,7 @@ fun createEmptySignUp() : SignUp{
     
     )
     
-    var auth = Auth(
+    val auth = Auth(
         auth_id = 0,
         username = "",
         password = "",
@@ -157,7 +159,7 @@ fun createEmptySignUp() : SignUp{
         enabled = CoinApp.ENABLED
     )
     
-    var signUp = SignUp(
+    val signUp = SignUp(
         person = person,
         auth = auth
     )
@@ -173,3 +175,18 @@ fun loadImage(view: ImageView, url: String?) {
 
 @GlideModule
 class AppGlideModule : AppGlideModule()
+
+class BigDecimalDoubleTypeConverter {
+    
+    @TypeConverter
+    fun bigDecimalToDouble(input: BigDecimal?): Double {
+        return input?.toDouble() ?: 0.0
+    }
+    
+    @TypeConverter
+    fun stringToBigDecimal(input: Double?): BigDecimal {
+        if (input == null) return BigDecimal.ZERO
+        return BigDecimal.valueOf(input) ?: BigDecimal.ZERO
+    }
+    
+}

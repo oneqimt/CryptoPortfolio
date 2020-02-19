@@ -16,18 +16,18 @@
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:onClick="@{listener::onCoinClicked}"
-        android:orientation="horizontal"
-        android:background="@color/list_item_background">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_weight=".1"
+            android:contentDescription="@string/coin"
             android:imageUrl="@{cryptoValue.coin.smallCoinImageUrl}"
             android:padding="4dp"
-            android:scaleType="centerCrop"
-            android:gravity="center|center_vertical"
-            android:contentDescription="@string/coin"/>
+            android:scaleType="fitStart" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -60,26 +60,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{cryptoValue.holdingValue}"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/current_price"/>
+                android:text="@string/current_price" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{cryptoValue.USD}"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
