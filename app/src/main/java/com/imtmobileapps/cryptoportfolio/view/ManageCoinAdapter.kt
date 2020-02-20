@@ -6,14 +6,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.imtmobileapps.cryptoportfolio.R
-import com.imtmobileapps.cryptoportfolio.databinding.ItemCoinBinding
 import com.imtmobileapps.cryptoportfolio.databinding.ItemManageHoldingsCoinBinding
 import com.imtmobileapps.cryptoportfolio.model.Coin
-import com.imtmobileapps.cryptoportfolio.model.CryptoValue
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
     RecyclerView.Adapter<ManageCoinAdapter.ManageCoinViewHolder>() {
+    
+    var copyList = arrayListOf<Coin>()
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageCoinViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -23,6 +26,7 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
             parent,
             false
         )
+        copyList.addAll(coinList)
         return ManageCoinViewHolder(view, coinList)
     }
     
@@ -41,11 +45,31 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
         notifyDataSetChanged()
     }
     
+    fun filter(text : String){
+        
+        coinList.clear()
+        if (text.isEmpty()) {
+            coinList.addAll(copyList)
+        } else {
+            val mytext = text.toLowerCase(Locale.getDefault())
+            for (coin in copyList) {
+                val coinName = coin.coinName?.toLowerCase(Locale.getDefault()) ?: ""
+                val coinSymbol = coin.coinSymbol?.toLowerCase(Locale.getDefault()) ?: ""
+                if (coinName.contains(mytext) || coinSymbol.contains(mytext)) {
+                    if (!coinList.contains(coin)){
+                        coinList.add(coin)
+                    }
+                    
+                }
+            }
+        }
+        
+        notifyDataSetChanged()
+        
+    }
+    
     class ManageCoinViewHolder(var view: ItemManageHoldingsCoinBinding, var coinList: List<Coin>) :
         RecyclerView.ViewHolder(view.root), CoinClickListener {
-        
-        //android:id="@+id/cmcRankText"
-        var cmcRank :Int =0
         
         private var selectedCoin: Coin? = null
         

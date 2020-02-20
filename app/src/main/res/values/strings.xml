@@ -55,5 +55,6 @@
     <string name="go_to_add_coin_view">Go to add a coin view</string>
 
     <string name="cmc_rank_text">%s</string>
+    <string name="search">Search</string>
 
 </resources>

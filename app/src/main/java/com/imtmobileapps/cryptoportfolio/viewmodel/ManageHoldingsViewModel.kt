@@ -62,9 +62,7 @@ class ManageHoldingsViewModel(application: Application):BaseViewModel(applicatio
                             
                             updatedList.add(coin)
                         }
-    
-                        //val sortedList = updatedList.sortedWith(compareBy(Coin::coinName))
-    
+                        
                         coinsFromServer.value = updatedList
                     }
                 

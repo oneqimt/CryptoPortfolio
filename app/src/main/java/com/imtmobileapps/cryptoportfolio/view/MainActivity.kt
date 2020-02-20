@@ -43,10 +43,6 @@ class MainActivity : AppCompatActivity() {
                     // Note: if selected coin is null, title is set in CoinDetailFragment
                     supportActionBar?.setTitle("${selectedCoin?.coin?.coinName} Details")
                 }
-                R.id.addHoldingFragment -> {
-                    val title = this.resources.getString(R.string.choose_coin_to_add)
-                    supportActionBar?.setTitle(title)
-                }
                 
                 R.id.settingsFragment -> {
                 
