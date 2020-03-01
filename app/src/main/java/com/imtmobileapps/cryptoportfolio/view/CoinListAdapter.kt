@@ -29,6 +29,7 @@ class CoinListAdapter(val coinList: ArrayList<CryptoValue>) : RecyclerView.Adapt
     fun updateCoinList(newCoinsList: List<CryptoValue>){
         coinList.clear()
         coinList.addAll(newCoinsList)
+        // persist the coinList so that we may use in AddFormFragment
         notifyDataSetChanged()
     }
 

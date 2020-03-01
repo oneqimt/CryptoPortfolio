@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
@@ -34,7 +35,7 @@ class CoinDetailFragment : Fragment() {
     var prefHelper = PreferencesHelper()
     var totalValues: TotalValues? = null
     
-    var coin: Coin = Coin("0", "", "", 0, "")
+    var coin: Coin = Coin(0, "", "", 0, "")
     var cryptoValue: CryptoValue = CryptoValue("", coin, "0", "0", "0", "", 0.0)
     var totalv = TotalValues(0, "0", "0", "0", "")
     var newsListAdapter = NewsListAdapter(cryptoValue, totalv, arrayListOf())
@@ -52,8 +53,6 @@ class CoinDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        
-        println("$TAG ${CoinApp.TEST_APP} IN onViewCreated()")
         // if args are not null
         arguments?.let {
             selectedCoin = CoinDetailFragmentArgs.fromBundle(it).selectedCoin
@@ -62,7 +61,7 @@ class CoinDetailFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setTitle("${selectedCoin?.coin?.coinName} Details")
         
         viewModel = activity?.run {
-            ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
+            ViewModelProvider(this).get(CoinDetailViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
         
         
@@ -102,7 +101,7 @@ class CoinDetailFragment : Fragment() {
     
     fun observeViewModel() {
         
-        viewModel.cryptoLiveData.observe(this, Observer { crypto ->
+        viewModel.cryptoLiveData.observe(viewLifecycleOwner, Observer { crypto ->
             selectedCoin = crypto
             crypto?.let {
                 dataBinding.crypto = crypto
@@ -110,7 +109,7 @@ class CoinDetailFragment : Fragment() {
             }
         })
         
-        viewModel.totals.observe(this, Observer { totals ->
+        viewModel.totals.observe(viewLifecycleOwner, Observer { totals ->
             totalValues = totals
             totals?.let {
                 dataBinding.total = totals
@@ -121,7 +120,7 @@ class CoinDetailFragment : Fragment() {
         })
         
         
-        viewModel.articles.observe(this, Observer { articles ->
+        viewModel.articles.observe(viewLifecycleOwner, Observer { articles ->
             articles?.let {
                 newsListAdapter.updateNewsList(articles)
                 CoinApp.newsList = articles
@@ -129,13 +128,13 @@ class CoinDetailFragment : Fragment() {
             }
         })
         
-        viewModel.totalsLoading.observe(this, Observer { isLoading ->
+        viewModel.totalsLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             isLoading?.let {
             
             }
         })
         
-        viewModel.newsLoading.observe(this, Observer { newsIsLoading ->
+        viewModel.newsLoading.observe(viewLifecycleOwner, Observer { newsIsLoading ->
             newsIsLoading?.let {
                 println("$TAG ${CoinApp.TEST_APP} viewModel.newsloading is : $it")
                 newsListAdapter.showPreloader(it)
@@ -145,7 +144,7 @@ class CoinDetailFragment : Fragment() {
         })
         
         // Could pass the actual error from here - would need to send a string not a boolean
-        viewModel.newsLoadError.observe(this, Observer { newsError ->
+        viewModel.newsLoadError.observe(viewLifecycleOwner, Observer { newsError ->
             newsError?.let {
                 println("$TAG ${CoinApp.TEST_APP} newsLoadError is : $it")
                 

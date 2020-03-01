@@ -3,6 +3,7 @@ package com.imtmobileapps.cryptoportfolio.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class NewsListAdapter(
         mRecyclerView = recyclerView
         
     }
+    
     
     fun setNewsErrorString(errorStr: String?){
         this.errorString = errorStr
@@ -214,7 +216,7 @@ class NewsListAdapter(
         
         var selectedNews: Article? = null
         
-        val newsPublishedAt = view.newsPublishedAt
+        val newsPublishedAt : TextView = view.newsPublishedAt
         
         override fun onNewsClicked(v: View) {
             selectedNews = articleList[adapterPosition - 3]

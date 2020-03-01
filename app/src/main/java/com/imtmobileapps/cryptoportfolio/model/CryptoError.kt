@@ -5,5 +5,7 @@ data class CryptoError(
     val errorName:String?,
     val errorDescription: String
 ) {
-
+    override fun toString(): String {
+        return "CryptoError(errorId=$errorId, errorName=$errorName, errorDescription='$errorDescription')"
+    }
 }

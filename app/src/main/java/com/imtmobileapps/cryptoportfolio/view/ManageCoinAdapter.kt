@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.ItemManageHoldingsCoinBinding
@@ -39,13 +40,13 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
         holder.view.listener = holder
     }
     
-    fun updateCoinList(newCoinsList: List<Coin>){
+    fun updateCoinList(newCoinsList: List<Coin>) {
         coinList.clear()
         coinList.addAll(newCoinsList)
         notifyDataSetChanged()
     }
     
-    fun filter(text : String){
+    fun filter(text: String) {
         
         coinList.clear()
         if (text.isEmpty()) {
@@ -56,7 +57,7 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
                 val coinName = coin.coinName?.toLowerCase(Locale.getDefault()) ?: ""
                 val coinSymbol = coin.coinSymbol?.toLowerCase(Locale.getDefault()) ?: ""
                 if (coinName.contains(mytext) || coinSymbol.contains(mytext)) {
-                    if (!coinList.contains(coin)){
+                    if (!coinList.contains(coin)) {
                         coinList.add(coin)
                     }
                     
@@ -71,17 +72,17 @@ class ManageCoinAdapter(val coinList: ArrayList<Coin>) :
     class ManageCoinViewHolder(var view: ItemManageHoldingsCoinBinding, var coinList: List<Coin>) :
         RecyclerView.ViewHolder(view.root), CoinClickListener {
         
-        private var selectedCoin: Coin? = null
+        private var coinToAdd: Coin? = null
         
         
         override fun onCoinClicked(v: View) {
-            selectedCoin = coinList[adapterPosition]
+            coinToAdd = coinList[adapterPosition]
             
-            println("$TAG ${CoinApp.TEST_APP} coin clicked and it is: $selectedCoin")
+            println("$TAG ${CoinApp.TEST_APP} coin clicked and it is: $coinToAdd")
             
-            /*val action = CoinListFragmentDirections.actionCoinDetailFragment()
-            action.selectedCoin = selectedCoin
-            Navigation.findNavController(v).navigate(action)*/
+            val action = AddHoldingFragmentDirections.actionAddHoldingFragmentToAddFormFragment()
+            action.coinToAdd = coinToAdd
+            Navigation.findNavController(v).navigate(action)
             
             
         }

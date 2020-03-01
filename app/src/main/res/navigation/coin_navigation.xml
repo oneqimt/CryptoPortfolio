@@ -83,6 +83,31 @@
             app:destination="@id/coinListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_addHoldingFragment_to_addFormFragment"
+            app:destination="@+id/addFormFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/addFormFragment"
+        android:name="com.imtmobileapps.cryptoportfolio.view.AddFormFragment"
+        android:label="AddFormFragment" >
+        <action
+            android:id="@+id/action_addFormFragment_to_addHoldingFragment"
+            app:destination="@id/addHoldingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+        <argument
+            android:name="coinToAdd"
+            android:defaultValue="@null"
+            app:argType="com.imtmobileapps.cryptoportfolio.model.Coin"
+            app:nullable="true" />
+
+
+
     </fragment>
 
 </navigation>

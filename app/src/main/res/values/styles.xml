@@ -38,8 +38,9 @@
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
 
-    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
-        <!-- reference our hint & error styles -->
+    <!-- reference our hint & error styles    Widget.Design.TextInputLayout-->
+    <style name="TextInputLayoutAppearance" parent="AppTheme">
+
         <item name="errorTextAppearance">@style/ErrorText</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@android:color/white</item>
@@ -48,8 +49,6 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
-
-
 
     <!--region News Article -->
     <style name="NewsArticle" />

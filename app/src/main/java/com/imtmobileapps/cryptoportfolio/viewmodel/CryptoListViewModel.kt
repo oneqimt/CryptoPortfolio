@@ -6,7 +6,6 @@ import com.imtmobileapps.cryptoportfolio.BuildConfig
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
-import com.imtmobileapps.cryptoportfolio.model.Holdings
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.PreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class CryptoListViewModel(application: Application) : BaseViewModel(application) {
     

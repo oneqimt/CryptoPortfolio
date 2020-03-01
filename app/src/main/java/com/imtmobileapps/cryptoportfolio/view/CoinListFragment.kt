@@ -7,7 +7,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
@@ -43,7 +43,7 @@ class CoinListFragment : Fragment() {
         
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         
-        viewModel = ViewModelProviders.of(this).get(CryptoListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CryptoListViewModel::class.java)
        
         // If they are a new user, they will have no holdings in the database
         // CHECK IF DATABASE HOLDINGS are empty first
@@ -77,7 +77,7 @@ class CoinListFragment : Fragment() {
     }
     
     fun observeModel() {
-        viewModel.coins.observe(this, Observer { coins ->
+        viewModel.coins.observe(viewLifecycleOwner, Observer { coins ->
             coins?.let {
                 
                 if (coins.isEmpty()) {
@@ -95,13 +95,13 @@ class CoinListFragment : Fragment() {
             
         })
         
-        viewModel.cryptosLoadError.observe(this, Observer { isError ->
+        viewModel.cryptosLoadError.observe(viewLifecycleOwner, Observer { isError ->
             isError?.let {
                 listError.visibility = if (it) View.VISIBLE else View.GONE
             }
         })
         
-        viewModel.loading.observe(this, Observer { isLoading ->
+        viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
             isLoading?.let {
                 loadingView.visibility = if (it) View.VISIBLE else View.GONE
                 if (it) {
@@ -125,7 +125,7 @@ class CoinListFragment : Fragment() {
                 view?.let {
                     Navigation.findNavController(it)
                         .navigate(CoinListFragmentDirections.actionSettings())
-                }
+                }!!
             }
             R.id.actionLogout -> {
                 viewModel.logout()
@@ -134,13 +134,10 @@ class CoinListFragment : Fragment() {
                 
             }
             R.id.addicon -> {
-                
-                println("$TAG ${CoinApp.TEST_APP} in ADD ICON CLICKED")
-                
                 view?.let {
                     Navigation.findNavController(it)
                         .navigate(CoinListFragmentDirections.actionCoinListFragmentToAddHoldingFragment())
-                }
+                }!!
                 
             }
         }

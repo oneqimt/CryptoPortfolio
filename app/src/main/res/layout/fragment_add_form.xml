@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.AddFormFragment">
+
+    <data>
+
+        <variable
+            name="coinToAdd"
+            type="com.imtmobileapps.cryptoportfolio.model.Coin" />
+
+        <variable
+            name="currentHolding"
+            type="com.imtmobileapps.cryptoportfolio.model.CryptoValue" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="0dp"
+        android:fillViewport="true">
+        <!-- This HAS to be match_parent to allow for scroll -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/coinNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="@{coinToAdd.coinName}"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Bitcoin" />
+
+            <TextView
+                android:id="@+id/coinSymbolText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{coinToAdd.coinSymbol}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coinNameText"
+                app:layout_constraintVertical_bias="0.02"
+                tools:text="BTC" />
+
+            <TextView
+                android:id="@+id/youHaveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/you_have_this_coin(currentHolding.coin.coinName)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coinSymbolText"
+                app:layout_constraintVertical_bias="0.02"
+                tools:text="You have this coin in your portfolio" />
+
+            <TextView
+                android:id="@+id/quantityHeldText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:gravity="center"
+                android:text="@{@string/quantity_held_add_form(currentHolding.quantity)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/youHaveText"
+                app:layout_constraintVertical_bias="0.02"
+                tools:text="Quantity Held:" />
+
+            <TextView
+                android:id="@+id/holdingValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:gravity="center"
+                android:text="@{@string/holding_value_add_form(currentHolding.holdingValue)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantityHeldText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.02"
+                tools:text="Holding Value:" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addFormQuantityLayout"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/quantity"
+                android:paddingTop="20dp"
+                android:theme="@style/TextInputLayoutAppearance"
+                app:boxBackgroundColor="@color/color_selector"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/holdingValueText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addFormQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="false" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addFormCostLayout"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/cost"
+                android:paddingTop="20dp"
+                android:theme="@style/TextInputLayoutAppearance"
+                app:boxBackgroundColor="@color/color_selector"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addFormQuantityLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addFormCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="false" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/addHoldingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                android:text="@string/add_holding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addFormCostLayout"
+                app:layout_constraintVertical_bias="0.02"/>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

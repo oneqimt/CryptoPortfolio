@@ -57,4 +57,12 @@
     <string name="cmc_rank_text">%s</string>
     <string name="search">Search</string>
 
+    <string name="you_have_this_coin">You currently have %s in your holdings.</string>
+    <string name="quantity_held_add_form">Quantity Held : %s</string>
+    <string name="quantity">Quantity</string>
+    <string name="cost">Cost</string>
+    <string name="holding_value_add_form">Holding Value : %s</string>
+
+
+
 </resources>

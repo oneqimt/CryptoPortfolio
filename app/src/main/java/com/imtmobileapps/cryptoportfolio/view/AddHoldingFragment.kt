@@ -7,11 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.util.AppConstants
-import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.viewmodel.ManageHoldingsViewModel
 import kotlinx.android.synthetic.main.fragment_add_holding.*
 
@@ -19,7 +18,6 @@ class AddHoldingFragment : Fragment(), SearchView.OnQueryTextListener {
     
     private lateinit var viewModel: ManageHoldingsViewModel
     private val manageCoinAdapter = ManageCoinAdapter(arrayListOf())
-    
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +38,10 @@ class AddHoldingFragment : Fragment(), SearchView.OnQueryTextListener {
         
         (activity as AppCompatActivity).supportActionBar?.title = AppConstants.ADD_COIN
         
-        viewModel = ViewModelProviders.of(this).get(ManageHoldingsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ManageHoldingsViewModel::class.java)
         
         viewModel.fetchCoinsFromServer()
         
-        //ddHoldingListView
         addHoldingListView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = manageCoinAdapter
@@ -54,9 +51,8 @@ class AddHoldingFragment : Fragment(), SearchView.OnQueryTextListener {
     }
     
     fun observeViewModel() {
-        viewModel.coinsFromServer.observe(this, Observer { coins ->
+        viewModel.coinsFromServer.observe(viewLifecycleOwner, Observer { coins ->
             coins?.let {
-                println("$TAG ${CoinApp.TEST_APP} in observer and coins are HERE!!!")
                 addHoldingListView.visibility = View.VISIBLE
                 addHoldingPreloader.visibility = View.GONE
                 manageCoinAdapter.updateCoinList(coins)
@@ -65,13 +61,11 @@ class AddHoldingFragment : Fragment(), SearchView.OnQueryTextListener {
             
         })
         
-        viewModel.loadingCoinsFromServer.observe(this, Observer { isLoading ->
+        viewModel.loadingCoinsFromServer.observe(viewLifecycleOwner, Observer { isLoading ->
             isLoading?.let {
                 addHoldingPreloader.visibility = if (it) View.VISIBLE else View.GONE
                 if (it) {
-                    //listError.visibility = View.GONE
                     addHoldingListView.visibility = View.GONE
-                    //noHoldingsYet.visibility = View.GONE
                 }
             }
         })

@@ -13,7 +13,7 @@ import java.math.BigDecimal
 data class Coin(
     @SerializedName("coin_id")
     @ColumnInfo(name = "coin_id")
-    val coinId: String? = null,
+    val coinId: Int? = null,
 
     @SerializedName("coin_name")
     @ColumnInfo(name = "coin_name")
