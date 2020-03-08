@@ -94,18 +94,21 @@
     <fragment
         android:id="@+id/addFormFragment"
         android:name="com.imtmobileapps.cryptoportfolio.view.AddFormFragment"
-        android:label="AddFormFragment" >
+        android:label="AddFormFragment"
+        tools:layout="@layout/fragment_add_form">
         <action
             android:id="@+id/action_addFormFragment_to_addHoldingFragment"
             app:destination="@id/addHoldingFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"/>
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <argument
             android:name="coinToAdd"
             android:defaultValue="@null"
             app:argType="com.imtmobileapps.cryptoportfolio.model.Coin"
             app:nullable="true" />
-
+        <action
+            android:id="@+id/action_addFormFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment" />
 
 
     </fragment>

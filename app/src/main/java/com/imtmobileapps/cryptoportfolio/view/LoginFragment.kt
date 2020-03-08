@@ -11,16 +11,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import com.imtmobileapps.cryptoportfolio.R
-import com.imtmobileapps.cryptoportfolio.model.SignUp
-import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.addRequiredToHint
-import com.imtmobileapps.cryptoportfolio.util.createSignUp
 import com.imtmobileapps.cryptoportfolio.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class LoginFragment : Fragment() {
     
@@ -41,7 +37,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         
         usernameTxt.setText("")
         passwordTxt.setText("")
@@ -143,7 +139,7 @@ class LoginFragment : Fragment() {
     
     fun observeModel() {
         
-        viewModel.user.observe(this, Observer { user ->
+        viewModel.user.observe(viewLifecycleOwner, Observer { user ->
             user?.let {
                 println("$TAG USER in NOT NULL")
                 loading.visibility = View.GONE
@@ -151,7 +147,7 @@ class LoginFragment : Fragment() {
             
         })
         
-        viewModel.loginError.observe(this, Observer { isError ->
+        viewModel.loginError.observe(viewLifecycleOwner, Observer { isError ->
             isError?.let {
                 if (isError) {
                     val imm: InputMethodManager =

@@ -1,7 +1,6 @@
 package com.imtmobileapps.cryptoportfolio.view
 
 
-import android.app.Application
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -10,19 +9,16 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.imtmobileapps.cryptoportfolio.R
-import com.imtmobileapps.cryptoportfolio.model.Auth
 import com.imtmobileapps.cryptoportfolio.model.SignUp
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.util.addRequiredToHint
 import com.imtmobileapps.cryptoportfolio.util.createEmptySignUp
-import com.imtmobileapps.cryptoportfolio.util.createSignUp
 import com.imtmobileapps.cryptoportfolio.viewmodel.SignUpViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 
@@ -44,7 +40,7 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        signUpViewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
+        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
         
         signupEmailText.setText("")
         signupUsernameText.setText("")
@@ -208,13 +204,13 @@ class SignUpFragment : Fragment() {
     
     private fun observeModel() {
         
-        signUpViewModel.signUpPerson.observe(this, Observer { signup ->
+        signUpViewModel.signUpPerson.observe(viewLifecycleOwner, Observer { signup ->
             signup?.let {
                 println("$TAG ${CoinApp.TEST_APP} in Observe and sign up is : $it")
             }
         })
         
-        signUpViewModel.signUpError.observe(this, Observer{error ->
+        signUpViewModel.signUpError.observe(viewLifecycleOwner, Observer{error ->
             error?.let {
                 println("$TAG ${CoinApp.TEST_APP} in signUpError.observe and ERROR is  : $it")
                 if(it){
