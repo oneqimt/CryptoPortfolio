@@ -3,7 +3,7 @@ package com.imtmobileapps.cryptoportfolio.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             
         }
         
-        viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CoinDetailViewModel::class.java)
         
         person = intent.getParcelableExtra("user")
         auth = intent.getParcelableExtra("auth")

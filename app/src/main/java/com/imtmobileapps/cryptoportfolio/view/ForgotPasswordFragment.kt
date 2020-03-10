@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.util.CoinApp
 import com.imtmobileapps.cryptoportfolio.viewmodel.ForgotPasswordViewModel
@@ -31,7 +31,7 @@ class ForgotPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        forgotViewModel = ViewModelProviders.of(this).get(ForgotPasswordViewModel::class.java)
+        forgotViewModel = ViewModelProvider(this).get(ForgotPasswordViewModel::class.java)
         forgotPasswordEmailText.addTextChangedListener(object : TextWatcher {
             
             override fun afterTextChanged(s: Editable?) {
@@ -103,7 +103,7 @@ class ForgotPasswordFragment : Fragment() {
     
     fun observeModel() {
         
-        forgotViewModel.returnDTO.observe(this, Observer {returnDTO ->
+        forgotViewModel.returnDTO.observe(viewLifecycleOwner, Observer {returnDTO ->
             returnDTO?.let {
                 println("$TAG ${CoinApp.TEST_APP} in observe and returnDTO is: $returnDTO")
                 forgotPasswordLoadingProgress.visibility = View.GONE
@@ -111,7 +111,7 @@ class ForgotPasswordFragment : Fragment() {
             }
         })
         
-        forgotViewModel.resetPasswordError.observe(this, Observer {
+        forgotViewModel.resetPasswordError.observe(viewLifecycleOwner, Observer {
             forgotPasswordLoadingProgress.visibility = View.GONE
             sendBtn.isEnabled = true
             

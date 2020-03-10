@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.imtmobileapps.cryptoportfolio.util.BigDecimalDoubleTypeConverter
 
-@Database(entities = arrayOf(CryptoValue::class, Person::class, TotalValues::class), version = 20)
+@Database(entities = arrayOf(CryptoValue::class, Person::class, TotalValues::class), version = 21)
 @TypeConverters(BigDecimalDoubleTypeConverter::class)
 abstract class CoinDatabase :RoomDatabase(){
 

@@ -50,7 +50,7 @@ class AddHoldingFragment : Fragment(), SearchView.OnQueryTextListener {
         observeViewModel()
     }
     
-    fun observeViewModel() {
+    private fun observeViewModel() {
         viewModel.coinsFromServer.observe(viewLifecycleOwner, Observer { coins ->
             coins?.let {
                 addHoldingListView.visibility = View.VISIBLE

@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/addFormCurrentPrice"
                 android:textStyle="bold"
-                android:text="@{@string/add_form_current_price(currentHolding.USD)}"
+                android:text="@{@string/add_form_current_price(coinToAdd.currentPrice)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imtmobileapps.cryptoportfolio.R
 import com.imtmobileapps.cryptoportfolio.databinding.FragmentCoinDetailBinding
@@ -35,7 +34,7 @@ class CoinDetailFragment : Fragment() {
     var prefHelper = PreferencesHelper()
     var totalValues: TotalValues? = null
     
-    var coin: Coin = Coin(0, "", "", 0, "")
+    var coin: Coin = Coin(0, "", "", 0, "", "", "", 0.0.toBigDecimal(), 0, 0.0.toBigDecimal())
     var cryptoValue: CryptoValue = CryptoValue("", coin, "0", "0", "0", "", 0.0)
     var totalv = TotalValues(0, "0", "0", "0", "")
     var newsListAdapter = NewsListAdapter(cryptoValue, totalv, arrayListOf())

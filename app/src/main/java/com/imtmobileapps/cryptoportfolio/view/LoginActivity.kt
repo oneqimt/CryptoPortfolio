@@ -10,7 +10,6 @@ import com.imtmobileapps.cryptoportfolio.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     
-    private lateinit var viewModel: LoginViewModel
     private lateinit var navControllerLogin: NavController
     
     override fun onCreate(savedInstanceState: Bundle?) {
