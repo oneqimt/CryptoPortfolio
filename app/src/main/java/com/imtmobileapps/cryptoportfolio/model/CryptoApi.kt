@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface CryptoApi {
 
-    @GET("holdings")
+    @GET("managecoins?action=personcmccoins")
     fun getPersonCoins(@Query("person_id") person_id: Int): Single<List<CryptoValue>>
     
     @POST("holdings?action=addholding")

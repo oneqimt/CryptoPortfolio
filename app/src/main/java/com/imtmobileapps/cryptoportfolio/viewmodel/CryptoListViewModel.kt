@@ -159,6 +159,13 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
         )
     }
     
+    fun clearDatabase(){
+        launch {
+            CoinDatabase(getApplication()).coinDao().deleteAllCoins()
+            println("$TAG ${CoinApp.TEST_APP} LOGOUT clearDatabase() deleteAllCoins()")
+        }
+    }
+    
     fun logout() {
         disposable.add(
             cryptoService.logout().subscribeOn(Schedulers.newThread())
@@ -167,6 +174,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                     override fun onSuccess(t: Boolean) {
                         if (t) {
                             println("$TAG ${CoinApp.TEST_APP} LOGOUT and returned value is: $t")
+                            clearDatabase()
                         }
                     }
                     
