@@ -3,6 +3,7 @@ package com.imtmobileapps.cryptoportfolio.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.imtmobileapps.cryptoportfolio.BuildConfig
+import com.imtmobileapps.cryptoportfolio.model.Coin
 import com.imtmobileapps.cryptoportfolio.model.CoinDatabase
 import com.imtmobileapps.cryptoportfolio.model.CryptoApiService
 import com.imtmobileapps.cryptoportfolio.model.CryptoValue
@@ -131,19 +132,11 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         } else {
                             // add the coin symbol here
                             for (crypto in cryptosList) {
-                               // val coinSymbol = crypto.coin.coinSymbol?.toLowerCase(Locale.getDefault())
-                                
-                                /* val smallurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/40"
-                                 val largeurl = BuildConfig.COIN_IMAGE_URL + "icon/$coinSymbol/60"*/
-                                
                                 val logo = BuildConfig.CMC_LOGO_URL + crypto.coin.cmcId + ".png"
                                 crypto.coin.smallCoinImageUrl = logo
                                 crypto.coin.largeCoinImageUrl = logo
-                                
-                                // println("$TAG ${CoinApp.TEST_APP} getPersonCoins and cryptosList is NOT EMPTY and crypto is: $crypto")
-                                
-                                
                             }
+                            
                             storeCoinsLocally(cryptosList)
                         }
                         

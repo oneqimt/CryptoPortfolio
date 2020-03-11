@@ -84,7 +84,6 @@ class CoinListFragment : Fragment() {
                     loadingView.visibility = View.GONE
                     coinsListView.visibility = View.GONE
                     noHoldingsYet.visibility = View.VISIBLE
-                    //Toast.makeText(activity, "You will need to add Holdings", Toast.LENGTH_LONG).show()
                 } else {
                     coinsListView.visibility = View.VISIBLE
                     noHoldingsYet.visibility = View.GONE

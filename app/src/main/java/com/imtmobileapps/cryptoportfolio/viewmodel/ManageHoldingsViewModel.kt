@@ -35,8 +35,10 @@ class ManageHoldingsViewModel(application: Application):BaseViewModel(applicatio
                             
                             updatedList.add(coin)
                         }
+    
+                        val sortedList = updatedList.sortedWith(compareBy(Coin::cmcRank))
                         
-                        coinsFromServer.value = updatedList
+                        coinsFromServer.value = sortedList
                     }
                 
                     override fun onError(e: Throwable) {
