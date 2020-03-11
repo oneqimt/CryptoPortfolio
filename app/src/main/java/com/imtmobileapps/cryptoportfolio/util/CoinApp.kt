@@ -11,6 +11,4 @@ object CoinApp {
     var newsList : List<Article> = arrayListOf()
     var fromWeb : Boolean = false
     
-    
-
 }

@@ -22,6 +22,14 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
     var signUpPerson = MutableLiveData<SignUp>()
     val signUpError = MutableLiveData<Boolean>()
     
+    
+    fun clearDatabase(){
+        launch {
+            CoinDatabase(getApplication()).coinDao().deleteAllCoins()
+            println("${TAG} ${CoinApp.TEST_APP} SIGN UP USER clearDatabase() deleteAllCoins()")
+        }
+    }
+    
     fun signUpUser(signUp: SignUp) {
         disposable.add(
             cryptoService.signUpUser(signUp).subscribeOn(Schedulers.newThread())
@@ -29,6 +37,12 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeWith(object : DisposableSingleObserver<SignUp>() {
                     override fun onSuccess(t: SignUp) {
                         println("${TAG} ${CoinApp.TEST_APP} SIGN SUCCESS and signup is: $signUp")
+    
+                        // check if previous logged in user matches
+                        val personId = prefHelper.getCurrentPersonId()
+                        if (personId != t.person.personId){
+                            clearDatabase()
+                        }
                         
                         signUpPerson.value = t
                         signUpError.value = false

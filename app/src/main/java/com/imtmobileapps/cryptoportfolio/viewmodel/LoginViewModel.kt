@@ -24,6 +24,13 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     var auth : Auth? = null
     
     
+    fun clearDatabase(){
+        launch {
+            CoinDatabase(getApplication()).coinDao().deleteAllCoins()
+            println("${TAG} ${CoinApp.TEST_APP} LOGIN USER clearDatabase() deleteAllCoins()")
+        }
+    }
+    
     fun loginUser(username: String, password: String) {
 
         disposable.add(
@@ -32,6 +39,11 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeWith(object : DisposableSingleObserver<SignUp>() {
                     override fun onSuccess(signUp: SignUp) {
 
+                        // check if previous logged in user matches
+                        val personId = prefHelper.getCurrentPersonId()
+                        if (personId != signUp.person.personId){
+                            clearDatabase()
+                        }
                         prefHelper.savePersonId(signUp.person.personId!!)
                         auth = signUp.auth
                         loginError.value = false
