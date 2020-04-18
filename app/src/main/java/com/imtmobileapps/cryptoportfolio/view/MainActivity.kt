@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 
                 R.id.settingsFragment -> {
+                    supportActionBar?.setTitle(R.string.settings)
                 
                 }
                 R.id.webFragment -> {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -40,9 +41,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(Build.VERSION.SDK_INT >= 23){
+        /*if(Build.VERSION.SDK_INT >= 23){
             view.setBackgroundColor(resources.getColor(R.color.light_grey, null))
-        }
+        }*/
+    
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 }

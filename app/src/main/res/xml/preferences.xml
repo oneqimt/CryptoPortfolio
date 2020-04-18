@@ -2,10 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Preference
+        app:key="dummy"
+        app:title=""
+        app:summary=""/>
+
+    <Preference
+        app:key="dummy2"
+        app:title=""
+        app:summary=""/>
+
     <EditTextPreference
         android:defaultValue="20"
         android:dialogMessage="In seconds"
-        app:allowDividerAbove="true"
+        app:allowDividerAbove="false"
         android:title="Cache duration in seconds"
         android:key="pref_cache_duration"
         app:useSimpleSummaryProvider="true"
