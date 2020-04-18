@@ -93,11 +93,9 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
         
     }
     
-    // Need to add Settings - THROWS a numberformatexception
     private fun checkCacheDuration() {
         val cachePreference = prefHelper.getCacheDuration()
         println("$TAG ${CoinApp.TEST_APP} Cached Duration is : ${cachePreference}")
-        
         try {
             val cachePreferenceInt = cachePreference?.toInt() ?: 1 * 60
             refreshTime = cachePreferenceInt.times(1000 * 1000 * 1000L)
@@ -118,7 +116,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
         
     }
     
-    fun fetchFromRemote(personId: Int) {
+    private fun fetchFromRemote(personId: Int) {
         loading.value = true
         disposable.add(
             cryptoService.getPersonCoins(personId).subscribeOn(Schedulers.newThread())
@@ -137,6 +135,7 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                                 crypto.coin.largeCoinImageUrl = logo
                             }
                             
+                            // NOTE filter the list by coin.cmcRank, the only problem is that we have a CryptoValue obj to work with, we need a Coin obj
                             storeCoinsLocally(cryptosList)
                         }
                         
@@ -146,7 +145,6 @@ class CryptoListViewModel(application: Application) : BaseViewModel(application)
                         cryptosLoadError.value = true
                         loading.value = false
                         e.printStackTrace()
-                        
                     }
                 })
         )

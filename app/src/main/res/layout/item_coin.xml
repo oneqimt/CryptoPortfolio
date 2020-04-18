@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:orientation="vertical"
             android:padding="4dp">
 
@@ -67,7 +67,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <TextView
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{cryptoValue.USD}"
+                android:text="@{cryptoValue.coin.currentPrice.toString()}"
                 android:textStyle="bold" />
 
         </LinearLayout>
